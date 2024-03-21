@@ -62,9 +62,8 @@ BUILD_DIR	:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CC		:= cc
 CFLAGS		:= -Wall -Wextra -Werror
-CPPFLAGS	:= -MMD -MP -I include
+CPPFLAGS	:= -MMD -MP -I inc
 AR		:= ar
 ARFLAGS		:= -r -c -s
 
@@ -72,8 +71,14 @@ ARFLAGS		:= -r -c -s
 #   SHELL COMMANDS                                                             #
 # ---------------------------------------------------------------------------- #
 RM		:= rm -f
-MAKEFLAGS	+= --no-print-directory
+MAKE		:= $(MAKE)  --jobs --no-print-directory
 DIR_DUP		= mkdir -p $(@D)
+
+CRUSH		:= \r\033[K
+ECHO		:= echo -n "$(CRUSH) "
+R		:= $(shell tput setaf 1)
+G		:= $(shell tput setaf 2)
+END		:= $(shell tput sgr0)
 
 # ---------------------------------------------------------------------------- #
 #   BUILD & EXTRA RULES                                                        #
@@ -82,12 +87,12 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-	$(info CREATED $(NAME))
+	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
-	$(info CREATED $@)
+	$(ECHO)"$(G)CREATED$(END) $(@)"
 
 -include $(DEPS)
 
@@ -101,14 +106,13 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-norminette:
-	norminette inc
-	norminette src
+norm:
+	norminette | grep -v "OK" || true
 
 # ---------------------------------------------------------------------------- #
 #   SPECIAL TARGETS                                                            #
 # ---------------------------------------------------------------------------- #
-.PHONY: clean fclean re norminette
+.PHONY: clean fclean re norm
 .SILENT:
 
 ##################################################################### END_1 ####

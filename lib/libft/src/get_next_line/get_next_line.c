@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:18:54 by rtissera          #+#    #+#             */
-/*   Updated: 2023/09/01 07:09:33 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:26:50 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 void	*read_error(t_buff **lst)
 {

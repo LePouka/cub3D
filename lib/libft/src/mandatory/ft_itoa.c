@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:39:54 by rtissera          #+#    #+#             */
-/*   Updated: 2023/05/26 16:11:28 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:28:48 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 char	*intmin(int n, int i, char *str)
 {

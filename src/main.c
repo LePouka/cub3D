@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: raphael <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 18:30:55 by raphael           #+#    #+#             */
-/*   Updated: 2024/03/14 18:32:16 by raphael          ###   ########.fr       */
+/*   Created: 2024/03/19 20:02:02 by rtissera          #+#    #+#             */
+/*   Updated: 2024/03/19 21:43:05 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <math.h>
+#include "mlx.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	main()
 {
-	write(1, "Hello, cub3D!", 13);
+	ft_dprintf(1, "Hello, world\n");
 	return (0);
 }

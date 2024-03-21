@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 16:02:51 by rtissera          #+#    #+#             */
-/*   Updated: 2023/05/26 16:10:32 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:31:43 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s)
 {

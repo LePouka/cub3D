@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 15:40:37 by rtissera          #+#    #+#             */
-/*   Updated: 2023/05/26 16:06:50 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:25:49 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 int	ft_lstsize(t_list *lst)
 {

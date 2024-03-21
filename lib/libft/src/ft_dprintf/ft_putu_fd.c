@@ -6,11 +6,11 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:04:49 by rtissera          #+#    #+#             */
-/*   Updated: 2023/06/29 16:00:44 by raphael          ###   ########.fr       */
+/*   Updated: 2024/03/19 21:26:31 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 int	ft_putu_fd(unsigned int n, int fd)
 {

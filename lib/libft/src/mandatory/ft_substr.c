@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:37:37 by rtissera          #+#    #+#             */
-/*   Updated: 2023/09/19 14:18:06 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:35:52 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 char	*starttoofar(void)
 {

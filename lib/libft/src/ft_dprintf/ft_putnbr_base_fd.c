@@ -6,11 +6,11 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 14:12:08 by rtissera          #+#    #+#             */
-/*   Updated: 2023/12/27 15:17:07 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/03/19 21:26:24 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 int	ft_putvoid_fd(unsigned long int n, int fd)
 {

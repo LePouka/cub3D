@@ -6,11 +6,11 @@
 /*   By: raphael <raphael@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:18:17 by rtissera          #+#    #+#             */
-/*   Updated: 2023/06/28 17:01:10 by raphael          ###   ########.fr       */
+/*   Updated: 2024/03/19 21:27:02 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 t_buff	*ft_bufflast(t_buff *lst)
 {
