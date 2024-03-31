@@ -10,12 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "mlx.h"
-#include "libft.h"
+#include "../include/cub.h"
 
 int	main()
 {
-	ft_dprintf(1, "Hello, world\n");
+	ft_dprintf(1, "Hello, world!\n");
 	return (0);
 }

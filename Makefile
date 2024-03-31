@@ -1,94 +1,76 @@
-# @author   clemedon (Clément Vidon)
-####################################### BEG_5 ####
+##################################################################### BEG_1 ####
 
-NAME        := cub3D
+NAME		:= cub3D
 
-#------------------------------------------------#
-#   INGREDIENTS                                  #
-#------------------------------------------------#
-# LIBS        libraries to be used
-# LIBS_TARGET libraries to be built
+# ---------------------------------------------------------------------------- #
+#   INGREDIENTS                                                                #
+# ---------------------------------------------------------------------------- #
+# LIBS			libraries to be used
+# LIBS_TARGET	libraries to be built
 #
-# INCS        header file locations
+# INCS			header file locations
 #
-# SRC_DIR     source directory
-# SRCS        source files
+# SRC_DIR		source directory
+# SRCS			source files
 #
-# BUILD_DIR   build directory
-# OBJS        object files
-# DEPS        dependency files
+# BUILD_DIR		build directory
+# OBJS			object files
+# DEPS			dependency files
 #
-# CC          compiler
-# CFLAGS      compiler flags
-# CPPFLAGS    preprocessor flags
-# LDFLAGS     linker flags
-# LDLIBS      libraries name
+# CFLAGS		compiler flags
+# CPPFLAGS		preprocessor flags
+# LDFLAGS		linker flags
+# LDLIBS		libraries name
 
-############## MACOS ##############
-ifeq ($(shell uname -s), Darwin)
-	LIBS        := ft mlx m
-	LIBS_TARGET := \
-				   lib/libft/libft.a \
-				   lib/minilibx-darwin/libmlx.a
-	INCS      := /opt/X11/include
-	CFLAGS    := -D OSTYPE=darwin
-	LDLIBS    := -framework OpenGL -framework AppKit
-endif
+LIBS		:= ft mlx m X11 Xext
+LIBS_TARGET	:= \
+	lib/libft/libft.a \
+	lib/minilibx-linux/libmlx.a
 
-############## LINUX ##############
-ifeq ($(shell uname -s), Linux)
-	LIBS        := ft mlx m X11 Xext
-	LIBS_TARGET := \
-				   lib/libft/libft.a \
-				   lib/minilibx-linux/libmlx.a
-	CFLAGS    := -D OSTYPE=linux
-endif
-
-INCS        := $(INCS) include $(dir $(LIBS_TARGET))
+INCS        := include $(dir $(LIBS_TARGET))
 INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
-SRC_DIR     := src
-SRCS        := \
-			   main.c
+SRC_DIR		:= src
+SRCS		:= \
+	main.c
 
-SRCS        := $(SRCS:%=$(SRC_DIR)/%)
+SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
-BUILD_DIR   := .build
-OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
-DEPS        := $(OBJS:.o=.d)
+BUILD_DIR	:= .build
+OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+DEPS		:= $(OBJS:.o=.d)
 
-CC          := clang
-CFLAGS      := $(CFLAGS)   -Wall -Wextra -Werror
-CPPFLAGS    := $(CPPFLAGS) $(addprefix -I,$(INCS)) -MMD -MP
-LDFLAGS     := $(LDFLAGS)  $(addprefix -L,$(dir $(LIBS_TARGET)))
-LDLIBS      := $(LDLIBS)   $(addprefix -l,$(LIBS))
+CFLAGS		:= -Wall -Wextra -Werror
+CPPFLAG		:= $(addprefix -I,$(INCS)) -MMD -MP
+LDFLAGS		:= $(addprefix -L,$(dir $(LIBS_TARGET)))
+LDLIBS		:= $(addprefix -l,$(LIBS))
 
-#------------------------------------------------#
-#   UTENSILS                                     #
-#------------------------------------------------#
-# RM        force remove
-# MAKE      quietly make
-# DIR_DUP   duplicate directory tree
-# ERR_MUTE  filter errors
-# VALGRIND  valgrind command
+# ---------------------------------------------------------------------------- #
+#   UTENSILS                                                                   #
+# ---------------------------------------------------------------------------- #
+# RM		force remove
+# MAKE		quietly make
+# DIR_DUP	duplicate directory tree
+# ERR_MUTE	filter errors
+# VALGRIND	valgrind command
 
-RM          := rm -f
-MAKE        := $(MAKE) --jobs --silent --no-print-directory
-DIR_DUP     = mkdir -p $(@D)
-VALGRIND    := valgrind -q  --dsymutil=yes --leak-check=yes --show-leak-kinds=all --track-fds=yes
+RM		:= rm -f
+MAKE		:= $(MAKE) --jobs --silent --no-print-directory
+DIR_DUP		= mkdir -p $(@D)
+VALGRIND	:= valgrind -q -s --leak-check=yes --show-leak-kinds=all --track-fds=yes --track-origins=yes
 ERR_MUTE	:= 2>/dev/null
 
-#------------------------------------------------#
-#   RECIPES                                      #
-#------------------------------------------------#
-# all       default goal
-# $(NAME)   link .o -> archive
-# $(LIBS)   build libraries
-# %.o       compilation .c -> .o
-# clean     remove .o
-# fclean    remove .o + binary
-# re        remake default goal
-# update    update the repo to its most recent version
+# ---------------------------------------------------------------------------- #
+#   RECIPES                                                                    #
+# ---------------------------------------------------------------------------- #
+# all		default goal
+# $(NAME)	link .o -> archive
+# $(LIBS)	build libraries
+# %.o		compilation .c -> .o
+# clean		remove .o
+# fclean	remove .o + binary
+# re		remake default goal
+# update	update the repo to its most recent version
 
 all: $(NAME)
 
@@ -111,6 +93,7 @@ clean:
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
+	$(MAKE) -C lib/libft fclean
 	$(RM) $(NAME)
 
 re:
@@ -123,29 +106,30 @@ update:
 	git submodule update --init
 	git stash pop
 
-#----------------------------#
-#   DIFFERENT CFLAGS BUILD   #
-#----------------------------#
-# asan      address sanitizer
-# ansi      ansi c89 compliance
-# every     all warnings
+# ---------------------------------------------------------------------------- #
+#   DIFFERENT CGLAGS BUILD                                                     #
+# ---------------------------------------------------------------------------- #
+# asan		address sanitizer
+# ansi		ansi c89 compliance
+# every		all warnings
 
-asan: CFLAGS    += -O0 -g3 -fsanitize=address,undefined,integer -fno-optimize-sibling-calls
-asan: LDFLAGS   += -g3 -fsanitize=address,undefined,integer
+asan: CFLAGS	+= -O0 -g3 -fsanitize=address,undefined,integer -fno-optimize-sibling-calls
+asan: LDFLAGS	+= -g3 -fsanitize=address,undefined,integer
 asan: all
 
-ansi: CFLAGS    += -W -pedantic -std=c89
+ansi: CFLAGS	+= -W -pedantic -std=c89
 ansi: all
 
-every: CFLAGS   += -Weverything
+every: CFLAGS	+= -Weverything
 every: all
 
-#----------------------------#
-#   TESTS                    #
-#----------------------------#
-# runv          run with valgrind
-# run           vanilla run
-# malloc_test   gh/ft_mallocator TODO broken
+# ---------------------------------------------------------------------------- #
+#   TESTS                                                                      #
+# ---------------------------------------------------------------------------- #
+# norminette	norminette
+# run			vanilla run
+# vrun			run with valgrind
+# malloc_test	gh/ft_mallocator TODO broken
 
 run-%: $(NAME)
 	-./$(NAME) $*
@@ -155,14 +139,21 @@ vrun-%: $(NAME)
 	-$(VALGRIND) ./$(NAME) $*
 
 malloc_test: $(OBJS)
-	clang -Wall -Wextra -Werror -g -fsanitize=undefined -rdynamic -o $@ $(OBJS) \
-		-Ltest/ft_mallocator -lmallocator
+	cc -Wall -Wextra -Werror -g -fsanitize=undefined -rdynamic -o $@ $(OBJS) -Ltest/ft_mallocator -lmallocator
 
-#------------------------------------------------#
-#   SPEC                                         #
-#------------------------------------------------#
+norm:
+	norminette src/ include/ | grep -v "OK" || true
 
-.PHONY: clean fclean re malloc_test
+info-%:
+	$(MAKE) --dry-run --always-make $* | grep -v "info"
+
+print-%:
+	$(info '$*'='$($*)')
+
+# ---------------------------------------------------------------------------- #
+#   SPEC                                                                       #
+# ---------------------------------------------------------------------------- #
+.PHONY: clean fclean re update asan ansi every malloc_test norm
 .SILENT:
 
-####################################### END_5 ####
+##################################################################### END_1 ####

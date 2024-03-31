@@ -63,19 +63,19 @@ OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
 CFLAGS		:= -Wall -Wextra -Werror
-CPPFLAGS	:= -MMD -MP -I inc
+CPPFLAGS	:= -MMD -MP -Iinclude
 AR		:= ar
 ARFLAGS		:= -r -c -s
 
 # ---------------------------------------------------------------------------- #
 #   SHELL COMMANDS                                                             #
 # ---------------------------------------------------------------------------- #
-RM		:= rm -f
+RM		:= rm -r -f
 MAKE		:= $(MAKE)  --jobs --no-print-directory
 DIR_DUP		= mkdir -p $(@D)
 
 CRUSH		:= \r\033[K
-ECHO		:= echo -n "$(CRUSH) "
+ECHO		:= echo -n "$(CRUSH)"
 R		:= $(shell tput setaf 1)
 G		:= $(shell tput setaf 2)
 END		:= $(shell tput sgr0)
