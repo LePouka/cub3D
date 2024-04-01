@@ -100,7 +100,8 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 -include $(DEPS)
 
 clean:
-	for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
+	#for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
+	$(MAKE) -C lib/libft clean
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
