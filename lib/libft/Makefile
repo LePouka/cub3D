@@ -1,10 +1,20 @@
-##################################################################### BEG_1 ####
+################################################################# BEG_LIBFT ####
 
 NAME		:= libft.a
 
 # ---------------------------------------------------------------------------- #
-#   VARIABLES                                                                  #
+#   INGREDIENTS                                                                #
 # ---------------------------------------------------------------------------- #
+# SRC_DIR   source directory
+# SRCS      source files
+#
+# BUILD_DIR object directory
+# OBJS      object files
+# DEPS      dependency files
+#
+# CFLAGS    compiler flags
+# CPPFLAGS  preprocessor flags
+
 SRC_DIR		:= src
 SRCS		:=	\
 	mandatory/ft_atoi.c	\
@@ -68,8 +78,18 @@ AR		:= ar
 ARFLAGS		:= -r -c -s
 
 # ---------------------------------------------------------------------------- #
-#   SHELL COMMANDS                                                             #
+#   UTENSILS                                                                   #
 # ---------------------------------------------------------------------------- #
+# RM        force remove
+# MAKE      quietly make
+# DIR_DUP   duplicate directory tree
+#
+# CRUSH     used to print on the same line
+# ECHO      echo statement
+# R         red color output
+# G         green color output
+# END       reset color output to default
+
 RM		:= rm -r -f
 MAKE		:= $(MAKE)  --jobs --no-print-directory
 DIR_DUP		= mkdir -p $(@D)
@@ -81,8 +101,16 @@ G		:= $(shell tput setaf 2)
 END		:= $(shell tput sgr0)
 
 # ---------------------------------------------------------------------------- #
-#   BUILD & EXTRA RULES                                                        #
+#   RECIPES                                                                    #
 # ---------------------------------------------------------------------------- #
+# all       default goal
+# $(NAME)   link .o -> library
+# %.o       compilation .c -> .o
+# clean     remove .o
+# fclean    remove .o + binary
+# re        remake default goal
+# update	update the repo to its most recent version
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
@@ -106,13 +134,45 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
+update:
+	git stash
+	git pull
+	git submodule update --init
+	git stash pop
+
+# ---------------------------------------------------------------------------- #
+#   DIFFERENT CGLAGS BUILD                                                     #
+# ---------------------------------------------------------------------------- #
+# asan		address sanitizer
+# ansi		ansi c89 compliance
+# every		all warnings
+
+asan: CFLAGS	+= -O0 -g3 -fsanitize=address,undefined,integer -fno-optimize-sibling-calls
+asan: all
+
+ansi: CFLAGS	+= -W -pedantic -std=c89
+ansi: all
+
+every: CFLAGS	+= -Weverything
+every: all
+
+# ---------------------------------------------------------------------------- #
+#   TESTS                                                                      #
+# ---------------------------------------------------------------------------- #
+
 norm:
 	norminette | grep -v "OK" || true
+
+info-%:
+	$(MAKE) --dry-run --always-make $* | grep -v "info"
+
+print-%:
+	$(info '$*'='$($*)')
 
 # ---------------------------------------------------------------------------- #
 #   SPECIAL TARGETS                                                            #
 # ---------------------------------------------------------------------------- #
-.PHONY: clean fclean re norm
+.PHONY: clean fclean re update asan ansi every norm
 .SILENT:
 
-##################################################################### END_1 ####
+################################################################# END_LIBFT ####

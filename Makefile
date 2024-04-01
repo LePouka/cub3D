@@ -1,4 +1,4 @@
-##################################################################### BEG_1 ####
+################################################################# BEG_CUB3D ####
 
 NAME		:= cub3D
 
@@ -33,7 +33,6 @@ INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 SRC_DIR		:= src
 SRCS		:= \
 	main.c
-
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build
@@ -51,14 +50,26 @@ LDLIBS		:= $(addprefix -l,$(LIBS))
 # RM		force remove
 # MAKE		quietly make
 # DIR_DUP	duplicate directory tree
-# ERR_MUTE	filter errors
 # VALGRIND	valgrind command
+# ERR_MUTE	filter errors
+#
+# CRUSH     used to print on the same line
+# ECHO      echo statement
+# R         red color output
+# G         green color output
+# END       reset color output to default
 
 RM		:= rm -f
 MAKE		:= $(MAKE) --jobs --silent --no-print-directory
 DIR_DUP		= mkdir -p $(@D)
 VALGRIND	:= valgrind -q -s --leak-check=yes --show-leak-kinds=all --track-fds=yes --track-origins=yes
 ERR_MUTE	:= 2>/dev/null
+
+CRUSH		:= \r\033[K
+ECHO		:= echo -n "$(CRUSH)"
+R		:= $(shell tput setaf 1)
+G		:= $(shell tput setaf 2)
+END		:= $(shell tput sgr0)
 
 # ---------------------------------------------------------------------------- #
 #   RECIPES                                                                    #
@@ -76,7 +87,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS_TARGET)
 	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
-	$(info CREATED $@)
+	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 $(LIBS_TARGET):
 	$(MAKE) -C $(@D) $(ERR_MUTE)
@@ -84,7 +95,7 @@ $(LIBS_TARGET):
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
-	$(info CREATED $@)
+	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 -include $(DEPS)
 
@@ -126,10 +137,11 @@ every: all
 # ---------------------------------------------------------------------------- #
 #   TESTS                                                                      #
 # ---------------------------------------------------------------------------- #
-# norminette	norminette
-# run			vanilla run
-# vrun			run with valgrind
-# malloc_test	gh/ft_mallocator TODO broken
+# norm		norminette
+# run		vanilla run
+# vrun		run with valgrind
+# info		print the <target> recipe whithout executing it
+# pring		print the value of an arbitrary variable
 
 run-%: $(NAME)
 	-./$(NAME) $*
@@ -137,9 +149,6 @@ run-%: $(NAME)
 vrun-%: CFLAGS  += -g3
 vrun-%: $(NAME)
 	-$(VALGRIND) ./$(NAME) $*
-
-malloc_test: $(OBJS)
-	cc -Wall -Wextra -Werror -g -fsanitize=undefined -rdynamic -o $@ $(OBJS) -Ltest/ft_mallocator -lmallocator
 
 norm:
 	norminette src/ include/ | grep -v "OK" || true
@@ -153,7 +162,7 @@ print-%:
 # ---------------------------------------------------------------------------- #
 #   SPEC                                                                       #
 # ---------------------------------------------------------------------------- #
-.PHONY: clean fclean re update asan ansi every malloc_test norm
+.PHONY: clean fclean re update asan ansi every norm
 .SILENT:
 
-##################################################################### END_1 ####
+################################################################# END_CUB3D ####
