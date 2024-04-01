@@ -1,5 +1,5 @@
-.build
 cub3D
+.build
 *.o
 *.d
 *.a
