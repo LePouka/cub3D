@@ -100,12 +100,12 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 -include $(DEPS)
 
 clean:
-	#for f in $(dir $(LIBS_TARGET)); do $(MAKE) -C $$f clean; done
 	$(MAKE) -C lib/libft clean
 	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
 	$(MAKE) -C lib/libft fclean
+	$(MAKE) -C lib/minilibx-linux clean
 	$(RM) $(NAME)
 
 re:
