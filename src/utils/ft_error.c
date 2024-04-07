@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 20:02:02 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/07 18:49:36 by rtissera         ###   ########.fr       */
+/*   Created: 2024/04/07 17:58:32 by rtissera          #+#    #+#             */
+/*   Updated: 2024/04/07 19:06:00 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	main(int argc, char **argv)
+int	ft_error(char *s)
 {
-	if (argc == 2)
+	if (s)
 	{
-		parsingator(argv[1]);
+		ft_dprintf(2, "Error\n%s\n", s);
 	}
 	else
 	{
-		return (ft_error("Bad arguments number"));
+		ft_dprintf(2, "Error\nExplicit error message of your choice\n");
 	}
-	return (0);
+	return (-1);
+}
+
+void	close_free_error(int fd, char *s1, char *s2)
+{
+	free(s1);
+	close_error(fd, s2);
+}
+
+void	close_error(int fd, char *s)
+{
+	close(fd);
+	return (ft_error(s));
 }

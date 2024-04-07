@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   openificator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 20:02:02 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/07 18:49:36 by rtissera         ###   ########.fr       */
+/*   Created: 2024/04/07 18:22:43 by rtissera          #+#    #+#             */
+/*   Updated: 2024/04/07 18:41:58 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	main(int argc, char **argv)
+int	openificator(char *file_name)
 {
-	if (argc == 2)
+	int		fd;
+
+	if (file_name == NULL || file_name[0] == 0)
 	{
-		parsingator(argv[1]);
+		return (ft_error("Invalid file input"));
 	}
-	else
+	if (ft_strncmp(file_name + ft_strlen(file_name) - 4, ".cub", 4))
 	{
-		return (ft_error("Bad arguments number"));
+		return (ft_error("Invalid file extension"));
 	}
-	return (0);
+	fd = open(file_name, O_RDONLY, 0777);
+	if (fd == -1)
+	{
+		return (ft_error(strerror(errno)));
+	}
+	return (fd);
 }

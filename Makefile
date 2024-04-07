@@ -27,23 +27,25 @@ LIBS_TARGET	:= \
 	lib/libft/libft.a \
 	lib/minilibx-linux/libmlx.a
 
-INCS        := include $(dir $(LIBS_TARGET))
+INCS        := $(INCS) include $(dir $(LIBS_TARGET))
 INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
 SRC_DIR		:= src
 SRCS		:= \
-	main.c	\
-	parsing/parsing.c
+	main.c \
+	parsing/parsing.c \
+	utils/ft_error.c \
+	utils/openificator.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CFLAGS		:= -Wall -Wextra -Werror
-CPPFLAG		:= $(addprefix -I,$(INCS)) -MMD -MP
-LDFLAGS		:= $(addprefix -L,$(dir $(LIBS_TARGET)))
-LDLIBS		:= $(addprefix -l,$(LIBS))
+CFLAGS		:= $(CFLAGS)-Wall -Wextra -Werror
+CPPFLAGS	:= $(CPPFLAGS) $(addprefix -I,$(INCS)) -MMD -MP
+LDFLAGS		:= $(LDFLAGS) $(addprefix -L,$(dir $(LIBS_TARGET)))
+LDLIBS		:= $(LDLIBS) $(addprefix -l,$(LIBS))
 
 # ---------------------------------------------------------------------------- #
 #   UTENSILS                                                                   #
