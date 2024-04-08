@@ -6,11 +6,12 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:09 by lebronen          #+#    #+#             */
-/*   Updated: 2024/04/01 16:02:46 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/08 12:33:43 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
+#include <sys/types.h>
 
 #define screenWidth 1920
 #define screenHeight 1080
@@ -28,37 +29,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
-  int worldMap[mapWidth][mapHeight]=
-  {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-  };
-    img->img = mlx_new_image(mlx, screenWidth, screenHeight);
-    img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->l,
-								&img->endian);
+void casting(t_rays *rays) {
 
     for (int x = 0; x < screenWidth; x++) {
         //calculate ray position and direction
@@ -123,7 +94,7 @@ void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
           side = 1;
         }
         //Check if ray has hit a wall
-        if (worldMap[mapX][mapY] > 0) hit = 1;
+        if (rays->worldMap[mapX][mapY] > 0) hit = 1;
       }
       //Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
       if(side == 0) perpWallDist = (sideDistX - deltaDistX);
@@ -137,7 +108,7 @@ void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
       if(drawEnd >= screenHeight)drawEnd = screenHeight - 1;
       for (int y = drawStart; y < drawEnd; y++) {
         int color;
-        switch(worldMap[mapX][mapY]) {
+        switch(rays->worldMap[mapX][mapY]) {
           case 1: color = 0xd42626; break; //red
           case 2: color = 0x38dB4e; break; //green
           case 3: color = 0x1927a5; break; //blue
@@ -146,15 +117,31 @@ void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
           
         }
         if (side == 1)
-          my_mlx_pixel_put(img, x, y, color / 2);
+          my_mlx_pixel_put(rays->vars->img, x, y, color / 2);
         else
-          my_mlx_pixel_put(img, x, y, color);
+          my_mlx_pixel_put(rays->vars->img, x, y, color);
       }
     }
+    rays->oldTime = rays->time;
+    rays->time = time(NULL);
+    double frameTime = (rays->time - rays->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
     
-    mlx_put_image_to_window(mlx, mlx_win, img->img, 0, 0);
+    //speed modifiers
+    double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+    //double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+    
+    
+    rays->moveSpeed = moveSpeed;
+    
+    mlx_put_image_to_window(rays->vars->mlx, rays->vars->win, rays->vars->img->img, 0, 0);
 
 
+}
+
+void init(t_rays *rays) {
+   rays->vars->img->img = mlx_new_image(rays->vars->mlx, screenWidth, screenHeight);
+    rays->vars->img->addr = mlx_get_data_addr(rays->vars->img->img, &(rays->vars->img)->bpp, &(rays->vars->img)->l,
+								&(rays->vars->img)->endian);
 }
 
 int main() {
@@ -162,6 +149,34 @@ int main() {
 	t_data	img;
   t_rays rays;
     void *mlx_win;
+
+     int worldMap[mapWidth][mapHeight]=
+  {
+    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+  	};
 
 
   double posX = 22, posY = 12;  //x and y start position
@@ -173,13 +188,30 @@ int main() {
   rays.dirY = dirY;
   rays.planeX = planeX;
   rays.planeY = planeY;
+  rays.time = 0;
+  rays.oldTime = 0;
 
-  //double time = 0; //time of current frame
-  //double oldTime = 0; //time of previous frame
+   int **heapmap = malloc(24 * sizeof(int *));
 
+    for (int i = 0; i < 24; i++) {
+      heapmap[i] = malloc(24 * sizeof(int));
+      for (int j = 0; j < 24; j++) {
+        heapmap[i][j] = worldMap[i][j];
+      }
+    }
+  rays.worldMap = heapmap;
+  
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "Hello world!");
-	init(&img, mlx, mlx_win, &rays);
+  t_vars vars;
+  vars.img = &img;
+  vars.mlx = mlx;
+  vars.win = mlx_win;
+  rays.vars = &vars;
+
+  init(&rays);
+	casting(&rays);
+  mlx_hook(rays.vars->win, 2, 1L << 0, clavier, &rays);
 
 	mlx_loop(mlx);
 

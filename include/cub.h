@@ -6,21 +6,28 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/01 15:36:06 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/08 12:28:43 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
+#define DROITE 65361
+#define HAUT 65362
+#define GAUCHE 65363
+#define BAS 65364
+
 /******************************************************************************/
 /*   INCLUDES                                                                 */
 /******************************************************************************/
 # include <stdio.h>
+#include <stdint.h>
 # include <string.h>
 # include <errno.h>
 # include <stdbool.h>
 # include <math.h>
+#include <time.h>
 # include "../lib/minilibx-linux/mlx.h"
 # include "../lib/libft/include/libft.h"
 
@@ -54,12 +61,22 @@ typedef struct s_rays
 	double dirY;
 	double planeX;
 	double planeY;
+	double time;
+	double oldTime;
+	double	moveSpeed;
+	int		**worldMap;
+	t_vars	*vars;
 
 }			t_rays;
+
+
 
 
 /******************************************************************************/
 /*   FUNCTIONS                                                                */
 /******************************************************************************/
+
+void 	casting(t_rays *rays);
+int 	clavier(int keycode, t_rays *rays);
 
 #endif
