@@ -6,16 +6,16 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/08 12:28:43 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/08 14:23:34 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-#define DROITE 65361
+#define GAUCHE 65361
 #define HAUT 65362
-#define GAUCHE 65363
+#define DROITE 65363
 #define BAS 65364
 
 /******************************************************************************/
@@ -63,7 +63,6 @@ typedef struct s_rays
 	double planeY;
 	double time;
 	double oldTime;
-	double	moveSpeed;
 	int		**worldMap;
 	t_vars	*vars;
 

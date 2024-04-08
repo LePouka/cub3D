@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:09 by lebronen          #+#    #+#             */
-/*   Updated: 2024/04/08 12:33:43 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/08 14:22:30 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,12 @@ void casting(t_rays *rays) {
           my_mlx_pixel_put(rays->vars->img, x, y, color);
       }
     }
-    rays->oldTime = rays->time;
-    rays->time = time(NULL);
-    double frameTime = (rays->time - rays->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+    //rays->oldTime = rays->time;
+    //rays->time = time(NULL);
+    //double frameTime = (rays->time - rays->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
     
     //speed modifiers
-    double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
     //double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
-    
-    
-    rays->moveSpeed = moveSpeed;
     
     mlx_put_image_to_window(rays->vars->mlx, rays->vars->win, rays->vars->img->img, 0, 0);
 
@@ -202,7 +198,7 @@ int main() {
   rays.worldMap = heapmap;
   
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "Hello world!");
+	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "Cub3d");
   t_vars vars;
   vars.img = &img;
   vars.mlx = mlx;
