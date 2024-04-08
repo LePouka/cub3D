@@ -108,7 +108,7 @@ clean:
 
 fclean: clean
 	$(MAKE) -C lib/libft fclean
-	$(MAKE) -C lib/minilibx-linux clean
+	#$(MAKE) -C lib/minilibx-linux clean
 	$(RM) $(NAME)
 
 re:
