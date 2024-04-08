@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lebronen <lebronen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 15:58:09 by lebronen          #+#    #+#             */
-/*   Updated: 2024/04/01 16:02:46 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/04 12:32:10 by lebronen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 #define screenWidth 1920
 #define screenHeight 1080
+#define texWidth 64
+#define texHeight 64
 #define mapWidth 24
 #define mapHeight 24
+#define ESCAPE 65307
 
 #define abs(x) x >= 0 ? x : -x
 
@@ -56,6 +59,28 @@ void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
   };
+
+  //u_int32_t buffer[screenHeight][screenWidth];
+  int texture[8][texWidth * texHeight];
+
+  for(int x = 0; x < texWidth; x++) {
+    for(int y = 0; y < texHeight; y++)
+    {
+      int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+      //int xcolor = x * 256 / texWidth;
+      int ycolor = y * 256 / texHeight;
+      int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+      texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
+      texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+      texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+      texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+      texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
+      texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+      texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
+      texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+    }
+  }
+  
     img->img = mlx_new_image(mlx, screenWidth, screenHeight);
     img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->l,
 								&img->endian);
@@ -135,26 +160,52 @@ void init(t_data *img, void *mlx, void *mlx_win, t_rays *rays) {
       if(drawStart < 0)drawStart = 0;
       int drawEnd = lineHeight / 2 + screenHeight / 2;
       if(drawEnd >= screenHeight)drawEnd = screenHeight - 1;
-      for (int y = drawStart; y < drawEnd; y++) {
-        int color;
-        switch(worldMap[mapX][mapY]) {
-          case 1: color = 0xd42626; break; //red
-          case 2: color = 0x38dB4e; break; //green
-          case 3: color = 0x1927a5; break; //blue
-          case 4: color = 0xce19e2; break; //purple
-          default: color = 0xF5ed0a; break; //yellow
-          
-        }
-        if (side == 1)
-          my_mlx_pixel_put(img, x, y, color / 2);
-        else
-          my_mlx_pixel_put(img, x, y, color);
+
+      //texturing calculations
+      int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+
+      //calculate value of wallX
+      double wallX; //where exactly the wall was hit
+      if (side == 0) wallX = rays->posY + perpWallDist * rayDirY;
+      else           wallX = rays->posX + perpWallDist * rayDirX;
+      wallX -= floor((wallX));
+
+      //x coordinate on the texture
+      int texX = (int)(wallX * (double)(texWidth));
+      if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+      if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+       // How much to increase the texture coordinate per screen pixel
+      double step = 1.0 * texHeight / lineHeight;
+      // Starting texture coordinate
+      double texPos = (drawStart - screenHeight / 2 + lineHeight / 2) * step;
+      for(int y = drawStart; y<drawEnd; y++)
+      {
+        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+        int texY = (int)texPos & (texHeight - 1);
+        texPos += step;
+        u_int32_t color = texture[texNum][texHeight * texY + texX];
+        //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+        if(side == 1) color = (color >> 1) & 8355711;
+        //buffer[y][x] = color;
+        my_mlx_pixel_put(img, x, y, color);
       }
     }
     
     mlx_put_image_to_window(mlx, mlx_win, img->img, 0, 0);
 
 
+}
+
+int close_win(void *mlx) {
+  mlx_loop_end(mlx);
+  return (0);
+}
+
+int clavier(int keycode, void *mlx) {
+  if (keycode == ESCAPE) {
+    mlx_loop_end(mlx);
+  }
+  return (0);
 }
 
 int main() {
@@ -178,9 +229,12 @@ int main() {
   //double oldTime = 0; //time of previous frame
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "Hello world!");
+	mlx_win = mlx_new_window(mlx, screenWidth, screenHeight, "Cub3d");
 	init(&img, mlx, mlx_win, &rays);
 
+  mlx_hook(mlx_win, 17, 1L<< 0, close_win, mlx);
+  mlx_hook(mlx_win, 2, 1L << 0, clavier, mlx);
+  
 	mlx_loop(mlx);
 
 }

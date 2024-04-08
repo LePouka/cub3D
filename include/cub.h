@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lebronen <lebronen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/01 15:36:06 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/04 11:58:54 by lebronen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <math.h>
+#include <sys/types.h>
 # include "../lib/minilibx-linux/mlx.h"
 # include "../lib/libft/include/libft.h"
 
@@ -54,6 +55,7 @@ typedef struct s_rays
 	double dirY;
 	double planeX;
 	double planeY;
+	//void	*images[11];
 
 }			t_rays;
 
