@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/17 17:08:56 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/17 17:31:00 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_rays
 	double	move_speed;
 	double	rot_speed;
 	int		**world_map;
+	int		**texture;
 	t_vars	*vars;
 
 }			t_rays;

@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/17 17:19:34 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/17 17:33:19 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,6 @@ int casting(t_rays *rays) {
 
   t_calcs	calcs;
 
-	int		**texture;
-
-	texture = malloc(8 * sizeof(int *));
-	for (int i = 0;i < 8; i++) {
-		texture[i] = malloc(TEXTWIDTH * TEXTHEIGHT * sizeof(int));
-	}
-	init_texturing(texture, rays);
-
 
 	for (int x = 0; x < SCREENWIDTH; x++) {
 
@@ -115,7 +107,7 @@ int casting(t_rays *rays) {
 		// Cast the texture coordinate to integer, and mask with (TEXTHEIGHT - 1) in case of overflow
 		int texY = (int)calcs.tex_pos & (TEXTHEIGHT - 1);
 		calcs.tex_pos += calcs.step;
-		u_int32_t color = texture[calcs.tex_num][TEXTHEIGHT * texY + calcs.tex_x];
+		u_int32_t color = rays->texture[calcs.tex_num][TEXTHEIGHT * texY + calcs.tex_x];
 		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		if(calcs.side == 1) color = (color >> 1) & 8355711;
 		my_mlx_pixel_put(rays->vars->img, x, y, color);
@@ -134,6 +126,12 @@ int main() {
 	t_data	img;
   	t_rays rays;
 	void *mlx_win;
+	int		**texture;
+
+	texture = malloc(8 * sizeof(int *));
+	for (int i = 0;i < 8; i++) {
+		texture[i] = malloc(TEXTWIDTH * TEXTHEIGHT * sizeof(int));
+	}
 
 	 int world_map[MAPWIDTH][MAPHEIGHT]=
   {
@@ -196,6 +194,8 @@ int main() {
   rays.vars = &vars;
 
   	init(&rays);
+	init_texturing(texture, &rays);
+	rays.texture = texture;
 	mlx_loop_hook(mlx, &casting, &rays);
   	mlx_hook(rays.vars->win, 2, 1L << 0, clavier, &rays);
   	mlx_hook(mlx_win, 17, 1L<< 0, close_win, mlx);
