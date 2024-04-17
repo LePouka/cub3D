@@ -31,12 +31,13 @@ INCS        := $(INCS) include $(dir $(LIBS_TARGET))
 INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
 SRC_DIR		:= src
-SRCS		:= \
-	main.c \
-	parsing/parsing.c \
-	utils/ft_error.c \
-	utils/openificator.c \
-	utils/readificator.c
+SRCS		:=	\
+	main.c	\
+	parsing/parsing.c	\
+	utils/ft_error.c	\
+	utils/openificator.c	\
+	init/readificator.c	\
+	init/worldinit.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build

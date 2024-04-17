@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/16 15:26:36 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:05:24 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,34 @@
 /* ************************************************************************** */
 /*   STRUCTURES                                                               */
 /* ************************************************************************** */
-typedef struct s_world {
-	char	**map;
-	char	*NO;
-	char	*SO;
-	char	*WE;
-	char	*EA;
+typedef struct s_texture {
+	void	*NO;
+	void	*SO;
+	void	*WE;
+	void	*EA;
 	char	*F;
 	char	*C;
+}	t_texture;
+
+typedef struct s_world {
+	char		**map;
+	void		*mlx;
+	void		*mlx_win;
+	t_texture	*texture;
 }	t_world;
 
 /* ************************************************************************** */
 /*   FUNCTIONS                                                                */
 /* ************************************************************************** */
-/* Tests */
+/* Parsing */
 bool	parsingator(char *file_name);
+
+/* Init */
+t_world	*worldinit(char *argv);
+char	**readificator(t_world *world);
 
 /* Utils */
 int	ft_error(char *s);
 int	openificator(char *file_name);
-t_map	readificator(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/16 15:08:39 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:41:20 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	*free_strjoin(char *s1, char *s2)
 }
 
 
-t_map	readificator(int fd)
+char	**readificator(int fd)
 {
-	t_map	map;
+	char	**map;
 	char	*line;
 	char	*c_map;
 
@@ -41,7 +41,7 @@ t_map	readificator(int fd)
 		line = get_next_line(fd);
 	}
 	free(line);
-	map.map = ft_split(c_map, '\n');
+	map = ft_split(c_map, '\n');
 	free(c_map);
 	return (map);
 }
