@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:32 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/17 17:22:10 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:03:32 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int close_win(void *mlx) {
 int clavier(int keycode, t_rays *rays) {
 
 
-	double rotate = -0.03;
-	double move = -0.2;
+	double rotate = -0.04;
+	double move = -0.3;
 
 	if (keycode == BAS) {
 		if(rays->world_map[(int)(rays->pos_x + rays->dir_x * move)][(int)(rays->pos_y)] == false)

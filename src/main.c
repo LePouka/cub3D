@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/17 17:33:19 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/17 18:50:23 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,79 @@ void speed_calculation(t_rays *rays)
 {
 	rays->old_time = rays->time;
 	rays->time = time(NULL);
-	double frameTime = (rays->time - rays->old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
+	rays->frame_time = (rays->time - rays->old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
 
 	//speed modifiers
-	double move_speed = frameTime * 5.0; //the constant value is in squares/second
-	double rot_speed = frameTime * 3.0; //the constant value is in radians/second
-	rays->move_speed = move_speed;
-	rays->rot_speed = rot_speed;
+	rays->move_speed = rays->frame_time * 5.0;
+	rays->rot_speed = rays->frame_time * 3.0;
+}
+
+void floor_casting(t_rays *rays)
+{
+	for(int y = 0; y < SCREENHEIGHT; y++)
+    {
+		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+		float rayDirX0 = rays->dir_x - rays->plane_x;
+		float rayDirY0 = rays->dir_y - rays->plane_y;
+		float rayDirX1 = rays->dir_x + rays->plane_x;
+		float rayDirY1 = rays->dir_y + rays->plane_y;
+
+		// Current y position compared to the center of the screen (the horizon)
+		int p = y - SCREENHEIGHT / 2;
+
+		// Vertical position of the camera.
+		float posZ = 0.5 * SCREENHEIGHT;
+
+		// Horizontal distance from the camera to the floor for the current row.
+		// 0.5 is the z position exactly in the middle between floor and ceiling.
+		float rowDistance = posZ / p;
+
+		// calculate the real world step vector we have to add for each x (parallel to camera plane)
+		// adding step by step avoids multiplications with a weight in the inner loop
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / SCREENWIDTH;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / SCREENWIDTH;
+
+		// real world coordinates of the leftmost column. This will be updated as we step to the right.
+		float floorX = rays->pos_x + rowDistance * rayDirX0;
+		float floorY = rays->pos_y + rowDistance * rayDirY0;
+		for(int x = 0; x < SCREENWIDTH; ++x)
+      {
+        // the cell coord is simply got from the integer parts of floorX and floorY
+        int cellX = (int)(floorX);
+        int cellY = (int)(floorY);
+
+        // get the texture coordinate from the fractional part
+        int tx = (int)(TEXTWIDTH * (floorX - cellX)) & (TEXTWIDTH - 1);
+        int ty = (int)(TEXTHEIGHT * (floorY - cellY)) & (TEXTHEIGHT - 1);
+
+        floorX += floorStepX;
+        floorY += floorStepY;
+
+        // choose texture and draw the pixel
+        int floorTexture = 3;
+        int ceilingTexture = 6;
+        u_int32_t color;
+
+        // floor
+        color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
+        color = (color >> 1) & 8355711; // make a bit darker
+        rays->buffer[y][x] = color;
+
+
+        //ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+        color = rays->texture[ceilingTexture][TEXTWIDTH * ty + tx];
+        color = (color >> 1) & 8355711; // make a bit darker
+        rays->buffer[SCREENHEIGHT - y - 1][x] = color;
+      }
+	}
+
 }
 
 int casting(t_rays *rays) {
 
   t_calcs	calcs;
+
+	floor_casting(rays);
 
 
 	for (int x = 0; x < SCREENWIDTH; x++) {
@@ -110,7 +171,11 @@ int casting(t_rays *rays) {
 		u_int32_t color = rays->texture[calcs.tex_num][TEXTHEIGHT * texY + calcs.tex_x];
 		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		if(calcs.side == 1) color = (color >> 1) & 8355711;
-		my_mlx_pixel_put(rays->vars->img, x, y, color);
+		rays->buffer[y][x] = color;
+		//my_mlx_pixel_put(rays->vars->img, x, y, rays->buffer[y][x]);
+	  }
+	  for (int y = 0; y < SCREENHEIGHT; y++) {
+		my_mlx_pixel_put(rays->vars->img, x, y, rays->buffer[y][x]);
 	  }
 
 	}
@@ -161,19 +226,26 @@ int main() {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
   	};
 
+	//u_int32_t buffer[SCREENHEIGHT][SCREENWIDTH]; // y-coordinate first because it works per scanline
+	u_int32_t	**buffer;
+	buffer = malloc(SCREENHEIGHT * sizeof(int *));
+	for (int i = 0;i < SCREENHEIGHT; i++) {
+		buffer[i] = malloc(SCREENWIDTH * sizeof(int));
+	}
+	rays.buffer = buffer;
 
-  double pos_x = 22, pos_y = 12;  //x and y start position
-  double dir_x = -1, dir_y = 0; //initial direction vector
-  double plane_x = 0, plane_y = 0.66; //the 2d raycaster version of camera plane
-  rays.pos_x = pos_x;
-  rays.pos_y = pos_y;
-  rays.dir_x = dir_x;
-  rays.dir_y = dir_y;
-  rays.plane_x = plane_x;
-  rays.plane_y = plane_y;
-  rays.move_speed = 0;
-  rays.time = time(NULL);
-  rays.old_time = 0;
+	double pos_x = 22, pos_y = 12;  //x and y start position
+	double dir_x = -1, dir_y = 0; //initial direction vector
+	double plane_x = 0, plane_y = 0.66; //the 2d raycaster version of camera plane
+	rays.pos_x = pos_x;
+	rays.pos_y = pos_y;
+	rays.dir_x = dir_x;
+	rays.dir_y = dir_y;
+	rays.plane_x = plane_x;
+	rays.plane_y = plane_y;
+	rays.move_speed = 0;
+	rays.time = 0;
+	rays.old_time = 0;
 
    int **heapmap = malloc(24 * sizeof(int *));
 
