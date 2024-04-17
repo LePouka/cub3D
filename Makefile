@@ -33,7 +33,8 @@ INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 SRC_DIR		:= src
 SRCS		:= \
 	main.c \
-	events.c
+	events.c \
+	init.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build
