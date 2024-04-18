@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/17 17:49:08 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:02:55 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ t_image	init_image(t_vars v)
 	return (i);
 }
 
-t_texture	*texturificator(char	**map)
+t_texture	*texturificator(char **map)
 {
 	t_texture	*texture;
 
-	if (strncmp("NO ./", map[0], 5) || strncmp("SO ./", map[0], 5) || \
-		strncmp("WE ./", map[0], 5) || strncmp("EA ./", map[0], 5))
+	if (strncmp("NO ./", map[0], 5) || strncmp("SO ./", map[1], 5) || \
+		strncmp("WE ./", map[2], 5) || strncmp("EA ./", map[3], 5))
 	{
 		ft_error("Invalid textures");
 		return (NULL);
