@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:32 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/17 18:03:32 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:41:03 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int clavier(int keycode, t_rays *rays) {
 			rays->pos_x += rays->dir_x * move;
 		if(rays->world_map[(int)(rays->pos_x)][(int)(rays->pos_y + rays->dir_y * move)] == false)
 			rays->pos_y += rays->dir_y * move;
+		mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
 		init(rays);
 	}
 
@@ -36,6 +37,7 @@ int clavier(int keycode, t_rays *rays) {
 			rays->pos_x -= rays->dir_x * move;
 		if(rays->world_map[(int)(rays->pos_x)][(int)(rays->pos_y - rays->dir_y * move)] == false)
 			rays->pos_y -= rays->dir_y * move;
+		mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
 		init(rays);
 	}
 
@@ -47,7 +49,7 @@ int clavier(int keycode, t_rays *rays) {
 	  double oldplane_x = rays->plane_x;
 	  rays->plane_x = rays->plane_x * cos(rotate) - rays->plane_y * sin(rotate);
 	  rays->plane_y = oldplane_x * sin(rotate) + rays->plane_y * cos(rotate);
-
+	  mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
 	  init(rays);
 
 	}
@@ -60,7 +62,7 @@ int clavier(int keycode, t_rays *rays) {
 	  double oldplane_x = rays->plane_x;
 	  rays->plane_x = rays->plane_x * cos(-rotate) - rays->plane_y * sin(-rotate);
 	  rays->plane_y = oldplane_x * sin(-rotate) + rays->plane_y * cos(-rotate);
-
+	  mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
 	  init(rays);
 
 	}

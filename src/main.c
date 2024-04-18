@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/17 18:50:23 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:47:34 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,25 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->l + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
+}
+
+void free_data(t_rays *rays)
+{
+	for (int i = 0; i < MAPWIDTH; i++) {
+		free(rays->world_map[i]);
+	}
+	free(rays->world_map);
+	free(rays->texture);
+
+	for (int i = 0; i < SCREENHEIGHT; i++) {
+		free(rays->buffer[i]);
+	}
+	free(rays->buffer);
+	for (int i = 0; i < 8; i++) {
+		mlx_destroy_image(rays->vars->mlx, rays->pics[i].img);
+	}
+	free(rays->pics);
+
 }
 
 void calculate_dda(t_calcs *calcs, t_rays *rays)
@@ -194,9 +213,6 @@ int main() {
 	int		**texture;
 
 	texture = malloc(8 * sizeof(int *));
-	for (int i = 0;i < 8; i++) {
-		texture[i] = malloc(TEXTWIDTH * TEXTHEIGHT * sizeof(int));
-	}
 
 	 int world_map[MAPWIDTH][MAPHEIGHT]=
   {
@@ -273,5 +289,10 @@ int main() {
   	mlx_hook(mlx_win, 17, 1L<< 0, close_win, mlx);
 
 	mlx_loop(mlx);
+	free_data(&rays);
+	mlx_destroy_image(mlx, img.img);
+	mlx_destroy_window(mlx, mlx_win);
+	mlx_destroy_display(mlx);
+	free(mlx);
 
 }

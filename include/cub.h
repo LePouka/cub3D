@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/17 18:35:00 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:53:13 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,22 @@ typedef struct s_vars
 
 typedef struct s_rays
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	double	time;
-	double	old_time;
-	double	move_speed;
-	double	rot_speed;
-	double	frame_time;
-	int		**world_map;
-	int		**texture;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		time;
+	double		old_time;
+	double		move_speed;
+	double		rot_speed;
+	double		frame_time;
+	int			**world_map;
+	int			**texture;
 	u_int32_t	**buffer;
-	t_vars	*vars;
+	t_data		*pics;
+	t_vars		*vars;
 
 }			t_rays;
 
@@ -118,5 +119,6 @@ void	init(t_rays *rays);
 void	init_texturing(int **texture, t_rays *rays);
 void	init_calculating(t_calcs *calcs, t_rays *rays, int x);
 void	init_side_dist(t_calcs *calcs, t_rays *rays);
+void	free_data(t_rays *rays);
 
 #endif
