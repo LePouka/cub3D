@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/17 18:05:24 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:50:12 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,16 @@ typedef struct s_texture {
 	char	*C;
 }	t_texture;
 
+typedef struct s_map {
+	char	**map;
+}	t_map;
+
 typedef struct s_world {
-	char		**map;
+	int		width;
+	int		height;
 	void		*mlx;
 	void		*mlx_win;
+	t_map		*map;
 	t_texture	*texture;
 }	t_world;
 

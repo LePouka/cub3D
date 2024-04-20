@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/17 14:41:20 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/20 18:13:40 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**readificator(int fd)
 
 	line = get_next_line(fd);
 	if (!line)
-		close_error(fd, "Cannot Read The Map\n");
+		close_error(fd, strerror(errno));
 	while (line)
 	{
 		if (c_map)
