@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/20 18:50:12 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:53:34 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,27 @@
 /*   STRUCTURES                                                               */
 /* ************************************************************************** */
 typedef struct s_texture {
-	void	*NO;
-	void	*SO;
-	void	*WE;
-	void	*EA;
-	char	*F;
-	char	*C;
+	void	*north;
+	void	*south;
+	void	*west;
+	void	*east;
+	char	*floor;
+	char	*ceiling;
 }	t_texture;
 
 typedef struct s_map {
-	char	**map;
+	char			**map;
+	unsigned int	player_x;
+	unsigned int	player_y;
 }	t_map;
 
-typedef struct s_world {
-	int		width;
-	int		height;
+typedef struct s_mlx {
 	void		*mlx;
 	void		*mlx_win;
+}	t_mlx;
+
+typedef struct s_world {
+	t_mlx		*mlx;
 	t_map		*map;
 	t_texture	*texture;
 }	t_world;
@@ -56,14 +60,16 @@ typedef struct s_world {
 /*   FUNCTIONS                                                                */
 /* ************************************************************************** */
 /* Parsing */
-bool	parsingator(char *file_name);
+bool		parsingator(char *file_name);
 
 /* Init */
-t_world	*worldinit(char *argv);
-char	**readificator(t_world *world);
+t_world		*worldinit(char *file_name);
+t_map		*readificator(char *file_name);
+t_mlx		*mlxator(void);
+t_texture	*texturificator(t_world *world, t_map *map);
 
 /* Utils */
-int	ft_error(char *s);
-int	openificator(char *file_name);
+void		worldend(t_world *world);
+int			ft_error(char *s);
 
 #endif

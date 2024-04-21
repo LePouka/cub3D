@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   openificator.c                                     :+:      :+:    :+:   */
+/*   mlxator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/07 18:22:43 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/07 18:41:58 by rtissera         ###   ########.fr       */
+/*   Created: 2024/04/21 15:51:29 by rtissera          #+#    #+#             */
+/*   Updated: 2024/04/21 18:38:26 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	openificator(char *file_name)
+t_mlx	*mlxator(void)
 {
-	int		fd;
+	t_mlx	*mlx;
 
-	if (file_name == NULL || file_name[0] == 0)
+	mlx = (t_mlx *)malloc(sizeof(t_mlx *));
+	if (!mlx)
 	{
-		return (ft_error("Invalid file input"));
+		ft_error(strreror(errno));
+		return (NULL);
 	}
-	if (ft_strncmp(file_name + ft_strlen(file_name) - 4, ".cub", 4))
-	{
-		return (ft_error("Invalid file extension"));
-	}
-	fd = open(file_name, O_RDONLY, 0777);
-	if (fd == -1)
-	{
-		return (ft_error(strerror(errno)));
-	}
-	return (fd);
+	mlx.mlx = mlx_init();
+	mlx.mlx_win = mlx_new_window(mlx.mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3D");
+	return (mlx);
 }

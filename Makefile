@@ -35,9 +35,10 @@ SRCS		:=	\
 	main.c	\
 	parsing/parsing.c	\
 	utils/ft_error.c	\
-	utils/openificator.c	\
 	init/readificator.c	\
-	init/worldinit.c
+	init/worldinit.c	\
+	init/mlxator.c	\
+	utils/worldend.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build

@@ -6,11 +6,31 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/20 18:13:40 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:22:32 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	openificator(char *file_name)
+{
+	int		fd;
+
+	if (file_name == NULL || file_name[0] == 0)
+	{
+		return (ft_error("Invalid file input"));
+	}
+	if (ft_strncmp(file_name + ft_strlen(file_name) - 4, ".cub", 4))
+	{
+		return (ft_error("Invalid file extension"));
+	}
+	fd = open(file_name, O_RDONLY, 0777);
+	if (fd == -1)
+	{
+		return (ft_error(strerror(errno)));
+	}
+	return (fd);
+}
 
 char	*free_strjoin(char *s1, char *s2)
 {
@@ -21,13 +41,16 @@ char	*free_strjoin(char *s1, char *s2)
 	return (s3);
 }
 
-
-char	**readificator(int fd)
+t_map	*readificator(char *file_name)
 {
-	char	**map;
+	int		fd;
 	char	*line;
 	char	*c_map;
+	t_map	*map;
 
+	fd = openificator(file_name);
+	if (fd == -1)
+		return (false);
 	line = get_next_line(fd);
 	if (!line)
 		close_error(fd, strerror(errno));
@@ -40,8 +63,9 @@ char	**readificator(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	free(line);
-	map = ft_split(c_map, '\n');
-	free(c_map);
-	return (map);
+	map = (t_map *)malloc(sizeof(t_map *));
+	map.map = ft_split(c_map, '\n');
+	return (free(c_map), map);
 }
