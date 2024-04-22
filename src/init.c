@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:45 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/18 18:54:15 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/22 16:33:18 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,14 @@ void init_texturing (int **texture, t_rays *rays) {
 
 void	init_calculating(t_calcs *calcs, t_rays *rays, int x)
 {
-	//calculate ray position and direction
-	calcs->camera_x = 2 * x / (double)SCREENWIDTH - 1; //x-coordinate in camera space
+	calcs->camera_x = 2 * x / (double)SCREENWIDTH - 1;
 	calcs->ray_dir_x = rays->dir_x + rays->plane_x * calcs->camera_x;
 	calcs->ray_dir_y = rays->dir_y + rays->plane_y * calcs->camera_x;
-	//which box of the map we're in
 	calcs->map_x = rays->pos_x;
 	calcs->map_y = rays->pos_y;
-
-	//length of ray from one x or y-side to next x or y-side
 	calcs->delta_dist_x = (calcs->ray_dir_x == 0) ? 1e30 : ABS(1 / calcs->ray_dir_x);
 	calcs->delta_dist_y = (calcs->ray_dir_y == 0) ? 1e30 : ABS(1 / calcs->ray_dir_y);
 	calcs->hit = 0;
-
 }
 
 void init_side_dist(t_calcs *calcs, t_rays *rays) {

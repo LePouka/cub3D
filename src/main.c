@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/18 18:47:34 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/22 16:17:45 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ void free_data(t_rays *rays)
 
 void calculate_dda(t_calcs *calcs, t_rays *rays)
 {
-	//calculate step and initial sideDist
-	//perform DDA
 	 while (calcs->hit == 0)
 	{
-		//jump to next map square, either in x-direction, or in y-direction
 		if (calcs->side_dist_x < calcs->side_dist_y)
 		{
 		  calcs->side_dist_x += calcs->delta_dist_x;
@@ -60,50 +57,36 @@ void calculate_dda(t_calcs *calcs, t_rays *rays)
 		  calcs->map_y += calcs->step_y;
 		  calcs->side = 1;
 		}
-		//Check if ray has hit a wall
 		if (rays->world_map[calcs->map_x][calcs->map_y] > 0) calcs->hit = 1;
 	  }
 }
 
 void drawing_calculations(t_calcs *calcs, t_rays *rays)
 {
-	//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
-	  if(calcs->side == 0) calcs->perp_wall_dist = (calcs->side_dist_x - calcs->delta_dist_x);
-	  else		  calcs->perp_wall_dist = (calcs->side_dist_y - calcs->delta_dist_y);
-	  int lineHeight = (int)(SCREENHEIGHT / calcs->perp_wall_dist);
-
-	  //calculate lowest and highest pixel to fill in current stripe
-	  calcs->draw_start = -lineHeight / 2 + SCREENHEIGHT / 2;
-	  if(calcs->draw_start < 0)calcs->draw_start = 0;
-	  calcs->draw_end = lineHeight / 2 + SCREENHEIGHT / 2;
-	  if(calcs->draw_end >= SCREENHEIGHT)calcs->draw_end = SCREENHEIGHT - 1;
-
-	  //texturing calculations
-	  calcs->tex_num = rays->world_map[calcs->map_x][calcs->map_y] - 1; //1 subtracted from it so that texture 0 can be used!
-
-	  //calculate value of wallX
-	  double wallX; //where exactly the wall was hit
-	  if (calcs->side == 0) wallX = rays->pos_y + calcs->perp_wall_dist * calcs->ray_dir_y;
-	  else		   wallX = rays->pos_x + calcs->perp_wall_dist * calcs->ray_dir_x;
-	  wallX -= floor((wallX));
-
-	  //x coordinate on the texture
-	  calcs->tex_x = (int)(wallX * (double)(TEXTWIDTH));
-	  if(calcs->side == 0 && calcs->ray_dir_x > 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
-	  if(calcs->side == 1 && calcs->ray_dir_y < 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
-	   // How much to increase the texture coordinate per screen pixel
-	  calcs->step = 1.0 * TEXTHEIGHT / lineHeight;
-	  // Starting texture coordinate
-	  calcs->tex_pos = (calcs->draw_start - SCREENHEIGHT / 2 + lineHeight / 2) * calcs->step;
+	if(calcs->side == 0) calcs->perp_wall_dist = (calcs->side_dist_x - calcs->delta_dist_x);
+	else		  calcs->perp_wall_dist = (calcs->side_dist_y - calcs->delta_dist_y);
+	int lineHeight = (int)(SCREENHEIGHT / calcs->perp_wall_dist);
+	calcs->draw_start = -lineHeight / 2 + SCREENHEIGHT / 2;
+	if(calcs->draw_start < 0)calcs->draw_start = 0;
+	calcs->draw_end = lineHeight / 2 + SCREENHEIGHT / 2;
+	if(calcs->draw_end >= SCREENHEIGHT)calcs->draw_end = SCREENHEIGHT - 1;
+	calcs->tex_num = rays->world_map[calcs->map_x][calcs->map_y] - 1;
+	double wallX;
+	if (calcs->side == 0) wallX = rays->pos_y + calcs->perp_wall_dist * calcs->ray_dir_y;
+	else		   wallX = rays->pos_x + calcs->perp_wall_dist * calcs->ray_dir_x;
+	wallX -= floor((wallX));
+	calcs->tex_x = (int)(wallX * (double)(TEXTWIDTH));
+	if(calcs->side == 0 && calcs->ray_dir_x > 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
+	if(calcs->side == 1 && calcs->ray_dir_y < 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
+	calcs->step = 1.0 * TEXTHEIGHT / lineHeight;
+	calcs->tex_pos = (calcs->draw_start - SCREENHEIGHT / 2 + lineHeight / 2) * calcs->step;
 }
 
 void speed_calculation(t_rays *rays)
 {
 	rays->old_time = rays->time;
 	rays->time = time(NULL);
-	rays->frame_time = (rays->time - rays->old_time) / 1000.0; //frameTime is the time this frame has taken, in seconds
-
-	//speed modifiers
+	rays->frame_time = (rays->time - rays->old_time) / 1000.0;
 	rays->move_speed = rays->frame_time * 5.0;
 	rays->rot_speed = rays->frame_time * 3.0;
 }
@@ -112,61 +95,37 @@ void floor_casting(t_rays *rays)
 {
 	for(int y = 0; y < SCREENHEIGHT; y++)
     {
-		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
 		float rayDirX0 = rays->dir_x - rays->plane_x;
 		float rayDirY0 = rays->dir_y - rays->plane_y;
 		float rayDirX1 = rays->dir_x + rays->plane_x;
 		float rayDirY1 = rays->dir_y + rays->plane_y;
-
-		// Current y position compared to the center of the screen (the horizon)
 		int p = y - SCREENHEIGHT / 2;
-
-		// Vertical position of the camera.
 		float posZ = 0.5 * SCREENHEIGHT;
-
-		// Horizontal distance from the camera to the floor for the current row.
-		// 0.5 is the z position exactly in the middle between floor and ceiling.
 		float rowDistance = posZ / p;
-
-		// calculate the real world step vector we have to add for each x (parallel to camera plane)
-		// adding step by step avoids multiplications with a weight in the inner loop
 		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / SCREENWIDTH;
 		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / SCREENWIDTH;
-
-		// real world coordinates of the leftmost column. This will be updated as we step to the right.
 		float floorX = rays->pos_x + rowDistance * rayDirX0;
 		float floorY = rays->pos_y + rowDistance * rayDirY0;
 		for(int x = 0; x < SCREENWIDTH; ++x)
       {
-        // the cell coord is simply got from the integer parts of floorX and floorY
         int cellX = (int)(floorX);
         int cellY = (int)(floorY);
-
-        // get the texture coordinate from the fractional part
         int tx = (int)(TEXTWIDTH * (floorX - cellX)) & (TEXTWIDTH - 1);
         int ty = (int)(TEXTHEIGHT * (floorY - cellY)) & (TEXTHEIGHT - 1);
 
         floorX += floorStepX;
         floorY += floorStepY;
-
-        // choose texture and draw the pixel
         int floorTexture = 3;
         int ceilingTexture = 6;
         u_int32_t color;
-
-        // floor
         color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
-        color = (color >> 1) & 8355711; // make a bit darker
+        color = (color >> 1) & 8355711;
         rays->buffer[y][x] = color;
-
-
-        //ceiling (symmetrical, at screenHeight - y - 1 instead of y)
         color = rays->texture[ceilingTexture][TEXTWIDTH * ty + tx];
-        color = (color >> 1) & 8355711; // make a bit darker
+        color = (color >> 1) & 8355711;
         rays->buffer[SCREENHEIGHT - y - 1][x] = color;
       }
 	}
-
 }
 
 int casting(t_rays *rays) {
@@ -294,5 +253,4 @@ int main() {
 	mlx_destroy_window(mlx, mlx_win);
 	mlx_destroy_display(mlx);
 	free(mlx);
-
 }

@@ -5,72 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 15:58:32 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/18 18:41:03 by rshay            ###   ########.fr       */
+/*   Created: 2024/04/22 16:29:46 by rshay             #+#    #+#             */
+/*   Updated: 2024/04/22 16:36:51 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-int close_win(void *mlx) {
+int	close_win(void *mlx)
+{
 	mlx_loop_end(mlx);
 	return (0);
 }
 
-int clavier(int keycode, t_rays *rays) {
+void	move_x(int fact, t_rays *rays)
+{
+	double	move;
+	int		p_y;
+	int		p_x;
 
+	move = -0.3 * fact;
+	p_x = (int)(rays->pos_x);
+	p_y = (int)(rays->pos_y);
+	if (!rays->world_map[(int)(rays->pos_x + rays->dir_x * move)][p_y])
+		rays->pos_x += rays->dir_x * move;
+	if (!rays->world_map[p_x][(int)(rays->pos_y + rays->dir_y * move)])
+		rays->pos_y += rays->dir_y * move;
+	mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
+	init(rays);
+}
 
-	double rotate = -0.04;
-	double move = -0.3;
+void	move_y(int fact, t_rays *rays)
+{
+	double	move;
+	int		new_x;
+	int		new_y;
 
-	if (keycode == BAS) {
-		if(rays->world_map[(int)(rays->pos_x + rays->dir_x * move)][(int)(rays->pos_y)] == false)
-			rays->pos_x += rays->dir_x * move;
-		if(rays->world_map[(int)(rays->pos_x)][(int)(rays->pos_y + rays->dir_y * move)] == false)
-			rays->pos_y += rays->dir_y * move;
-		mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-		init(rays);
-	}
+	move = 0.3 * fact;
+	new_x = (int)(rays->pos_x + rays->dir_y * move);
+	new_y = (int)(rays->pos_y - rays->dir_x * move);
+	if (!rays->world_map[new_x][(int)(rays->pos_y)])
+		rays->pos_x += rays->dir_y * move;
+	if (!rays->world_map[(int)(rays->pos_x)][new_y])
+		rays->pos_y -= rays->dir_x * move;
+	mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
+	init(rays);
+}
 
-	if (keycode == HAUT) {
-		if(rays->world_map[(int)(rays->pos_x - rays->dir_x * move)][(int)(rays->pos_y)] == false)
-			rays->pos_x -= rays->dir_x * move;
-		if(rays->world_map[(int)(rays->pos_x)][(int)(rays->pos_y - rays->dir_y * move)] == false)
-			rays->pos_y -= rays->dir_y * move;
-		mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-		init(rays);
-	}
+void	rotate(int fact, t_rays *rays)
+{
+	double	rotate;
+	double	olddir_x;
+	double	oldplane_x;
 
-	if (keycode == DROITE) {
-		//both camera direction and camera plane must be rotated
-	  double olddir_x = rays->dir_x;
-	  rays->dir_x = rays->dir_x * cos(rotate) - rays->dir_y * sin(rotate);
-	  rays->dir_y = olddir_x * sin(rotate) + rays->dir_y * cos(rotate);
-	  double oldplane_x = rays->plane_x;
-	  rays->plane_x = rays->plane_x * cos(rotate) - rays->plane_y * sin(rotate);
-	  rays->plane_y = oldplane_x * sin(rotate) + rays->plane_y * cos(rotate);
-	  mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-	  init(rays);
+	rotate = fact * -0.04;
+	olddir_x = rays->dir_x;
+	rays->dir_x = rays->dir_x * cos(rotate) - rays->dir_y * sin(rotate);
+	rays->dir_y = olddir_x * sin(rotate) + rays->dir_y * cos(rotate);
+	oldplane_x = rays->plane_x;
+	rays->plane_x = rays->plane_x * cos(rotate) - rays->plane_y * sin(rotate);
+	rays->plane_y = oldplane_x * sin(rotate) + rays->plane_y * cos(rotate);
+	mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
+	init(rays);
+}
 
-	}
-
-	if (keycode == GAUCHE) {
-		//both camera direction and camera plane must be rotated
-	  double olddir_x = rays->dir_x;
-	  rays->dir_x = rays->dir_x * cos(-rotate) - rays->dir_y * sin(-rotate);
-	  rays->dir_y = olddir_x * sin(-rotate) + rays->dir_y * cos(-rotate);
-	  double oldplane_x = rays->plane_x;
-	  rays->plane_x = rays->plane_x * cos(-rotate) - rays->plane_y * sin(-rotate);
-	  rays->plane_y = oldplane_x * sin(-rotate) + rays->plane_y * cos(-rotate);
-	  mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-	  init(rays);
-
-	}
-
-	if (keycode == ESCAPE) {
-	mlx_loop_end(rays->vars->mlx);
-  }
-
+int	clavier(int keycode, t_rays *rays)
+{
+	if (keycode == W)
+		move_x(-1, rays);
+	if (keycode == S)
+		move_x(1, rays);
+	if (keycode == A)
+		move_y(-1, rays);
+	if (keycode == D)
+		move_y(1, rays);
+	if (keycode == DROITE)
+		rotate(1, rays);
+	if (keycode == GAUCHE)
+		rotate(-1, rays);
+	if (keycode == ESCAPE)
+		mlx_loop_end(rays->vars->mlx);
 	return (0);
-
 }
