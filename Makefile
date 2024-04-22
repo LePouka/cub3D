@@ -38,6 +38,7 @@ SRCS		:=	\
 	init/readificator.c	\
 	init/worldinit.c	\
 	init/mlxator.c	\
+	init/texturificator.c	\
 	utils/worldend.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 

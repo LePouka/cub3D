@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/21 18:53:34 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:19:30 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # include "../lib/libft/include/libft.h"
 
 /* ************************************************************************** */
+/*   DEFINES                                                                  */
+/* ************************************************************************** */
+# define SCREENWIDTH 1920
+# define SCREENHEIGHT 1080
+
+/* ************************************************************************** */
 /*   STRUCTURES                                                               */
 /* ************************************************************************** */
 typedef struct s_texture {
@@ -38,6 +44,16 @@ typedef struct s_texture {
 	char	*floor;
 	char	*ceiling;
 }	t_texture;
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		l;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 typedef struct s_map {
 	char			**map;
@@ -60,7 +76,8 @@ typedef struct s_world {
 /*   FUNCTIONS                                                                */
 /* ************************************************************************** */
 /* Parsing */
-bool		parsingator(char *file_name);
+bool		parsingator(t_world *world);
+bool		mlx_pars(t_texture *texture);
 
 /* Init */
 t_world		*worldinit(char *file_name);
