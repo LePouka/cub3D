@@ -34,7 +34,8 @@ SRC_DIR		:= src
 SRCS		:= \
 	main.c \
 	events.c \
-	init.c
+	init.c \
+	init_utils.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build

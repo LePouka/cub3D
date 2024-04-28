@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/22 16:17:45 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/28 15:00:31 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,22 @@ void floor_casting(t_rays *rays)
 		float floorY = rays->pos_y + rowDistance * rayDirY0;
 		for(int x = 0; x < SCREENWIDTH; ++x)
       {
-        int cellX = (int)(floorX);
-        int cellY = (int)(floorY);
-        int tx = (int)(TEXTWIDTH * (floorX - cellX)) & (TEXTWIDTH - 1);
-        int ty = (int)(TEXTHEIGHT * (floorY - cellY)) & (TEXTHEIGHT - 1);
+        //int cellX = (int)(floorX);
+        //int cellY = (int)(floorY);
+        //int tx = (int)(TEXTWIDTH * (floorX - cellX)) & (TEXTWIDTH - 1);
+        //int ty = (int)(TEXTHEIGHT * (floorY - cellY)) & (TEXTHEIGHT - 1);
 
         floorX += floorStepX;
         floorY += floorStepY;
-        int floorTexture = 3;
-        int ceilingTexture = 6;
+        //int floorTexture = 3;
+        //int ceilingTexture = 6;
         u_int32_t color;
-        color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
+        //color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
+		color = 0x0500FF00;
         color = (color >> 1) & 8355711;
         rays->buffer[y][x] = color;
-        color = rays->texture[ceilingTexture][TEXTWIDTH * ty + tx];
+        //color = rays->texture[ceilingTexture][TEXTWIDTH * ty + tx];
+		color = 0x00e11e00;
         color = (color >> 1) & 8355711;
         rays->buffer[SCREENHEIGHT - y - 1][x] = color;
       }
@@ -143,14 +145,11 @@ int casting(t_rays *rays) {
 		drawing_calculations(&calcs, rays);
 		for(int y = calcs.draw_start; y<calcs.draw_end; y++)
 	  {
-		// Cast the texture coordinate to integer, and mask with (TEXTHEIGHT - 1) in case of overflow
 		int texY = (int)calcs.tex_pos & (TEXTHEIGHT - 1);
 		calcs.tex_pos += calcs.step;
 		u_int32_t color = rays->texture[calcs.tex_num][TEXTHEIGHT * texY + calcs.tex_x];
-		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		if(calcs.side == 1) color = (color >> 1) & 8355711;
 		rays->buffer[y][x] = color;
-		//my_mlx_pixel_put(rays->vars->img, x, y, rays->buffer[y][x]);
 	  }
 	  for (int y = 0; y < SCREENHEIGHT; y++) {
 		my_mlx_pixel_put(rays->vars->img, x, y, rays->buffer[y][x]);
@@ -176,7 +175,7 @@ int main() {
 	 int world_map[MAPWIDTH][MAPHEIGHT]=
   {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
@@ -193,7 +192,7 @@ int main() {
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -201,7 +200,6 @@ int main() {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
   	};
 
-	//u_int32_t buffer[SCREENHEIGHT][SCREENWIDTH]; // y-coordinate first because it works per scanline
 	u_int32_t	**buffer;
 	buffer = malloc(SCREENHEIGHT * sizeof(int *));
 	for (int i = 0;i < SCREENHEIGHT; i++) {
@@ -209,9 +207,9 @@ int main() {
 	}
 	rays.buffer = buffer;
 
-	double pos_x = 22, pos_y = 12;  //x and y start position
-	double dir_x = -1, dir_y = 0; //initial direction vector
-	double plane_x = 0, plane_y = 0.66; //the 2d raycaster version of camera plane
+	double pos_x = 22, pos_y = 12;
+	double dir_x = -1, dir_y = 0;
+	double plane_x = 0, plane_y = 0.66;
 	rays.pos_x = pos_x;
 	rays.pos_y = pos_y;
 	rays.dir_x = dir_x;

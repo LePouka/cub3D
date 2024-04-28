@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/22 15:59:54 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/28 18:42:05 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ void	init_texturing(int **texture, t_rays *rays);
 void	init_calculating(t_calcs *calcs, t_rays *rays, int x);
 void	init_side_dist(t_calcs *calcs, t_rays *rays);
 void	free_data(t_rays *rays);
+double	ft_abs(double x);
+void	dd_calc(t_calcs *calcs, t_rays *rays, int x);
 
 #endif
