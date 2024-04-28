@@ -6,13 +6,12 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/28 15:00:31 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/28 19:28:41 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 #include <sys/types.h>
-
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -22,76 +21,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void free_data(t_rays *rays)
-{
-	for (int i = 0; i < MAPWIDTH; i++) {
-		free(rays->world_map[i]);
-	}
-	free(rays->world_map);
-	free(rays->texture);
-
-	for (int i = 0; i < SCREENHEIGHT; i++) {
-		free(rays->buffer[i]);
-	}
-	free(rays->buffer);
-	for (int i = 0; i < 8; i++) {
-		mlx_destroy_image(rays->vars->mlx, rays->pics[i].img);
-	}
-	free(rays->pics);
-
-}
-
-void calculate_dda(t_calcs *calcs, t_rays *rays)
-{
-	 while (calcs->hit == 0)
-	{
-		if (calcs->side_dist_x < calcs->side_dist_y)
-		{
-		  calcs->side_dist_x += calcs->delta_dist_x;
-		  calcs->map_x += calcs->step_x;
-		  calcs->side = 0;
-		}
-		else
-		{
-		  calcs->side_dist_y += calcs->delta_dist_y;
-		  calcs->map_y += calcs->step_y;
-		  calcs->side = 1;
-		}
-		if (rays->world_map[calcs->map_x][calcs->map_y] > 0) calcs->hit = 1;
-	  }
-}
-
-void drawing_calculations(t_calcs *calcs, t_rays *rays)
-{
-	if(calcs->side == 0) calcs->perp_wall_dist = (calcs->side_dist_x - calcs->delta_dist_x);
-	else		  calcs->perp_wall_dist = (calcs->side_dist_y - calcs->delta_dist_y);
-	int lineHeight = (int)(SCREENHEIGHT / calcs->perp_wall_dist);
-	calcs->draw_start = -lineHeight / 2 + SCREENHEIGHT / 2;
-	if(calcs->draw_start < 0)calcs->draw_start = 0;
-	calcs->draw_end = lineHeight / 2 + SCREENHEIGHT / 2;
-	if(calcs->draw_end >= SCREENHEIGHT)calcs->draw_end = SCREENHEIGHT - 1;
-	calcs->tex_num = rays->world_map[calcs->map_x][calcs->map_y] - 1;
-	double wallX;
-	if (calcs->side == 0) wallX = rays->pos_y + calcs->perp_wall_dist * calcs->ray_dir_y;
-	else		   wallX = rays->pos_x + calcs->perp_wall_dist * calcs->ray_dir_x;
-	wallX -= floor((wallX));
-	calcs->tex_x = (int)(wallX * (double)(TEXTWIDTH));
-	if(calcs->side == 0 && calcs->ray_dir_x > 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
-	if(calcs->side == 1 && calcs->ray_dir_y < 0) calcs->tex_x = TEXTWIDTH - calcs->tex_x - 1;
-	calcs->step = 1.0 * TEXTHEIGHT / lineHeight;
-	calcs->tex_pos = (calcs->draw_start - SCREENHEIGHT / 2 + lineHeight / 2) * calcs->step;
-}
-
-void speed_calculation(t_rays *rays)
-{
-	rays->old_time = rays->time;
-	rays->time = time(NULL);
-	rays->frame_time = (rays->time - rays->old_time) / 1000.0;
-	rays->move_speed = rays->frame_time * 5.0;
-	rays->rot_speed = rays->frame_time * 3.0;
-}
-
-void floor_casting(t_rays *rays)
+void	floor_casting(t_rays *rays)
 {
 	for(int y = 0; y < SCREENHEIGHT; y++)
     {
@@ -108,21 +38,12 @@ void floor_casting(t_rays *rays)
 		float floorY = rays->pos_y + rowDistance * rayDirY0;
 		for(int x = 0; x < SCREENWIDTH; ++x)
       {
-        //int cellX = (int)(floorX);
-        //int cellY = (int)(floorY);
-        //int tx = (int)(TEXTWIDTH * (floorX - cellX)) & (TEXTWIDTH - 1);
-        //int ty = (int)(TEXTHEIGHT * (floorY - cellY)) & (TEXTHEIGHT - 1);
-
         floorX += floorStepX;
         floorY += floorStepY;
-        //int floorTexture = 3;
-        //int ceilingTexture = 6;
         u_int32_t color;
-        //color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
 		color = 0x0500FF00;
         color = (color >> 1) & 8355711;
         rays->buffer[y][x] = color;
-        //color = rays->texture[ceilingTexture][TEXTWIDTH * ty + tx];
 		color = 0x00e11e00;
         color = (color >> 1) & 8355711;
         rays->buffer[SCREENHEIGHT - y - 1][x] = color;
