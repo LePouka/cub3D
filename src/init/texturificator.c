@@ -6,13 +6,13 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 19:32:02 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:24:51 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	dataaddr(t_world *world)
+void	ft_get_data_addr(t_world *world)
 {
 	int	i;
 
@@ -27,8 +27,8 @@ void	dataaddr(t_world *world)
 
 bool	texturificator(t_world *world, t_map *map)
 {
-	int			th;
-	int			tw;
+	int	th;
+	int	tw;
 
 	if (!world || !map->map)
 		return (false);
@@ -48,6 +48,6 @@ bool	texturificator(t_world *world, t_map *map)
 		&th);
 	world.pics[3] = mlx_xpm_file_to_image(world->mlx, map->map[3] + 5, &tw, \
 		&th);
-	dataaddr(world);
+	ft_get_data_addr(world);
 	return (true);
 }
