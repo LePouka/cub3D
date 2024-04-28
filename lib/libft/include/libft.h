@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:07:42 by rtissera          #+#    #+#             */
-/*   Updated: 2024/01/19 17:19:43 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:39:09 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
+size_t	ft_intlen(int nb);
 
 /* ************************************************************************** */
 /*   BONUS                                                                    */

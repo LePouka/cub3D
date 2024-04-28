@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/19 20:02:02 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 18:43:35 by rtissera         ###   ########.fr       */
+/*   Created: 2024/04/28 18:31:20 by rtissera          #+#    #+#             */
+/*   Updated: 2024/04/28 18:38:54 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+size_t	ft_intlen(int nb)
 {
-	t_world	*world;
+	int i;
 
-	if (argc == 2)
+	i = 0;
+	if (nb < 0)
 	{
-		world = worldinit(argv[1]);
-		parsingator(world);
-		worldend(world);
+		i++;
+		nb *= -1;
 	}
-	else
+	while (nb != 0)
 	{
-		return (ft_error("Bad arguments number"));
+		i++;
+		nb /= 10;
 	}
-	return (0);
+	return (i);
 }

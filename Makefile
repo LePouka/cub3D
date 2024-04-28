@@ -34,6 +34,7 @@ SRC_DIR		:= src
 SRCS		:=	\
 	main.c	\
 	parsing/parsing.c	\
+	parsing/mlx_pars.c	\
 	utils/ft_error.c	\
 	init/readificator.c	\
 	init/worldinit.c	\

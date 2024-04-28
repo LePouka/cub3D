@@ -52,6 +52,7 @@ SRCS		:=	\
 	mandatory/ft_putstr_fd.c	\
 	mandatory/ft_putendl_fd.c	\
 	mandatory/ft_putchar_fd.c	\
+	mandatory/ft_intlen.c	\
 	bonus/ft_lstmap.c	\
 	bonus/ft_lstnew.c	\
 	bonus/ft_lstlast.c	\

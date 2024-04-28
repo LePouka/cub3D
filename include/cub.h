@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/22 16:19:30 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/28 19:31:27 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,10 @@
 /* ************************************************************************** */
 /*   STRUCTURES                                                               */
 /* ************************************************************************** */
-typedef struct s_texture {
-	void	*north;
-	void	*south;
-	void	*west;
-	void	*east;
+typedef struct s_color {
 	char	*floor;
 	char	*ceiling;
-}	t_texture;
+}	t_color;
 
 typedef struct s_data {
 	void	*img;
@@ -54,6 +50,27 @@ typedef struct s_data {
 	int		line_length;
 	int		endian;
 }	t_data;
+
+typedef struct s_rays
+{
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+	double		time;
+	double		old_time;
+	double		move_speed;
+	double		rot_speed;
+	double		frame_time;
+	int			**world_map;
+	int			**texture;
+	u_int32_t	**buffer;
+	t_data		*pics;
+	t_vars		*vars;
+
+}			t_rays;
 
 typedef struct s_map {
 	char			**map;
@@ -67,9 +84,11 @@ typedef struct s_mlx {
 }	t_mlx;
 
 typedef struct s_world {
+	int			**texture;
 	t_mlx		*mlx;
 	t_map		*map;
 	t_texture	*texture;
+	t_data		*pics;
 }	t_world;
 
 /* ************************************************************************** */
@@ -83,7 +102,7 @@ bool		mlx_pars(t_texture *texture);
 t_world		*worldinit(char *file_name);
 t_map		*readificator(char *file_name);
 t_mlx		*mlxator(void);
-t_texture	*texturificator(t_world *world, t_map *map);
+t_texture	texturificator(t_world *world, t_map *map);
 
 /* Utils */
 void		worldend(t_world *world);

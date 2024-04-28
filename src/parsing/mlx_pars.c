@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_pars.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rtissera <marvin@42->fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:54:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/22 15:21:28 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:49:30 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,25 @@
 bool	color_pars(char *color)
 {
 	int	nb;
+	int	coma;
 
-	nb = ft_atoi(color);
-	if (nb < 0 || nb > 255)
+	coma = 0;
+	nb = ft_atoi(color) + coma;
+	while (nb < 0 || nb > 255)
 	{
-		return (false);
+		color = ft_strchr();
 	}
 	return (true);
 }
 
 bool	mlx_pars(t_texture *texture)
 {
-	if (!texture.north || !texture.south || !texture.west || !texture.east)
+	if (!texture->north || !texture->south || !texture->west || !texture->east)
 	{
 		ft_error("Cannot Create Images");
 		return (false);
 	}
-	if (!color_pars(texture.floor) || !color_pars(texture.ceiling)
+	if (!color_pars(texture->floor) || !color_pars(texture->ceiling))
 	{
 		ft_error("Invalid Colors");
 		return (false);
