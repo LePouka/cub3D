@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 20:02:02 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 18:43:35 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 09:04:36 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		world = worldinit(argv[1]);
-		parsingator(world);
+		if (!parsingator(world))
+			return (-1);
 		worldend(world);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 04:27:36 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 06:54:33 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_get_data_addr(t_world *world)
 	int	i;
 
 	i = 0;
-	while (i < 7)
+	while (i < 4)
 	{
 		world.texture[i] = (int *)mlx_get_data_addr(rays->pics[i].img, \
 			&(rays->pics[i]).bpp, &(rays->pics[i]).l, &(rays->pics[i]).endian);
@@ -37,7 +37,7 @@ bool	texturificator(t_world *world, t_map *map)
 	{
 		return (ft_error("map: Invalid Texture Format"), false);
 	}
-	world.pics = (t_data *)malloc(sizeof(t_data) * 8);
+	world.pics = (t_data *)malloc(sizeof(t_data) * 4);
 	if (!texture)
 		return (ft_error(strerror(errno)), false);
 	world.pics[0] = mlx_xpm_file_to_image(world->mlx, map->map[0] + 5, &tw, \
