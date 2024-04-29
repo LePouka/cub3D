@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 04:11:17 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:04:20 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 typedef struct s_color {
 	char	*floor;
 	char	*ceiling;
+	u_int32_t	floor;
+	u_int32_t	ceiling;
 }	t_color;
 
 typedef struct s_data {
