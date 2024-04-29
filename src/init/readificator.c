@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/22 15:29:38 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 04:02:04 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ t_map	*readificator(char *file_name)
 	close(fd);
 	free(line);
 	map = (t_map *)malloc(sizeof(t_map *));
-	map->map = ft_split(c_map, '\n');
+	map->map = char_to_int(ft_split(c_map, '\n'), -1, 0);
 	return (free(c_map), map);
 }

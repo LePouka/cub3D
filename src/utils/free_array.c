@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   worldinit.c                                        :+:      :+:    :+:   */
+/*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 14:06:35 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 04:13:38 by rtissera         ###   ########.fr       */
+/*   Created: 2024/04/29 04:03:24 by rtissera          #+#    #+#             */
+/*   Updated: 2024/04/29 04:04:30 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_world	*worldinit(char *file_name)
+void	free_array(char **arr)
 {
-	t_world	*world;
+	int	i;
 
-	world = (t_world *)malloc(sizeof(t_world));
-	if (!world)
+	i = 0;
+	while (arr[i])
 	{
-		ft_error(strerror(errno));
-		return (NULL);
+		free(arr[i]);
+		i++;
 	}
-	world->map = readificator(file_name);
-	world->mlx = mlxator();
-	texturificator(world, world->map);
-	if (!world->map || !world->mlx || !world.pics)
-	{
-		worldend(world);
-		return (NULL);
-	}
-	return (world);
+	free(arr);
 }

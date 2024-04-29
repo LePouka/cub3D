@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 23:27:02 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 04:11:17 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_map {
-	char			**map;
+	int				**map;
 	unsigned int	player_x;
 	unsigned int	player_y;
 }	t_map;
@@ -66,7 +66,6 @@ typedef struct s_world {
 	int			**texture;
 	t_mlx		*mlx;
 	t_map		*map;
-	t_texture	*texture;
 	t_data		*pics;
 }	t_world;
 
@@ -86,5 +85,7 @@ t_texture	texturificator(t_world *world, t_map *map);
 /* Utils */
 void		worldend(t_world *world);
 int			ft_error(char *s);
+int			**char_to_int(char **arr, int lignes, int collones);
+void		free_array(char **arr);
 
 #endif

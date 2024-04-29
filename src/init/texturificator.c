@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 22:24:51 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/04/29 04:27:36 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_get_data_addr(t_world *world)
 	while (i < 7)
 	{
 		world.texture[i] = (int *)mlx_get_data_addr(rays->pics[i].img, \
-		&(rays->pics[i]).bpp, &(rays->pics[i]).l, &(rays->pics[i]).endian);
+			&(rays->pics[i]).bpp, &(rays->pics[i]).l, &(rays->pics[i]).endian);
 		i++;
 	}
 }
