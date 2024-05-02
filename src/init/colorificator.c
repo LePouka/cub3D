@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 15:29:07 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:54:36 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_colord	*colorificator(t_map *map)
 {
+	char		**c_color;
 	t_color		*color;
 	u_int32_t	hex;
 
@@ -21,7 +22,8 @@ t_colord	*colorificator(t_map *map)
 	{
 		return (ft_error("map: Invalid Color Format"), NULL);
 	}
-	color = (t_color *)malloc(sizeof(t_color *));
+	c_color = ft_split(map[5] + 2, ',');
+	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		return (ft_error(strerror(errno)), NULL);
 	color = 0x00 << 4;

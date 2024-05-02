@@ -35,12 +35,16 @@ SRCS		:=	\
 	main.c	\
 	parsing/parsing.c	\
 	parsing/mlx_pars.c	\
-	utils/ft_error.c	\
-	init/readificator.c	\
 	init/worldinit.c	\
+	init/readificator.c	\
 	init/mlxator.c	\
 	init/texturificator.c	\
-	utils/worldend.c
+	init/colorificator.c	\
+	utils/ft_error.c	\
+	utils/worldend.c	\
+	utils/char_to_int.c	\
+	utils/free_array.c	\
+	utils/openificator.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build

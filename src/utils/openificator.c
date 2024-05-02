@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   worldinit.c                                        :+:      :+:    :+:   */
+/*   openificator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 14:06:35 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 15:49:36 by rtissera         ###   ########.fr       */
+/*   Created: 2024/05/02 13:38:22 by rtissera          #+#    #+#             */
+/*   Updated: 2024/05/02 13:38:39 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_world	*worldinit(char *file_name)
+int	openificator(char *file_name)
 {
-	t_world	*world;
+	int		fd;
 
-	world = (t_world *)malloc(sizeof(t_world *));
-	if (!world)
+	if (file_name == NULL || file_name[0] == 0)
 	{
-		ft_error(strerror(errno));
-		return (NULL);
+		return (ft_error("Invalid file input"));
 	}
-	world->map = readificator(file_name);
-	world->mlx = mlxator();
-	world->pics = texturificator(world, world->map);
-	world->color = colorificator(world->map);
-	if (!world->map || !world->mlx || !world.pics)
+	if (ft_strncmp(file_name + ft_strlen(file_name) - 4, ".cub", 4))
 	{
-		worldend(world);
-		return (NULL);
+		return (ft_error("Invalid file extension"));
 	}
-	return (world);
+	fd = open(file_name, O_RDONLY, 0777);
+	if (fd == -1)
+	{
+		return (ft_error(strerror(errno)));
+	}
+	return (fd);
 }

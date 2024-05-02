@@ -6,31 +6,11 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 04:02:04 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/02 15:25:42 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-int	openificator(char *file_name)
-{
-	int		fd;
-
-	if (file_name == NULL || file_name[0] == 0)
-	{
-		return (ft_error("Invalid file input"));
-	}
-	if (ft_strncmp(file_name + ft_strlen(file_name) - 4, ".cub", 4))
-	{
-		return (ft_error("Invalid file extension"));
-	}
-	fd = open(file_name, O_RDONLY, 0777);
-	if (fd == -1)
-	{
-		return (ft_error(strerror(errno)));
-	}
-	return (fd);
-}
 
 int	close_error(int fd, char *s)
 {
@@ -53,12 +33,28 @@ char	*free_strjoin(char *s1, char *s2)
 	return (s3);
 }
 
+t_map	*mapificator(char **c_map)
+{
+	t_map	*map;
+
+	map = (t_map *)malloc(sizeof(t_map *));
+	if (!map)
+	{
+		free(map);
+		ft_error(strerror(errno));
+		return (NULL);
+	}
+	map->map = ft_split(c_map, '\n');
+	free(c_map);
+	map->i_map = char_to_int(map->map, -1, 0);
+	return (map);
+}
+
 t_map	*readificator(char *file_name)
 {
 	int		fd;
 	char	*line;
 	char	*c_map;
-	t_map	*map;
 
 	fd = openificator(file_name);
 	if (fd == -1)
@@ -77,7 +73,5 @@ t_map	*readificator(char *file_name)
 	}
 	close(fd);
 	free(line);
-	map = (t_map *)malloc(sizeof(t_map *));
-	map->map = char_to_int(ft_split(c_map, '\n'), -1, 0);
-	return (free(c_map), map);
+	return (mapificator(c_map));
 }
