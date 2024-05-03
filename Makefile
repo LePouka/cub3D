@@ -28,11 +28,16 @@ LIBS_TARGET	:= \
 	lib/minilibx-linux/libmlx.a
 
 INCS        := $(INCS) include $(dir $(LIBS_TARGET))
+INCS        := $(INCS) include $(dir $(LIBS_TARGET))
 INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
 SRC_DIR		:= src
 SRCS		:=	\
-	main.c	\
+	main.c \
+	events.c \
+	init.c \
+	init_utils.c \
+	calculations.c	\
 	parsing/parsing.c	\
 	parsing/mlx_pars.c	\
 	init/worldinit.c	\
