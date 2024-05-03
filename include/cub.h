@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 16:11:24 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:47:55 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@
 /*   STRUCTURES                                                               */
 /* ************************************************************************** */
 typedef struct s_color {
-	char		*floor;
-	char		*ceiling;
 	u_int32_t	floor;
 	u_int32_t	ceiling;
 }	t_color;
@@ -56,6 +54,7 @@ typedef struct s_data {
 typedef struct s_map {
 	char			**map;
 	int				**i_map;
+	int				len;
 	unsigned int	player_x;
 	unsigned int	player_y;
 }	t_map;
@@ -88,8 +87,12 @@ t_texture	texturificator(t_world *world, t_map *map);
 /* Utils */
 void		worldend(t_world *world);
 int			ft_error(char *s);
-int			**char_to_int(char **arr, int lignes, int collones);
+int			**arrtoi(char **arr, int lignes, int collones);
 void		free_array(char **arr);
 int			openificator(char *file_name);
+void		free_int_array(int **arr);
+int			close_error(int fd, char *s);
+void		close_free_error(int fd, char *s1, char *s2);
+char		*free_strjoin(char *s1, char *s2);
 
 #endif

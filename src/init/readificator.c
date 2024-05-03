@@ -6,47 +6,72 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 15:25:42 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:09:55 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	close_error(int fd, char *s)
+char	*sizeificator(char *s1, int len)
 {
-	close(fd);
-	return (ft_error(s));
+	char	*s2;
+
+	s2 = (char *)malloc(sizeof(char) * len + 1);
+	i = 0;
+	while (i < len)
+	{
+		if (s1[i])
+			s2[i] = s1[i];
+		else
+			s2[i] = '1';
+	}
+	s2[i] = '\0';
+	free(s1);
+	return (s2);
 }
 
-void	close_free_error(int fd, char *s1, char *s2)
+void	to_rectangle(t_map *map)
 {
-	free(s1);
-	close_error(fd, s2);
-}
+	int		i;
+	char	*s2;
 
-char	*free_strjoin(char *s1, char *s2)
-{
-	char	*s3;
-
-	s3 = ft_strjoin(s1, s2);
-	free(s1);
-	return (s3);
+	i = 0;
+	while (map.map[i])
+	{
+		j = 0;
+		while (map.map[i][j] == ' ')
+		{
+			map.map[i][j] = '1';
+			j++;
+		}
+		if (ft_strlen(map.map[i][j]) != map->len)
+		{
+			map.map[i][j] = sizeificator(map.map[i][j], map->len);
+		}
+		i++;
+	}
 }
 
 t_map	*mapificator(char **c_map)
 {
+	int		i;
+	int		j;
 	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map *));
 	if (!map)
-	{
-		free(map);
-		ft_error(strerror(errno));
-		return (NULL);
-	}
+		return (free_error(c_map), ft_error(strerror(errno)));
 	map->map = ft_split(c_map, '\n');
 	free(c_map);
-	map->i_map = char_to_int(map->map, -1, 0);
+	map->len = ft_strlen(map.map[i]);
+	i = -1;
+	while (map.map[++i])
+	{
+		if (ft_strlen(map.map[i]) > map->len)
+			map->len = ft_strlen(map.map[i]);
+	}
+	to_rectangle(map);
+	map->i_map = arrtoi(map->map + 8, -1, 0);
 	return (map);
 }
 

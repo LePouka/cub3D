@@ -6,17 +6,30 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 14:54:36 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 15:19:55 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+bool	put_color(u_int32_t *color, int **rgb)
+{
+	if (!rgb)
+	{
+		return (false);
+	}
+	*color = 0;
+	*color |= rgb[0] & 0xFF;
+	*color |= (rgb[1] & 0xFF) << 16;
+	*color |= (rgb[2] & 0xFF) << 8;
+	*color |= (0 & 0xFF) << 24;
+	free_int_array(rgb);
+	return (true);
+}
+
 t_colord	*colorificator(t_map *map)
 {
-	char		**c_color;
 	t_color		*color;
-	u_int32_t	hex;
 
 	if (strncmp("F ", map->map[5], 2) || strncmp("C ", map->map[6], 2))
 	{
@@ -26,8 +39,10 @@ t_colord	*colorificator(t_map *map)
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		return (ft_error(strerror(errno)), NULL);
-	color = 0x00 << 4;
-	color |= 0xFF << 2;
-	color |= 0x00;
+	 if (!put_color(color->floor, ft_split(map->map[5] + 2), -1, 0) || \
+		!put_color(color->ceiling, ft_split(map->map[6] + 2), -1, 0))
+	{
+		return (NULL);
+	}
 	return (color);
 }

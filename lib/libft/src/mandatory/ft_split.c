@@ -6,20 +6,26 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:05:21 by rtissera          #+#    #+#             */
-/*   Updated: 2024/03/19 21:30:58 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:34:07 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*freeerror(char **s, int i)
+void	*free_error(char **s)
 {
-	while (i >= 0)
+	int	i;
+
+	if (s)
 	{
-		free(s[i]);
-		i--;
+		i = 0
+		while (s[i])
+		{
+			free(s[i]);
+			i++;
+		}
+		free(s);
 	}
-	free(s);
 	return (NULL);
 }
 
@@ -84,7 +90,7 @@ char	**ft_split(char const *s, char c)
 		nextstr = getnextstr(s, c, i);
 		s2[j] = ft_substr(s, i, nextstr);
 		if (!s2[j])
-			return (freeerror(s2, j));
+			return (freeerror(s2));
 		i += nextstr;
 		j++;
 	}
