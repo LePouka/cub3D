@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/28 19:24:53 by rshay            ###   ########.fr       */
+/*   Updated: 2024/04/29 15:59:10 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_rays
 	int			**world_map;
 	int			**texture;
 	u_int32_t	**buffer;
+	u_int32_t	color;
 	t_data		*pics;
 	t_vars		*vars;
 
@@ -111,6 +112,24 @@ typedef struct s_calcs
 
 }			t_calcs;
 
+typedef	struct s_casting
+{
+	float rayDirX0;
+		float	rayDirY0;
+		float	rayDirX1;
+		float	rayDirY1;
+		int		p;
+		float	posZ;
+		float	rowDistance;
+		float	floorStepX;
+		float	floorStepY;
+		float	floorX;
+		float	floorY;
+		float	diff_x;
+		float	diff_y;
+}			t_casting;
+
+
 /******************************************************************************/
 /*   FUNCTIONS                                                                */
 /******************************************************************************/
@@ -132,5 +151,7 @@ void	free_data(t_rays *rays);
 void	calculate_dda(t_calcs *calcs, t_rays *rays);
 void	drawing_calculations(t_calcs *calcs, t_rays *rays);
 void	speed_calculation(t_rays *rays);
+void	floor_casting(t_rays *rays);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif
