@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:35 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 15:49:36 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:42:23 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ t_world	*worldinit(char *file_name)
 	}
 	world->map = readificator(file_name);
 	world->mlx = mlxator();
-	world->pics = texturificator(world, world->map);
+	world->pics = texturificator(world, world->mlx, world->map);
 	world->color = colorificator(world->map);
-	if (!world->map || !world->mlx || !world.pics)
+	if (!world->map || !world->mlx || !world->pics)
 	{
 		worldend(world);
 		return (NULL);

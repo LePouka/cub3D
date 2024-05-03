@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 17:09:55 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:49:25 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*sizeificator(char *s1, int len)
 {
 	char	*s2;
+	int	i;
 
 	s2 = (char *)malloc(sizeof(char) * len + 1);
 	i = 0;
@@ -33,42 +34,45 @@ char	*sizeificator(char *s1, int len)
 void	to_rectangle(t_map *map)
 {
 	int		i;
-	char	*s2;
+	int		j;
 
 	i = 0;
-	while (map.map[i])
+	while (map->map[i])
 	{
 		j = 0;
-		while (map.map[i][j] == ' ')
+		while (map->map[i][j] == ' ')
 		{
-			map.map[i][j] = '1';
+			map->map[i][j] = '1';
 			j++;
 		}
-		if (ft_strlen(map.map[i][j]) != map->len)
+		if (ft_strlen(map->map[i]) != map->len)
 		{
-			map.map[i][j] = sizeificator(map.map[i][j], map->len);
+			map->map[i] = sizeificator(map->map[i], map->len);
 		}
 		i++;
 	}
 }
 
-t_map	*mapificator(char **c_map)
+t_map	*mapificator(char *c_map)
 {
 	int		i;
-	int		j;
 	t_map	*map;
 
 	map = (t_map *)malloc(sizeof(t_map *));
 	if (!map)
-		return (free_error(c_map), ft_error(strerror(errno)));
+	{
+		free_error(&c_map);
+		return (ft_error(strerror(errno)), NULL);
+	}
 	map->map = ft_split(c_map, '\n');
 	free(c_map);
-	map->len = ft_strlen(map.map[i]);
-	i = -1;
-	while (map.map[++i])
+	map->len = ft_strlen(map->map[0]);
+	i = 1;
+	while (map->map[i])
 	{
-		if (ft_strlen(map.map[i]) > map->len)
-			map->len = ft_strlen(map.map[i]);
+		if (ft_strlen(map->map[i]) > map->len)
+			map->len = ft_strlen(map->map[i]);
+		i++;
 	}
 	to_rectangle(map);
 	map->i_map = arrtoi(map->map + 8, -1, 0);

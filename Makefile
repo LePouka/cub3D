@@ -47,7 +47,7 @@ SRCS		:=	\
 	init/colorificator.c	\
 	utils/ft_error.c	\
 	utils/worldend.c	\
-	utils/arrtoi.c	\
+	utils/ft_arrtouille.c	\
 	utils/free_array.c	\
 	utils/openificator.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)

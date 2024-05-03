@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 16:13:46 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:51:09 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 	i = 0;
 	while (i < 4)
 	{
-		world.texture[i] = (int *)mlx_get_data_addr(pics[i].img, \
+		world->texture[i] = (int *)mlx_get_data_addr(pics[i].img, \
 			&(pics[i]).bpp, &(pics[i]).l, &(pics[i]).endian);
-		if (!world.texture[i])
+		if (!world->texture[i])
 		{
 			while (--i)
 			{
-				mlx_destroy_image(mlx.mlx, pics[i].img);
+				mlx_destroy_image(mlx->mlx, pics[i].img);
 			}
 			ft_error("Failed Getting Data Address");
 			return (NULL);
@@ -46,7 +46,7 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 	int		tw;
 	t_data	*pics;
 
-	if (!world || !mlx || !mlx.mlx || !map || !map->map)
+	if (!world || !mlx || !mlx->mlx || !map || !map->map)
 		return (NULL);
 	if (strncmp("no ./", map->map[0], 5) || strncmp("so ./", map->map[1], 5) || \
 		strncmp("we ./", map->map[2], 5) || strncmp("ea ./", map->map[3], 5))
@@ -54,15 +54,15 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 		return (ft_error("map: invalid texture format"), NULL);
 	}
 	pics = (t_data *)malloc(sizeof(t_data) * 4);
-	if (!texture)
+	if (!pics)
 		return (ft_error(strerror(errno)), NULL);
-	pics[0].img = mlx_xpm_file_to_image(mlx.mlx, map->map[0] + 5, &tw, \
+	pics[0].img = mlx_xpm_file_to_image(mlx->mlx, map->map[0] + 5, &tw, \
 		&th);
-	pics[1].img = = mlx_xpm_file_to_image(mlx.mlx, map->map[1] + 5, &tw, \
+	pics[1].img = mlx_xpm_file_to_image(mlx->mlx, map->map[1] + 5, &tw, \
 		&th);
-	pics[2].img = = mlx_xpm_file_to_image(mlx.mlx, map->map[2] + 5, &tw, \
+	pics[2].img = mlx_xpm_file_to_image(mlx->mlx, map->map[2] + 5, &tw, \
 		&th);
-	pics[3].img = = mlx_xpm_file_to_image(mlx.mlx, map->map[3] + 5, &tw, \
+	pics[3].img = mlx_xpm_file_to_image(mlx->mlx, map->map[3] + 5, &tw, \
 		&th);
-	return (ft_get_data_addr(pics));
+	return (ft_get_data_addr(world, world->mlx, pics));
 }

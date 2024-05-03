@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/03 17:26:30 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:35:47 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,23 @@ int casting(t_rays *rays) {
 
 }
 
-int main() {
+int main(int argc, char **argv) {
 	void	*mlx;
 	t_data	img;
   	t_rays rays;
 	void *mlx_win;
 	int		**texture;
+	t_world	*world;
 
 	texture = malloc(8 * sizeof(int *));
+	if (argc == 2)
+	{
+		;
+	}
+	world = worldinit(argv[1]);
 
-	 int world_map[MAPWIDTH][MAPHEIGHT]=
-  {
+	 int **world_map = world->map->i_map;
+/*  {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -119,7 +125,7 @@ int main() {
   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-  	};
+  	};*/
 
 	u_int32_t	**buffer;
 	buffer = malloc(SCREENHEIGHT * sizeof(int *));
@@ -141,15 +147,15 @@ int main() {
 	rays.time = 0;
 	rays.old_time = 0;
 
-   int **heapmap = malloc(24 * sizeof(int *));
+/*   int **heapmap = malloc(24 * sizeof(int *));
 
 	for (int i = 0; i < 24; i++) {
 	  heapmap[i] = malloc(24 * sizeof(int));
 	  for (int j = 0; j < 24; j++) {
 		heapmap[i][j] = world_map[i][j];
 	  }
-	}
-  rays.world_map = heapmap;
+	}*/
+  rays.world_map = world_map;
 
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3d");

@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42->fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:59:38 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 06:54:52 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:14:38 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	textureend(t_mlx *mlx, t_data *pics)
 	i = 0;
 	while (i < 4)
 	{
-		mlx_destroy_image(mlx.mlx, pics[i].img);
+		mlx_destroy_image(mlx->mlx, pics[i].img);
 		i++;
 	}
 	free(pics);

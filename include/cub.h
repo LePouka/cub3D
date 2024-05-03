@@ -6,44 +6,12 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 17:24:59 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:59:03 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
-
-# define W 119
-# define S 115
-# define A 97
-# define D 100
-# define GAUCHE 65361
-# define HAUT 65362
-# define DROITE 65363
-# define BAS 65364
-# define ESCAPE 65307
-# define SCREENWIDTH 1920
-# define SCREENHEIGHT 1080
-# define TEXTWIDTH 64
-# define TEXTHEIGHT 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
-
-# define W 119
-# define S 115
-# define A 97
-# define D 100
-# define GAUCHE 65361
-# define HAUT 65362
-# define DROITE 65363
-# define BAS 65364
-# define ESCAPE 65307
-# define SCREENWIDTH 1920
-# define SCREENHEIGHT 1080
-# define TEXTWIDTH 64
-# define TEXTHEIGHT 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
 
 /* ************************************************************************** */
 /*   INCLUDES                                                                 */
@@ -64,15 +32,41 @@
 /* ************************************************************************** */
 /*   DEFINES                                                                  */
 /* ************************************************************************** */
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define GAUCHE 65361
+# define HAUT 65362
+# define DROITE 65363
+# define BAS 65364
+# define ESCAPE 65307
 # define SCREENWIDTH 1920
 # define SCREENHEIGHT 1080
+# define TEXTWIDTH 64
+# define TEXTHEIGHT 64
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+# define GAUCHE 65361
+# define HAUT 65362
+# define DROITE 65363
+# define BAS 65364
+# define ESCAPE 65307
+# define SCREENWIDTH 1920
+# define SCREENHEIGHT 1080
+# define TEXTWIDTH 64
+# define TEXTHEIGHT 64
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
 
 /* ************************************************************************** */
 /*   STRUCTURES                                                               */
 /******************************************************************************/
-
-typedef struct s_data
-{
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bpp;
@@ -80,17 +74,15 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}			t_data;
+}	t_data;
 
-typedef struct s_vars
-{
+typedef struct s_vars {
 	void	*mlx;
 	void	*win;
 	t_data	*img;
-}			t_vars;
+}	t_vars;
 
-typedef struct s_rays
-{
+typedef struct s_rays {
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -107,11 +99,9 @@ typedef struct s_rays
 	u_int32_t	**buffer;
 	t_data		*pics;
 	t_vars		*vars;
+}	t_rays;
 
-}			t_rays;
-
-typedef struct s_calcs
-{
+typedef struct s_calcs {
 	double	camera_x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -132,50 +122,37 @@ typedef struct s_calcs
 	int		tex_x;
 	double	step;
 	double	tex_pos;
+}	t_calcs;
 
-}			t_calcs;
-
-/******************************************************************************/
-/* ************************************************************************** */
 typedef struct s_color {
 	u_int32_t	floor;
 	u_int32_t	ceiling;
 }	t_color;
 
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		l;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
-
 typedef struct s_map {
 	char			**map;
 	int				**i_map;
-	int				len;
+	size_t			len;
 	unsigned int	player_x;
 	unsigned int	player_y;
 }	t_map;
 
 typedef struct s_mlx {
-	void		*mlx;
-	void		*mlx_win;
+	void	*mlx;
+	void	*mlx_win;
 }	t_mlx;
 
 typedef struct s_world {
-	int			**texture;
-	t_mlx		*mlx;
-	t_map		*map;
-	t_data		*pics;
+	int		**texture;
+	t_mlx	*mlx;
+	t_map	*map;
+	t_data	*pics;
+	t_color	*color;
 }	t_world;
 
 /* ************************************************************************** */
 /*   FUNCTIONS                                                                */
 /******************************************************************************/
-
 void	init(t_rays *rays);
 int		casting(t_rays *rays);
 int		clavier(int keycode, t_rays *rays);
@@ -193,14 +170,19 @@ void	free_data(t_rays *rays);
 void	calculate_dda(t_calcs *calcs, t_rays *rays);
 void	drawing_calculations(t_calcs *calcs, t_rays *rays);
 void	speed_calculation(t_rays *rays);
-/* ************************************************************************** */
+
 /* Parsing */
 bool		parsingator(t_world *world);
+bool		map_pars(t_map *map);
+bool		mlx_pars(t_world *world);
+bool		color_pars(t_color *color);
 
 /* Init */
 t_world		*worldinit(char *file_name);
 t_map		*readificator(char *file_name);
 t_mlx		*mlxator(void);
+t_data		*texturificator(t_world *world, t_mlx *mlx, t_map *map);
+t_color		*colorificator(t_map *map);
 
 /* Utils */
 void		worldend(t_world *world);
@@ -212,5 +194,6 @@ void		free_int_array(int **arr);
 int			close_error(int fd, char *s);
 void		close_free_error(int fd, char *s1, char *s2);
 char		*free_strjoin(char *s1, char *s2);
+int			**ft_arrtouille(char **arr, int lignes, int collones);
 
 #endif

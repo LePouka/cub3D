@@ -6,13 +6,13 @@
 /*   By: rtissera <marvin@42->fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:54:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/02 15:16:32 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 17:38:51 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-bool	is_valid(char *color)
+bool	is_valid(u_int32_t color)
 {
 	if (!color)
 		return (false);

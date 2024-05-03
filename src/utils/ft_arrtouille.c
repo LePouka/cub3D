@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrtoi.c                                           :+:      :+:    :+:   */
+/*   ft_arrtouille.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:31:24 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 15:59:09 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:17:06 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_atouille(const char *nptr)
 	int	res;
 
 	res = 0;
-	sig = 1;
 	if (*nptr == 45)
 	{
 		return (-1);
@@ -45,18 +44,18 @@ int	**ft_arrtouille(char **arr, int lignes, int collones)
 
 	while (arr[++lignes])
 	{
-		if (ft_strlen(arr[lignes]) > collones)
+		if (ft_strlen(arr[lignes]) > (size_t)collones)
 			collones = ft_strlen(arr[lignes]);
 	}
 	ret = (int **)malloc(sizeof(int *) * lignes);
 	if (!ret)
-		return (ft_error(strerror(errno)));
+		return (ft_error(strerror(errno)), NULL);
 	i = -1;
 	while (++i < lignes)
 	{
 		ret[i] = (int *)malloc(sizeof(int) * collones);
 		if (!ret[i])
-			return (ft_error(strerror(errno)));
+			return (ft_error(strerror(errno)), NULL);
 		j = -1;
 		while (++j < collones)
 			ret[i][j] = arr[i][j] - '0';
