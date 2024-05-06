@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:53:42 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:01:58 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_map	*mapificator(t_world *world, char *c_map)
 		ft_error(world, strerror(errno));
 	}
 	map->map = ft_split(c_map, '\n');
+	if (!map->map || !map->map[8])
+		ft_error(world, "Invalid Map Format");
 	free(c_map);
 	map->len = ft_strlen(map->map[8]);
 	i = 1;
