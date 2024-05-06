@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42->fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:59:38 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:16:13 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:22:37 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ void	mlxend(t_mlx *mlx)
 	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
+}
+
+void	colorend(t_color *color)
+{
+	if (color)
+	{
+		free(color);
+	}
 }
 
 void	worldend(t_world *world)
