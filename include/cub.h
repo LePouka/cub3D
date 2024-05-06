@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/04/29 15:59:10 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/03 15:22:06 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,23 +112,22 @@ typedef struct s_calcs
 
 }			t_calcs;
 
-typedef	struct s_casting
+typedef struct s_casting
 {
-	float rayDirX0;
-		float	rayDirY0;
-		float	rayDirX1;
-		float	rayDirY1;
-		int		p;
-		float	posZ;
-		float	rowDistance;
-		float	floorStepX;
-		float	floorStepY;
-		float	floorX;
-		float	floorY;
-		float	diff_x;
-		float	diff_y;
+	float	ray_dir_x0;
+	float	ray_dir_y0;
+	float	ray_dir_x1;
+	float	ray_dir_y1;
+	int		p;
+	float	pos_z;
+	float	row_distance;
+	float	floor_step_x;
+	float	floor_step_y;
+	float	floor_x;
+	float	floor_y;
+	float	diff_x;
+	float	diff_y;
 }			t_casting;
-
 
 /******************************************************************************/
 /*   FUNCTIONS                                                                */

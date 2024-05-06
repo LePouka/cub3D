@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:38:39 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/29 16:10:41 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/03 15:21:30 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	casting_loop(t_rays *rays, t_casting cast, int y)
 	x = 0;
 	while (++x < SCREENWIDTH)
 	{
-		cast.floorX += cast.floorStepX;
-		cast.floorY += cast.floorStepY;
+		cast.floor_x += cast.floor_step_x;
+		cast.floor_y += cast.floor_step_y;
 		rays->color = 0x0500FF00;
 		rays->color = (rays->color >> 1) & 8355711;
 		rays->buffer[y][x] = rays->color;
@@ -38,19 +38,19 @@ void	floor_casting(t_rays *rays)
 	y = 0;
 	while (y < SCREENHEIGHT)
 	{
-		cast.rayDirX0 = rays->dir_x - rays->plane_x;
-		cast.rayDirY0 = rays->dir_y - rays->plane_y;
-		cast.rayDirX1 = rays->dir_x + rays->plane_x;
-		cast.rayDirY1 = rays->dir_y + rays->plane_y;
+		cast.ray_dir_x0 = rays->dir_x - rays->plane_x;
+		cast.ray_dir_y0 = rays->dir_y - rays->plane_y;
+		cast.ray_dir_x1 = rays->dir_x + rays->plane_x;
+		cast.ray_dir_y1 = rays->dir_y + rays->plane_y;
 		cast.p = y - SCREENHEIGHT / 2;
-		cast.posZ = 0.5 * SCREENHEIGHT;
-		cast.rowDistance = cast.posZ / cast.p;
-		cast.diff_x = (cast.rayDirX1 - cast.rayDirX0);
-		cast.diff_y = (cast.rayDirY1 - cast.rayDirY0);
-		cast.floorStepX = cast.rowDistance * cast.diff_x / SCREENWIDTH;
-		cast.floorStepY = cast.rowDistance * cast.diff_y / SCREENWIDTH;
-		cast.floorX = rays->pos_x + cast.rowDistance * cast.rayDirX0;
-		cast.floorY = rays->pos_y + cast.rowDistance * cast.rayDirY0;
+		cast.pos_z = 0.5 * SCREENHEIGHT;
+		cast.row_distance = cast.pos_z / cast.p;
+		cast.diff_x = (cast.ray_dir_x1 - cast.ray_dir_x0);
+		cast.diff_y = (cast.ray_dir_y1 - cast.ray_dir_y0);
+		cast.floor_step_x = cast.row_distance * cast.diff_x / SCREENWIDTH;
+		cast.floor_step_y = cast.row_distance * cast.diff_y / SCREENWIDTH;
+		cast.floor_x = rays->pos_x + cast.row_distance * cast.ray_dir_x0;
+		cast.floor_y = rays->pos_y + cast.row_distance * cast.ray_dir_y0;
 		casting_loop(rays, cast, y);
 		y++;
 	}
