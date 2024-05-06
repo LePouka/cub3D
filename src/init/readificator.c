@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:35:24 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:53:42 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ t_map	*readificator(t_world *world, char *file_name)
 	line = get_next_line(fd);
 	if (!line)
 		close_error(world, fd, strerror(errno));
+	c_map = NULL;
 	while (line)
 	{
 		if (c_map)
