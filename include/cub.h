@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 15:22:06 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/06 14:53:15 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_calcs
 	int		step_x;
 	int		step_y;
 	int		side;
+	int		orientation;
 	int		draw_start;
 	int		draw_end;
 	int		tex_num;

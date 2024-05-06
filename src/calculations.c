@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:23:03 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/03 15:59:05 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/06 15:03:56 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,20 @@ void	calculate_dda(t_calcs *calcs, t_rays *rays)
 			calcs->side_dist_x += calcs->delta_dist_x;
 			calcs->map_x += calcs->step_x;
 			calcs->side = 0;
+			if (calcs->step_x >= 0)
+				calcs->orientation = 2;
+			else
+				calcs->orientation = 3;
 		}
 		else
 		{
 			calcs->side_dist_y += calcs->delta_dist_y;
 			calcs->map_y += calcs->step_y;
 			calcs->side = 1;
+			if (calcs->step_y >= 0)
+				calcs->orientation = 1;
+			else
+				calcs->orientation = 0;
 		}
 		if (rays->world_map[calcs->map_x][calcs->map_y] > 0)
 		calcs->hit = 1;
