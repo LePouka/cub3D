@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 17:58:32 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 16:29:32 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:49:56 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_error(char *s)
 	{
 		ft_dprintf(2, "Error\nExplicit error message of your choice\n");
 	}
-	return (-1);
+	exit(EXIT_FAILURE);
 }
 
 int	close_error(int fd, char *s)

@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:14:10 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:56:51 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*sizeificator(char *s1, int len)
 {
 	char	*s2;
-	int	i;
+	int		i;
 
 	s2 = (char *)malloc(sizeof(char) * len + 1);
 	i = 0;
@@ -25,6 +25,7 @@ char	*sizeificator(char *s1, int len)
 			s2[i] = s1[i];
 		else
 			s2[i] = '1';
+		i++;
 	}
 	s2[i] = '\0';
 	free(s1);
@@ -33,14 +34,14 @@ char	*sizeificator(char *s1, int len)
 
 void	to_rectangle(t_map *map)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
-	i = 0;
+	i = 8;
 	while (map->map[i])
 	{
 		j = 0;
-		while (map->map[i][j] == ' ')
+		while (map->map[i][j] && map->map[i][j] == ' ')
 		{
 			map->map[i][j] = '1';
 			j++;
@@ -61,16 +62,16 @@ t_map	*mapificator(char *c_map)
 	map = (t_map *)malloc(sizeof(t_map *));
 	if (!map)
 	{
-		free_error(&c_map);
+		free(c_map);
 		return (ft_error(strerror(errno)), NULL);
 	}
 	map->map = ft_split(c_map, '\n');
 	free(c_map);
-	map->len = ft_strlen(map->map[0]);
+	map->len = ft_strlen(map->map[8]);
 	i = 1;
 	while (map->map[i])
 	{
-		if (ft_strlen(map->map[i]) > map->len)
+		if (i > 8 && ft_strlen(map->map[i]) > map->len)
 			map->len = ft_strlen(map->map[i]);
 		i++;
 	}
