@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:14:20 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:33:37 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ bool	put_color(u_int32_t *color, int **rgb)
 	return (true);
 }
 
-t_color	*colorificator(t_map *map)
+t_color	*colorificator(t_world *world, t_map *map)
 {
-	t_color		*color;
+	t_color	*color;
 
 	if (!map || !map->map)
 		return (NULL);
 	if (strncmp("F ", map->map[5], 2) || strncmp("C ", map->map[6], 2))
 	{
-		return (ft_error("map: Invalid Color Format"), NULL);
+		ft_error(world, "map: Invalid Color Format");
 	}
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
-		return (ft_error(strerror(errno)), NULL);
-	if (!put_color(&color->floor, ft_arrtouille(ft_split(map->map[5] + 2, ','), \
-		-1, 0)) || !put_color(&color->ceiling, ft_arrtouille(ft_split(map->map[6] \
+		ft_error(world, strerror(errno));
+	if (!put_color(&color->floor, ft_arrtouille(world, ft_split(map->map[5] + 2, ','), \
+		-1, 0)) || !put_color(&color->ceiling, ft_arrtouille(world, ft_split(map->map[6] \
 		+ 2, ','), -1, 0)))
 	{
-		return (NULL);
+		ft_error(world, "Cannot Init Colors");
 	}
 	return (color);
 }

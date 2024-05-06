@@ -6,18 +6,20 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:56:51 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:35:24 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-char	*sizeificator(char *s1, int len)
+char	*sizeificator(t_world *world, char *s1, int len)
 {
 	char	*s2;
 	int		i;
 
 	s2 = (char *)malloc(sizeof(char) * len + 1);
+	if (!s2)
+		ft_error(world, strerror(errno));
 	i = 0;
 	while (i < len)
 	{
@@ -32,7 +34,7 @@ char	*sizeificator(char *s1, int len)
 	return (s2);
 }
 
-void	to_rectangle(t_map *map)
+void	to_rectangle(t_world *world, t_map *map)
 {
 	int	i;
 	int	j;
@@ -48,13 +50,13 @@ void	to_rectangle(t_map *map)
 		}
 		if (ft_strlen(map->map[i]) != map->len)
 		{
-			map->map[i] = sizeificator(map->map[i], map->len);
+			map->map[i] = sizeificator(world, map->map[i], map->len);
 		}
 		i++;
 	}
 }
 
-t_map	*mapificator(char *c_map)
+t_map	*mapificator(t_world *world, char *c_map)
 {
 	int		i;
 	t_map	*map;
@@ -63,7 +65,7 @@ t_map	*mapificator(char *c_map)
 	if (!map)
 	{
 		free(c_map);
-		return (ft_error(strerror(errno)), NULL);
+		ft_error(world, strerror(errno));
 	}
 	map->map = ft_split(c_map, '\n');
 	free(c_map);
@@ -75,23 +77,23 @@ t_map	*mapificator(char *c_map)
 			map->len = ft_strlen(map->map[i]);
 		i++;
 	}
-	to_rectangle(map);
-	map->i_map = ft_arrtouille(map->map + 8, -1, 0);
+	to_rectangle(world, map);
+	map->i_map = ft_arrtouille(world, map->map + 8, -1, 0);
 	return (map);
 }
 
-t_map	*readificator(char *file_name)
+t_map	*readificator(t_world *world, char *file_name)
 {
 	int		fd;
 	char	*line;
 	char	*c_map;
 
-	fd = openificator(file_name);
+	fd = openificator(world, file_name);
 	if (fd == -1)
-		return (NULL);
+		ft_error(world, strerror(errno));
 	line = get_next_line(fd);
 	if (!line)
-		return (close_error(fd, strerror(errno)), NULL);
+		close_error(world, fd, strerror(errno));
 	while (line)
 	{
 		if (c_map)
@@ -103,5 +105,5 @@ t_map	*readificator(char *file_name)
 	}
 	close(fd);
 	free(line);
-	return (mapificator(c_map));
+	return (mapificator(world, c_map));
 }

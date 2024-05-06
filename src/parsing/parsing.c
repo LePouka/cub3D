@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:20:59 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 14:53:59 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:25:31 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@
 // verifier map content
 // verifier murs fermes
 // checks spaces
-bool	parsingator(t_world *world)
+void	parsingator(t_world *world)
 {
-	if (!mlx_pars(world) || color_pars(world->color) || map_pars(world->map))
-	{
-		return (false);
-	}
-	return (true);
+	color_pars(world, world->color);
+	map_pars(world, world->map);
 }

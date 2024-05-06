@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:35 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:03:37 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:08:51 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ t_world	*worldinit(char *file_name)
 	world = (t_world *)malloc(sizeof(t_world *));
 	if (!world)
 	{
-		ft_error(strerror(errno));
-		return (NULL);
+		ft_error(NULL, strerror(errno));
 	}
-	world->map = readificator(file_name);
-	world->mlx = mlxator();
+	world->map = readificator(world, file_name);
+	world->mlx = mlxator(world);
 	world->pics = texturificator(world, world->mlx, world->map);
-	world->color = colorificator(world->map);
+	world->color = colorificator(world, world->map);
 	if (!world->map || !world->mlx || !world->pics || !world->color)
 	{
-		worldend(world);
-		return (NULL);
+		ft_error(world, "Initialisation Error");
 	}
 	return (world);
 }

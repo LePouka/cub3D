@@ -6,15 +6,16 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:45:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:00:20 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:23:21 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-bool	map_pars(t_map *map)
+void	map_pars(t_world *world, t_map *map)
 {
 	if (!map)
-		return (false);
-	return (true);
+	{
+		ft_error(world, "no map");
+	}
 }
