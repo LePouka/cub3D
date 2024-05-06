@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 14:45:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 15:02:29 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:00:20 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ bool	map_pars(t_map *map)
 {
 	if (!map)
 		return (false);
+	return (true);
 }

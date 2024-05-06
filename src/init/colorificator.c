@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 18:14:16 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:14:20 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_color	*colorificator(t_map *map)
 {
 	t_color		*color;
 
+	if (!map || !map->map)
+		return (NULL);
 	if (strncmp("F ", map->map[5], 2) || strncmp("C ", map->map[6], 2))
 	{
 		return (ft_error("map: Invalid Color Format"), NULL);

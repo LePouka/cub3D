@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlxator.c                                          :+:      :+:    :+:   */
+/*   color_pars.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/21 15:51:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 15:14:51 by rtissera         ###   ########.fr       */
+/*   Created: 2024/05/06 14:57:12 by rtissera          #+#    #+#             */
+/*   Updated: 2024/05/06 14:58:21 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_mlx	*mlxator(void)
+bool	color_pars(t_color *color)
 {
-	t_mlx	*mlx;
-
-	mlx = (t_mlx *)malloc(sizeof(t_mlx *));
-	if (!mlx)
+	if (!color)
 	{
-		ft_error(strerror(errno));
-		return (NULL);
+		return (false);
 	}
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3D");
-	return (mlx);
+	return (true);
 }

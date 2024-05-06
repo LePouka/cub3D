@@ -40,6 +40,8 @@ SRCS		:=	\
 	calculations.c	\
 	parsing/parsing.c	\
 	parsing/mlx_pars.c	\
+	parsing/color_pars.c	\
+	parsing/map_pars.c	\
 	init/worldinit.c	\
 	init/readificator.c	\
 	init/mlxator.c	\
@@ -107,7 +109,7 @@ $(NAME): $(OBJS) $(LIBS_TARGET)
 	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 $(LIBS_TARGET):
-	$(MAKE) -C $(@D) $(ERR_MUTE)
+	$(MAKE) -C $(@D) #$(ERR_MUTE)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)

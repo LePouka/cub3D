@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 17:49:25 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:14:10 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_map	*mapificator(char *c_map)
 		i++;
 	}
 	to_rectangle(map);
-	map->i_map = arrtoi(map->map + 8, -1, 0);
+	map->i_map = ft_arrtouille(map->map + 8, -1, 0);
 	return (map);
 }
 
@@ -87,10 +87,10 @@ t_map	*readificator(char *file_name)
 
 	fd = openificator(file_name);
 	if (fd == -1)
-		return (false);
+		return (NULL);
 	line = get_next_line(fd);
 	if (!line)
-		close_error(fd, strerror(errno));
+		return (close_error(fd, strerror(errno)), NULL);
 	while (line)
 	{
 		if (c_map)

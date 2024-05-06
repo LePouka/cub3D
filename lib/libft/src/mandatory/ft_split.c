@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:05:21 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 16:34:07 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:56:20 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*free_error(char **s)
 
 	if (s)
 	{
-		i = 0
+		i = 0;
 		while (s[i])
 		{
 			free(s[i]);
@@ -90,7 +90,7 @@ char	**ft_split(char const *s, char c)
 		nextstr = getnextstr(s, c, i);
 		s2[j] = ft_substr(s, i, nextstr);
 		if (!s2[j])
-			return (freeerror(s2));
+			return (free_error(s2));
 		i += nextstr;
 		j++;
 	}

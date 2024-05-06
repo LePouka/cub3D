@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42->fr>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:59:38 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/03 18:14:38 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:16:13 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ void	worldend(t_world *world)
 		if (world->mlx)
 		{
 			mlxend(world->mlx);
+		}
+		if (world->color)
+		{
+			colorend(world->color);
 		}
 		free(world);
 	}
