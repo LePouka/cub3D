@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrtouille.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:31:24 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:31:47 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:48:41 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones)
 		while (++j < collones)
 			ret[i][j] = arr[i][j] - '0';
 	}
-	free_array(arr);
+	//free_array(arr);
 	return (ret);
 }

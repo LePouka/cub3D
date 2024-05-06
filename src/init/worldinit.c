@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   worldinit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:35 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:08:51 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:26:53 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_world	*worldinit(char *file_name)
 {
 	t_world	*world;
 
-	world = (t_world *)malloc(sizeof(t_world *));
+	world = (t_world *)malloc(sizeof(t_world));
 	if (!world)
 	{
 		ft_error(NULL, strerror(errno));

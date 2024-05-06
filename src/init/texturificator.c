@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texturificator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:17:32 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:51:02 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 
 	if (!world || !mlx || !mlx->mlx || !map || !map->map)
 		return (NULL);
-	if (strncmp("no ./", map->map[0], 5) || strncmp("so ./", map->map[1], 5) || \
-		strncmp("we ./", map->map[2], 5) || strncmp("ea ./", map->map[3], 5))
+	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
+		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))
 	{
 		ft_error(world, "map: invalid texture format");
 	}

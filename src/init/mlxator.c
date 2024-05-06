@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlxator.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 15:51:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:27:40 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:26:02 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_mlx	*mlxator(t_world *world)
 {
 	t_mlx	*mlx;
 
-	mlx = (t_mlx *)malloc(sizeof(t_mlx *));
+	mlx = (t_mlx *)malloc(sizeof(t_mlx));
 	if (!mlx)
 	{
 		ft_error(world, strerror(errno));

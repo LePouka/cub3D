@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readificator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:35:24 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/06 17:28:27 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_map	*mapificator(t_world *world, char *c_map)
 	int		i;
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map *));
+	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 	{
 		free(c_map);
@@ -94,6 +94,7 @@ t_map	*readificator(t_world *world, char *file_name)
 	line = get_next_line(fd);
 	if (!line)
 		close_error(world, fd, strerror(errno));
+	c_map = NULL;
 	while (line)
 	{
 		if (c_map)
