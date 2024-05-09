@@ -6,11 +6,34 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:17:32 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/09 19:04:42 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+int	ft_data_to_cfg(t_config *cfg, t_file_data *fdata)
+{
+	int			i;
+	static char	id_array[ID_NB][3]
+		= {"C", "F", "NO", "SO", "WE", "EA"};
+	static int	(*array_ft[ID_NB])(t_config *, t_file_data *)
+		= {ft_get_ceilar, ft_get_floor, ft_get_no_text,
+		ft_get_so_text, ft_get_we_text, ft_get_ea_text};
+
+	if (fdata->paramlist)
+		ft_free_tab(&fdata->paramlist);
+	fdata->paramlist = ft_split(fdata->line, ' ');
+	i = 0;
+	while (i < ID_NB)
+	{
+		if (ft_strequ(id_array[i], *fdata->paramlist))
+			return (array_ft[i](cfg, fdata));
+		i++;
+	}
+	ft_manage_parse_error(ERROR_ID, cfg, fdata);
+	return (-1);
+}
 
 t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 {
@@ -46,8 +69,8 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 
 	if (!world || !mlx || !mlx->mlx || !map || !map->map)
 		return (NULL);
-	if (strncmp("no ./", map->map[0], 5) || strncmp("so ./", map->map[1], 5) || \
-		strncmp("we ./", map->map[2], 5) || strncmp("ea ./", map->map[3], 5))
+	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
+		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))
 	{
 		ft_error(world, "map: invalid texture format");
 	}

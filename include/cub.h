@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:35:07 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:08:47 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ void	speed_calculation(t_rays *rays);
 /* Parsing */
 void		parsingator(t_world *world);
 void		map_pars(t_world *world, t_map *map);
-void		color_pars(t_world *world, t_color *color);
 
 /* Init */
 t_world		*worldinit(char *file_name);
