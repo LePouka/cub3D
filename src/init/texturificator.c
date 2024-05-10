@@ -6,34 +6,11 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/09 19:04:42 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:27:18 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-int	ft_data_to_cfg(t_config *cfg, t_file_data *fdata)
-{
-	int			i;
-	static char	id_array[ID_NB][3]
-		= {"C", "F", "NO", "SO", "WE", "EA"};
-	static int	(*array_ft[ID_NB])(t_config *, t_file_data *)
-		= {ft_get_ceilar, ft_get_floor, ft_get_no_text,
-		ft_get_so_text, ft_get_we_text, ft_get_ea_text};
-
-	if (fdata->paramlist)
-		ft_free_tab(&fdata->paramlist);
-	fdata->paramlist = ft_split(fdata->line, ' ');
-	i = 0;
-	while (i < ID_NB)
-	{
-		if (ft_strequ(id_array[i], *fdata->paramlist))
-			return (array_ft[i](cfg, fdata));
-		i++;
-	}
-	ft_manage_parse_error(ERROR_ID, cfg, fdata);
-	return (-1);
-}
 
 t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 {
