@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/09 14:15:40 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:01:16 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ bool	is_color_valid(int color)
 
 bool	put_color(u_int32_t *color, int **rgb)
 {
-	if (!rgb || !is_color_valid(rgb[0]) || !is_color_valid(rgb[1]) || \
-		is_valid_color(rgb[2]))
+	if (!rgb || !is_color_valid(rgb[0]) || !is_color_valid(rgb[1]) \
+		|| is_valid_color(rgb[2]))
 	{
 		free_int_array(rgb);
 		return (false);

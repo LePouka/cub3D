@@ -39,7 +39,6 @@ SRCS		:=	\
 	init_utils.c \
 	calculations.c	\
 	parsing/parsing.c	\
-	parsing/map_pars.c	\
 	init/worldinit.c	\
 	init/readificator.c	\
 	init/mlxator.c	\

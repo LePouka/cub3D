@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/09 16:00:28 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/11 16:35:48 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*sizeificator(t_world *world, char *s1, int len)
 		if (s1[i])
 			s2[i] = s1[i];
 		else
-			s2[i] = '1';
+			s2[i] = ' ';
 		i++;
 	}
 	s2[i] = '\0';
@@ -37,17 +37,10 @@ char	*sizeificator(t_world *world, char *s1, int len)
 void	to_rectangle(t_world *world, t_map *map)
 {
 	int	i;
-	int	j;
 
 	i = 8;
 	while (map->map[i])
 	{
-		j = 0;
-		while (map->map[i][j] && map->map[i][j] == ' ')
-		{
-			map->map[i][j] = '1';
-			j++;
-		}
 		if (ft_strlen(map->map[i]) != map->len)
 		{
 			map->map[i] = sizeificator(world, map->map[i], map->len);
