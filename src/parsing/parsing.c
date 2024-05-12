@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:20:59 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/11 16:59:42 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/12 13:48:29 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	check_map_content(t_world *world, t_map *map)
 	}
 }
 
-void	parsingator(t_world *world, t_map *map)
+void	parsingator(t_world *world)
 {
-	check_map_content(world, map);
+	check_map_content(world, world->map);
 }

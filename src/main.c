@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/03 17:35:47 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/12 13:47:36 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int casting(t_rays *rays) {
 
 }
 
-int main(int argc, char **argv) {
+/*int main(int argc, char **argv) {
 	void	*mlx;
 	t_data	img;
   	t_rays rays;
@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
 	world = worldinit(argv[1]);
 
 	 int **world_map = world->map->i_map;
-/*  {
+  {
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
   {1,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
   {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-  	};*/
+  	};
 
 	u_int32_t	**buffer;
 	buffer = malloc(SCREENHEIGHT * sizeof(int *));
@@ -147,14 +147,14 @@ int main(int argc, char **argv) {
 	rays.time = 0;
 	rays.old_time = 0;
 
-/*   int **heapmap = malloc(24 * sizeof(int *));
+   int **heapmap = malloc(24 * sizeof(int *));
 
 	for (int i = 0; i < 24; i++) {
 	  heapmap[i] = malloc(24 * sizeof(int));
 	  for (int j = 0; j < 24; j++) {
 		heapmap[i][j] = world_map[i][j];
 	  }
-	}*/
+	}
   rays.world_map = world_map;
 
 	mlx = mlx_init();
@@ -178,4 +178,21 @@ int main(int argc, char **argv) {
 	mlx_destroy_window(mlx, mlx_win);
 	mlx_destroy_display(mlx);
 	free(mlx);
+}*/
+
+int	main(int argc, char **argv)
+{
+	t_world	*world;
+	if (argc == 2)
+	{
+		world = worldinit(argv[1]);
+		parsingator(world);
+		worldend(world);
+	}
+	else
+	{
+		ft_error(NULL, "Bad Arguments");
+		return (-1);
+	}
+	return (0);
 }
