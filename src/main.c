@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/12 13:47:36 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:50:38 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_error(NULL, "Bad Arguments");
+		ft_dprintf(2, "Error\nBad Arguments\n");
 		return (-1);
 	}
 	return (0);
