@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/10 15:27:18 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:50:05 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 	int		tw;
 	t_data	*pics;
 
-	if (!world || !mlx || !mlx->mlx || !map || !map->map)
+	if (!world || !mlx || !mlx->mlx || !map || !map->map || !map->map[0] \
+		|| !map->map[1] || !map->map[2] || !map->map[3])
 		return (NULL);
 	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
 		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))

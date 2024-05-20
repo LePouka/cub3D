@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/11 16:35:48 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:56:58 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*sizeificator(t_world *world, char *s1, int len)
 	char	*s2;
 	int		i;
 
-	s2 = (char *)malloc(sizeof(char) * len + 1);
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
 	if (!s2)
 		ft_error(world, strerror(errno));
 	i = 0;
@@ -65,15 +65,15 @@ t_map	*mapificator(t_world *world, char *c_map)
 		ft_error(world, "Invalid Map Format");
 	free(c_map);
 	map->len = ft_strlen(map->map[8]);
-	i = 1;
+	i = 8;
 	while (map->map[i])
 	{
-		if (i > 8 && ft_strlen(map->map[i]) > map->len)
+		if (ft_strlen(map->map[i]) > map->len)
 			map->len = ft_strlen(map->map[i]);
 		i++;
 	}
 	to_rectangle(world, map);
-	map->i_map = ft_arrtouille(world, map->map + 8, -1, 0);
+	map->i_map = ft_arrtouille(world, map->map, -1, 0, 8);
 	return (map);
 }
 
