@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/20 17:50:05 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:44:09 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 	{
 		ft_error(world, "Failed Creating Images");
 	}
+	world->texture = (int **)malloc(sizeof(int *) * 4);
 	i = 0;
 	while (i < 4)
 	{
