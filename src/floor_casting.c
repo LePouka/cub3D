@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:38:39 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/06 14:59:00 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/06 17:37:20 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	drawing(t_rays *rays, t_calcs calcs, int x)
 		tex_y = (int)calcs.tex_pos & (TEXTHEIGHT - 1);
 		calcs.tex_pos += calcs.step;
 		c_tex = TEXTHEIGHT * tex_y + calcs.tex_x;
-		rays->color = rays->texture[calcs.orientation + 1][c_tex];
+		rays->color = rays->texture[calcs.orientation][c_tex];
 		if (calcs.side == 1)
 			rays->color = (rays->color) & 8355711;
 		rays->buffer[y][x] = rays->color;

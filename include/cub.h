@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 14:53:15 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/06 19:32:56 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,5 @@ void	drawing_calculations(t_calcs *calcs, t_rays *rays);
 void	speed_calculation(t_rays *rays);
 void	floor_casting(t_rays *rays);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-
+void	rotate(int fact, t_rays *rays);
 #endif

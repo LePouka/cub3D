@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:29:46 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/22 16:36:51 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/06 19:15:32 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	rotate(int fact, t_rays *rays)
 	double	olddir_x;
 	double	oldplane_x;
 
-	rotate = fact * -0.04;
+	rotate = fact * -0.1;
 	olddir_x = rays->dir_x;
 	rays->dir_x = rays->dir_x * cos(rotate) - rays->dir_y * sin(rotate);
 	rays->dir_y = olddir_x * sin(rotate) + rays->dir_y * cos(rotate);
