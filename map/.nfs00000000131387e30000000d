@@ -1,7 +1,7 @@
-NO ./img/eagle.xpm
-SO ./img/colorstone.xpm
-WE ./img/greystone.xpm
-EA ./img/redbrick.xpm
+NO ./barrel.xpm
+SO ./
+WE ./
+EA ./
 
 F 220,100,0
 C 225,30,0

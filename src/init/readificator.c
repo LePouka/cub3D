@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/20 17:56:58 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:25:21 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_map	*mapificator(t_world *world, char *c_map)
 	int		i;
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map *));
+	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
 	{
 		free(c_map);
