@@ -6,12 +6,11 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:31:24 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/22 16:57:26 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:32:33 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 int	ft_atouille(char c)
 {
@@ -37,7 +36,7 @@ int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, \
 		if (ft_strlen(arr[lignes]) > (size_t)collones)
 			collones = ft_strlen(arr[lignes]);
 	}
-	ret = (int **)malloc(sizeof(int *) * lignes);
+	ret = (int **)malloc(sizeof(int *) * (lignes + 1));
 	if (!ret)
 		ft_error(world, strerror(errno));
 	i = start - 1;
@@ -50,5 +49,6 @@ int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, \
 		while (++j < collones && arr[i][j])
 			ret[i][j] = ft_atouille(arr[i][j]);
 	}
+	ret[i] = NULL;
 	return (ret);
 }

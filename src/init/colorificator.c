@@ -6,7 +6,7 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/22 16:46:53 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:28:27 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_color_valid(int* color)
 	i = 0;
 	while (color[i])
 	{
-		if (color[i] < 0 || color[i] > 255)
+		if (!(color[i] > 0 && color[i] < 255))
 		{
 			return (false);
 		}
@@ -28,12 +28,19 @@ bool	is_color_valid(int* color)
 	return (true);
 }
 
-bool	put_color(u_int32_t *color, int **rgb)
+bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
 {
-	if (!rgb || !is_color_valid(rgb[0]) || !is_color_valid(rgb[1]) \
-		|| is_color_valid(rgb[2]))
+	int	**rgb;
+
+	rgb = ft_arrtouille(world, c_rgb, -1, 0, 0);
+	free_array(c_rgb);
+	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || !is_color_valid(rgb[0]) \
+		|| !is_color_valid(rgb[1]) || is_color_valid(rgb[2]))
 	{
-		free_int_array(rgb);
+		if (rgb)
+		{
+			free_int_array(rgb);
+		}
 		return (false);
 	}
 	*color = 0;
@@ -48,8 +55,6 @@ bool	put_color(u_int32_t *color, int **rgb)
 t_color	*colorificator(t_world *world, t_map *map)
 {
 	t_color	*color;
-	char	**map_five;
-	char	**map_six;
 
 	if (!map || !map->map)
 		return (NULL);
@@ -60,16 +65,10 @@ t_color	*colorificator(t_world *world, t_map *map)
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		ft_error(world, strerror(errno));
-	map_five = ft_split(map->map[4] + 2, ',');
-	map_six = ft_split(map->map[5] + 2, ',');
-	if (!put_color(&color->floor, ft_arrtouille(world, map_five, -1, 0, 0)) \
-		|| !put_color(&color->ceiling, ft_arrtouille(world, map_six, -1, 0, 0)))
+	if (!put_color(world, &color->floor, ft_split(map->map[4] + 2, ',')) \
+		|| !put_color(world, &color->ceiling, ft_split(map->map[5] + 2, ',')))
 	{
-		free_array(map_five);
-		free_array(map_six);
 		ft_error(world, "Invalid Color Format");
 	}
-	free_array(map_five);
-	free_array(map_six);
 	return (color);
 }
