@@ -6,20 +6,22 @@
 /*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/24 17:28:27 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/26 18:54:45 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-bool	is_color_valid(int* color)
+bool	is_color_valid(char **rgb)
 {
+	int	color;
 	int	i;
 
 	i = 0;
-	while (color[i])
+	while (rgb[i])
 	{
-		if (!(color[i] > 0 && color[i] < 255))
+		color = ft_atoi(rgb[i]);
+		if (color < 0 || color > 255)
 		{
 			return (false);
 		}
@@ -32,15 +34,16 @@ bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
 {
 	int	**rgb;
 
+	if (!is_color_valid(c_rgb))
+	{
+		free_array(c_rgb);
+		return (false);
+	}
 	rgb = ft_arrtouille(world, c_rgb, -1, 0, 0);
 	free_array(c_rgb);
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || !is_color_valid(rgb[0]) \
-		|| !is_color_valid(rgb[1]) || is_color_valid(rgb[2]))
+	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
 	{
-		if (rgb)
-		{
-			free_int_array(rgb);
-		}
+		free_int_array(rgb);
 		return (false);
 	}
 	*color = 0;
@@ -55,6 +58,8 @@ bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
 t_color	*colorificator(t_world *world, t_map *map)
 {
 	t_color	*color;
+	char	**floor;
+	char	**ceiling;
 
 	if (!map || !map->map)
 		return (NULL);
@@ -65,8 +70,10 @@ t_color	*colorificator(t_world *world, t_map *map)
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		ft_error(world, strerror(errno));
-	if (!put_color(world, &color->floor, ft_split(map->map[4] + 2, ',')) \
-		|| !put_color(world, &color->ceiling, ft_split(map->map[5] + 2, ',')))
+	floor = ft_split(map->map[4] + 2, ',');
+	ceiling = ft_split(map->map[5] + 2, ',');
+	if (!put_color(world, &color->floor, floor) \
+		|| !put_color(world, &color->ceiling, ceiling))
 	{
 		ft_error(world, "Invalid Color Format");
 	}
