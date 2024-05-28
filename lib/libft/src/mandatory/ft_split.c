@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:05:21 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 14:56:20 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:25:00 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ char	**ft_split(char const *s, char c)
 	j = 0;
 	if (!s)
 		return (NULL);
-	s2 = malloc(sizeof(char *) * ((nbstr(s, c) + 1)));
+	s2 = (char **)malloc(sizeof(char *) * ((nbstr(s, c) + 1)));
 	if (!s2)
 		return (NULL);
 	while (j < (nbstr(s, c)))

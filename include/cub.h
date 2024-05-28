@@ -6,7 +6,7 @@
 /*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/11 17:00:37 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/25 19:37:38 by rtissera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,6 @@ void		free_int_array(int **arr);
 int			close_error(t_world *world, int fd, char *s);
 void		close_free_error(t_world *world, int fd, char *s1, char *s2);
 char		*free_strjoin(char *s1, char *s2);
-int			**ft_arrtouille(t_world *world, char **arr, int lignes, int collones);
+int			**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, int start);
 
 #endif

@@ -55,7 +55,7 @@ BUILD_DIR	:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CFLAGS		:= $(CFLAGS)-Wall -Wextra -Werror
+CFLAGS		:= $(CFLAGS)-Wall -Wextra -Werror -g3
 CPPFLAGS	:= $(CPPFLAGS) $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS		:= $(LDFLAGS) $(addprefix -L,$(dir $(LIBS_TARGET)))
 LDLIBS		:= $(LDLIBS) $(addprefix -l,$(LIBS))

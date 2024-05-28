@@ -6,37 +6,26 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 03:31:24 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/06 16:48:41 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:57:44 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	ft_atouille(const char *nptr)
+int	ft_atouille(char c)
 {
-	int	res;
-
-	res = 0;
-	if (*nptr == 45)
+	if (c == ' ')
 	{
-		return (-1);
+		return (1);
 	}
-	while (((*nptr >= 48) && (*nptr <= 57)) || *nptr == 32)
+	else
 	{
-		if (*nptr == 32)
-		{
-			res = (res * 10) + 1;
-		}
-		else
-		{
-			res = (res * 10) + *nptr - 48;
-		}
-		nptr++;
+		return (c - '0');
 	}
-	return (res);
 }
 
-int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones)
+int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, \
+	int start)
 {
 	int	i;
 	int	j;
@@ -47,19 +36,19 @@ int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones)
 		if (ft_strlen(arr[lignes]) > (size_t)collones)
 			collones = ft_strlen(arr[lignes]);
 	}
-	ret = (int **)malloc(sizeof(int *) * lignes);
+	ret = (int **)malloc(sizeof(int *) * (lignes + 1));
 	if (!ret)
 		ft_error(world, strerror(errno));
-	i = -1;
-	while (++i < lignes)
+	i = start - 1;
+	while (++i < lignes && arr[i])
 	{
 		ret[i] = (int *)malloc(sizeof(int) * collones);
 		if (!ret[i])
 			ft_error(world, strerror(errno));
 		j = -1;
-		while (++j < collones)
-			ret[i][j] = arr[i][j] - '0';
+		while (++j < collones && arr[i][j])
+			ret[i][j] = ft_atouille(arr[i][j]);
 	}
-	//free_array(arr);
+	ret[i] = NULL;
 	return (ret);
 }

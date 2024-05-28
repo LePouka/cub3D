@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/22 14:17:21 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:57:22 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ char	*sizeificator(t_world *world, char *s1, int len)
 	char	*s2;
 	int		i;
 
-	s2 = (char *)malloc(sizeof(char) * len + 1);
+	s2 = (char *)malloc(sizeof(char) * (len + 1));
 	if (!s2)
 		ft_error(world, strerror(errno));
 	i = 0;
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		i++;
+	}
 	while (i < len)
 	{
-		if (s1[i])
-			s2[i] = s1[i];
-		else
-			s2[i] = ' ';
+		s2[i] = ' ';
 		i++;
 	}
 	s2[i] = '\0';
@@ -38,7 +40,7 @@ void	to_rectangle(t_world *world, t_map *map)
 {
 	int	i;
 
-	i = 8;
+	i = 7;
 	while (map->map[i])
 	{
 		if (ft_strlen(map->map[i]) != map->len)
@@ -61,19 +63,19 @@ t_map	*mapificator(t_world *world, char *c_map)
 		ft_error(world, strerror(errno));
 	}
 	map->map = ft_split(c_map, '\n');
-	if (!map->map || !map->map[8])
+	if (!map->map || !map->map[7])
 		ft_error(world, "Invalid Map Format");
 	free(c_map);
-	map->len = ft_strlen(map->map[8]);
-	i = 1;
+	map->len = ft_strlen(map->map[7]);
+	i = 7;
 	while (map->map[i])
 	{
-		if (i > 8 && ft_strlen(map->map[i]) > map->len)
+		if (ft_strlen(map->map[i]) > map->len)
 			map->len = ft_strlen(map->map[i]);
 		i++;
 	}
 	to_rectangle(world, map);
-	map->i_map = ft_arrtouille(world, map->map + 8, -1, 0);
+	map->i_map = ft_arrtouille(world, map->map, -1, 0, 7);
 	return (map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/22 14:17:25 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 14:57:29 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 	{
 		ft_error(world, "Failed Creating Images");
 	}
+	world->texture = (int **)malloc(sizeof(int *) * 4);
 	i = 0;
 	while (i < 4)
 	{
@@ -44,8 +45,11 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 	int		tw;
 	t_data	*pics;
 
-	if (!world || !mlx || !mlx->mlx || !map || !map->map)
+	if (!world || !mlx || !mlx->mlx || !map || !map->map || !map->map[0] \
+		|| !map->map[1] || !map->map[2] || !map->map[3])
+	{
 		return (NULL);
+	}
 	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
 		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))
 	{
@@ -53,14 +57,12 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 	}
 	pics = (t_data *)malloc(sizeof(t_data) * 4);
 	if (!pics)
+	{
 		ft_error(world, strerror(errno));
-	pics[0].img = mlx_xpm_file_to_image(mlx->mlx, map->map[0] + 5, &tw, \
-		&th);
-	pics[1].img = mlx_xpm_file_to_image(mlx->mlx, map->map[1] + 5, &tw, \
-		&th);
-	pics[2].img = mlx_xpm_file_to_image(mlx->mlx, map->map[2] + 5, &tw, \
-		&th);
-	pics[3].img = mlx_xpm_file_to_image(mlx->mlx, map->map[3] + 5, &tw, \
-		&th);
+	}
+	pics[0].img = mlx_xpm_file_to_image(mlx->mlx, map->map[0] + 5, &tw, &th);
+	pics[1].img = mlx_xpm_file_to_image(mlx->mlx, map->map[1] + 5, &tw, &th);
+	pics[2].img = mlx_xpm_file_to_image(mlx->mlx, map->map[2] + 5, &tw, &th);
+	pics[3].img = mlx_xpm_file_to_image(mlx->mlx, map->map[3] + 5, &tw, &th);
 	return (ft_get_data_addr(world, world->mlx, pics));
 }
