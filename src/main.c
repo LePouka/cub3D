@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/28 15:22:01 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 15:47:37 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,16 +183,16 @@ int casting(t_rays *rays) {
 int	main(int argc, char **argv)
 {
 	t_world	*world;
-	void	*mlx;
-	t_data	img;
+	//void	*mlx;
+	//t_data	img;
   	t_rays rays;
-	void *mlx_win;
-	int		**texture;
+	//void *mlx_win;
+	//int		**texture;
 	if (argc == 2)
 	{
 		world = worldinit(argv[1]);
 		rays.world_map = world->map->i_map;
-		printf("%d\n", rays.world_map[0][0]);
+		printf("%d\n", world->map->i_map[0][0]);
 		worldend(world);
 	}
 	else
