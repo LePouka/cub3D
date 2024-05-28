@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readificator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/22 16:25:21 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:36:35 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*sizeificator(t_world *world, char *s1, int len)
 	if (!s2)
 		ft_error(world, strerror(errno));
 	i = 0;
-	while (i < len)
+	while (s1[i] && i < len)
 	{
 		if (s1[i])
 			s2[i] = s1[i];

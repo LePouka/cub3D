@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texturificator.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/20 17:50:05 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:41:37 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 		ft_error(world, "Failed Creating Images");
 	}
 	i = 0;
+	world->texture = malloc(4 * sizeof(int *));
 	while (i < 4)
 	{
 		world->texture[i] = (int *)mlx_get_data_addr(pics[i].img, \

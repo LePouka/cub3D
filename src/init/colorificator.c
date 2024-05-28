@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colorificator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/20 17:59:13 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:44:59 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ t_color	*colorificator(t_world *world, t_map *map)
 
 	if (!map || !map->map)
 		return (NULL);
-	if (strncmp("F ", map->map[5], 2) || strncmp("C ", map->map[6], 2))
+	if (strncmp("F ", map->map[4], 2) || strncmp("C ", map->map[5], 2))
 	{
 		ft_error(world, "Invalid Color Format");
 	}
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		ft_error(world, strerror(errno));
-	map_five = ft_split(map->map[5] + 2, ',');
-	map_six = ft_split(map->map[6] + 2, ',');
+	map_five = ft_split(map->map[4] + 2, ',');
+	map_six = ft_split(map->map[5] + 2, ',');
 	if (!put_color(&color->floor, ft_arrtouille(world, map_five, -1, 0, 0)) \
 		|| !put_color(&color->ceiling, ft_arrtouille(world, map_six, -1, 0, 0)))
 	{
