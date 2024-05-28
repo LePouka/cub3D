@@ -42,13 +42,13 @@ int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, \
 	i = start - 1;
 	while (++i < lignes && arr[i])
 	{
-		ret[i] = (int *)malloc(sizeof(int) * collones);
-		if (!ret[i])
+		ret[i - start] = (int *)malloc(sizeof(int) * collones);
+		if (!ret[i - start])
 			ft_error(world, strerror(errno));
 		j = -1;
 		while (++j < collones && arr[i][j])
-			ret[i][j] = ft_atouille(arr[i][j]);
+			ret[i - start][j] = ft_atouille(arr[i][j]);
 	}
-	ret[i] = NULL;
+	ret[i - start] = NULL;
 	return (ret);
 }
