@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/06 20:21:05 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 17:13:40 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	void		*mlx;
 	t_data		img;
@@ -29,40 +29,15 @@ int	main(void)
 	void		*mlx_win;
 	int			**texture;
 	u_int32_t	**buffer;
-	int			i;
-	int			j;
-	int			**heapmap;
 	t_vars 		vars;
+	t_world		*world;
+	int			i;
 
+	if (argc != 2) {
+		ft_dprintf(2, "Error\nBad Arguments\n");
+ 		return (-1);
+	}
 	texture = malloc(8 * sizeof(int *));
-	 int world_map[MAPWIDTH][MAPHEIGHT]=
-	{
-	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 2},
-	{4, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 2},
-	{4, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 2},
-	{4, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2},
-	{4, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 2},
-	{4, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 2},
-	{4, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 2},
-	{4, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2},
-	{4, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-	{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2}
-	};
-
 	buffer = malloc(SCREENHEIGHT * sizeof(int *));
 	i = 0;
 	while (i < SCREENHEIGHT)
@@ -70,6 +45,7 @@ int	main(void)
 		buffer[i] = malloc(SCREENWIDTH * sizeof(int));
 		i++;
 	}
+	world = worldinit(argv[1]);
 	rays.buffer = buffer;
 	rays.pos_x = 12;
 	rays.pos_y = 12;
@@ -80,20 +56,7 @@ int	main(void)
 	rays.move_speed = 0;
 	rays.time = 0;
 	rays.old_time = 0;
-	heapmap = malloc(24 * sizeof(int *));
-	i = 0;
-	while (i < 24)
-	{
-		heapmap[i] = malloc(24 * sizeof(int));
-		j = 0;
-		while (j < 24)
-		{
-			heapmap[i][j] = world_map[i][j];
-			j++;
-		}
-		i++;
-	}
-	rays.world_map = heapmap;
+	rays.world_map = world->map->i_map;
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3d");
 	vars.img = &img;
@@ -114,3 +77,20 @@ int	main(void)
 	mlx_destroy_display(mlx);
 	free(mlx);
 }
+
+// int	main(int argc, char **argv)
+// {
+// 	t_world	*world;
+// 	if (argc == 2)
+// 	{
+// 		world = worldinit(argv[1]);
+// 		parsingator(world);
+// 		worldend(world);
+// 	}
+// 	else
+// 	{
+// 		ft_dprintf(2, "Error\nBad Arguments\n");
+// 		return (-1);
+// 	}
+// 	return (0);
+// }

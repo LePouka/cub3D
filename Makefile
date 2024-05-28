@@ -28,23 +28,35 @@ LIBS_TARGET	:= \
 	lib/minilibx-linux/libmlx.a
 
 INCS        := $(INCS) include $(dir $(LIBS_TARGET))
+INCS        := $(INCS) include $(dir $(LIBS_TARGET))
 INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
 SRC_DIR		:= src
-SRCS		:= \
+SRCS		:=	\
 	main.c \
 	events.c \
 	init.c \
 	init_utils.c \
-	calculations.c \
-	floor_casting.c
+	floor_casting.c \
+	calculations.c	\
+	parsing/parsing.c	\
+	init/worldinit.c	\
+	init/readificator.c	\
+	init/mlxator.c	\
+	init/texturificator.c	\
+	init/colorificator.c	\
+	utils/ft_error.c	\
+	utils/worldend.c	\
+	utils/ft_arrtouille.c	\
+	utils/free_array.c	\
+	utils/openificator.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CFLAGS		:= $(CFLAGS)-Wall -Wextra -Werror
+CFLAGS		:= $(CFLAGS)-Wall -Wextra -Werror -g3
 CPPFLAGS	:= $(CPPFLAGS) $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS		:= $(LDFLAGS) $(addprefix -L,$(dir $(LIBS_TARGET)))
 LDLIBS		:= $(LDLIBS) $(addprefix -l,$(LIBS))
@@ -95,7 +107,7 @@ $(NAME): $(OBJS) $(LIBS_TARGET)
 	$(ECHO)"$(G)CREATED$(END) $(@)\n"
 
 $(LIBS_TARGET):
-	$(MAKE) -C $(@D) $(ERR_MUTE)
+	$(MAKE) -C $(@D) #$(ERR_MUTE)
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	$(DIR_DUP)

@@ -52,6 +52,7 @@ SRCS		:=	\
 	mandatory/ft_putstr_fd.c	\
 	mandatory/ft_putendl_fd.c	\
 	mandatory/ft_putchar_fd.c	\
+	mandatory/ft_intlen.c	\
 	bonus/ft_lstmap.c	\
 	bonus/ft_lstnew.c	\
 	bonus/ft_lstlast.c	\
@@ -72,7 +73,7 @@ BUILD_DIR	:= .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CFLAGS		:= -Wall -Wextra -Werror
+CFLAGS		:= -Wall -Wextra -Werror -g3
 CPPFLAGS	:= -MMD -MP -Iinclude
 AR		:= ar
 ARFLAGS		:= -r -c -s
