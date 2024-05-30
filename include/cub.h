@@ -133,7 +133,7 @@ typedef struct s_map {
 	char			**map;
 	int				**i_map;
 	size_t			len;
-    int             col;
+    int             lig;
     unsigned int	player_x;
 	unsigned int	player_y;
 	char			player_p;
