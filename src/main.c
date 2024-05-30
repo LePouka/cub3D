@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/30 10:53:18 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:55:40 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 	rays.buffer = buffer;
 	rays.pos_x = world->map->player_x;
 	rays.pos_y = world->map->player_y;
+	printf("width = %zu, height = %d\n", world->map->len, world->map->col);
 	printf("p_x = %f, p_y = %f\n", rays.pos_x, rays.pos_y);
 	rays.dir_x = -1;
 	rays.dir_y = 0;
