@@ -21,8 +21,8 @@ void	spaceificator(t_world *world, char **line, int i, int j)
 	if (i > 6 && line[i - 1] && line[i - 1][j] && line[i - 1][j] != ' ' \
 		&& line[i - 1][j] != '1')
 		ft_error(world, "Map Must Be Surrounded By Walls");
-	if (i != world->map->lig && line[i + 1] && line[i + 1][j] \
-		&& line[i + 1][j] != ' ' && line[i + 1][j] != '1')
+	if (line[i + 1] && line[i + 1][j] && line[i + 1][j] != ' ' \
+		&& line[i + 1][j] != '1')
 		ft_error(world, "Map Must Be Surrounded By Walls");
 }
 
