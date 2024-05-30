@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/30 10:55:40 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/30 11:24:36 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ int	main(int argc, char **argv)
 	rays.time = 0;
 	rays.old_time = 0;
 	rays.world_map = world->map->i_map;
+	printf("%d\n", world->map->i_map[0][0]);
+	for (int i = 0; i < world->map->col; i++) {
+		for (size_t j = 0; j < world->map->len; j++) {
+			printf("%d ", world->map->i_map[i][j]);
+		}
+		printf("\n");
+	}
 	mlx = mlx_init();
 	mlx_win = mlx_new_window(mlx, SCREENWIDTH, SCREENHEIGHT, "Cub3d");
 	vars.img = &img;
@@ -68,7 +75,7 @@ int	main(int argc, char **argv)
 	init(&rays);
 	init_texturing(texture, &rays);
 	rays.texture = texture;
-	rotate(-15,&rays);
+	// rotate(-15,&rays);
 	mlx_loop_hook(mlx, &casting, &rays);
 	mlx_hook(rays.vars->win, 2, 1L << 0, clavier, &rays);
 	mlx_hook(mlx_win, 17, 1L << 0, close_win, mlx);
