@@ -40,6 +40,8 @@ void	lineificator(t_world *world, t_map *map, char **line, int i)
 		else if (line[i][j] == 'N' || line[i][j] == 'S' \
 				|| line[i][j] == 'E' || line[i][j] == 'W')
 		{
+			map->player_x = j;
+			map->player_y = i;
 			if (map->player_p)
 				ft_error(world, "Cannot Have More Than One Player Position");
 			map->player_p = line[i][j];
