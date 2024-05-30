@@ -41,7 +41,7 @@ void	lineificator(t_world *world, t_map *map, char **line, int i)
 				|| line[i][j] == 'E' || line[i][j] == 'W')
 		{
 			map->player_x = j;
-			map->player_y = i - 7;
+			map->player_y = i - 6;
 			if (map->player_p)
 				ft_error(world, "Cannot Have More Than One Player Position");
 			map->player_p = line[i][j];
@@ -57,7 +57,7 @@ void	parsingator(t_world *world, t_map *map)
 	int	i;
 
 	map->player_p = '\0';
-	i = 7;
+	i = 6;
 	while (map->map[i])
 	{
 		if (!map->map[i][0])
