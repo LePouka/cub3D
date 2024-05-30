@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/30 11:43:53 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/30 11:53:09 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	printf("%d\n", world->map->i_map[0][0]);
 	for (int i = 0; i < world->map->lig; i++) {
 		for (size_t j = 0; j < world->map->len; j++) {
-			printf("%d ", world->map->i_map[i][j]);
+			printf("%d ", rays.world_map[i][j]);
 		}
 		printf("\n");
 	}
