@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/28 17:13:40 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/30 10:46:01 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int	main(int argc, char **argv)
 	}
 	world = worldinit(argv[1]);
 	rays.buffer = buffer;
-	rays.pos_x = 12;
-	rays.pos_y = 12;
+	rays.pos_x = world->map->player_x;
+	rays.pos_y = world->map->player_y;
+	printf("p_x = %f, p_y = %f\n", rays.pos_x, rays.pos_y);
 	rays.dir_x = -1;
 	rays.dir_y = 0;
 	rays.plane_x = 0;
@@ -77,20 +78,3 @@ int	main(int argc, char **argv)
 	mlx_destroy_display(mlx);
 	free(mlx);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	t_world	*world;
-// 	if (argc == 2)
-// 	{
-// 		world = worldinit(argv[1]);
-// 		parsingator(world);
-// 		worldend(world);
-// 	}
-// 	else
-// 	{
-// 		ft_dprintf(2, "Error\nBad Arguments\n");
-// 		return (-1);
-// 	}
-// 	return (0);
-// }

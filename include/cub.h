@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/28 16:56:38 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/28 17:19:27 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ typedef struct s_map {
 	char			**map;
 	int				**i_map;
 	size_t			len;
-	unsigned int	player_x;
+    int             col;
+    unsigned int	player_x;
 	unsigned int	player_y;
 	char			player_p;
 }	t_map;
@@ -196,7 +197,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	rotate(int fact, t_rays *rays);
 
 /* Parsing */
-void		parsingator(t_world *world);
+void		parsingator(t_world *world, t_map *map);
 
 /* Init */
 t_world		*worldinit(char *file_name);
