@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:20:59 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/26 19:02:01 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:52:01 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	lineificator(t_world *world, t_map *map, char **line, int i)
 		else if (line[i][j] == 'N' || line[i][j] == 'S' \
 				|| line[i][j] == 'E' || line[i][j] == 'W')
 		{
+			map->player_x = j;
+			map->player_y = i;
 			if (map->player_p)
 				ft_error(world, "Cannot Have More Than One Player Position");
 			map->player_p = line[i][j];
