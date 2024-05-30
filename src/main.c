@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <rtissera@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/26 19:01:05 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:27:26 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		world = worldinit(argv[1]);
+		printf("%d\n", world->map->i_map[0][0]);
 		worldend(world);
 	}
 	else
