@@ -40,15 +40,15 @@ void	to_rectangle(t_world *world, t_map *map)
 {
 	int	i;
 
-    map->col = 0;
-	i = 7;
+    map->lig = 0;
+	i = 6;
 	while (map->map[i])
 	{
 		if (ft_strlen(map->map[i]) != map->len)
 		{
 			map->map[i] = sizeificator(world, map->map[i], map->len);
 		}
-        map->col++;
+        map->lig++;
 		i++;
 	}
 }
@@ -64,20 +64,17 @@ t_map	*mapificator(t_world *world, char *c_map, int i)
 		ft_error(world, strerror(errno));
 	}
 	map->map = ft_split(c_map, '\n');
-	if (!map->map || !map->map[7])
+	if (!map->map || !map->map[6])
 		ft_error(world, "Invalid Map Format");
 	free(c_map);
-	map->len = ft_strlen(map->map[7]);
+	map->len = ft_strlen(map->map[6]);
 	while (map->map[++i])
 	{
 		if (ft_strlen(map->map[i]) > map->len)
 			map->len = ft_strlen(map->map[i]);
 	}
 	to_rectangle(world, map);
-	map->i_map = (int **)malloc(sizeof(int *) * map->col);
-	if (!map->i_map)
-		ft_error(world, strerror(errno));
-	map->i_map = ft_arrtouille(world, map->map, -1, 0, 7);
+	map->i_map = ft_arrtouille(world, map->map, -1, 0, 6);
 	return (map);
 }
 
@@ -105,5 +102,5 @@ t_map	*readificator(t_world *world, char *file_name)
 	}
 	close(fd);
 	free(line);
-	return (mapificator(world, c_map, 6));
+	return (mapificator(world, c_map, 5));
 }
