@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/31 17:25:47 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 18:45:02 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,6 @@
 # define SCREENHEIGHT 1080
 # define TEXTWIDTH 64
 # define TEXTHEIGHT 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
-# define W 119
-# define S 115
-# define A 97
-# define D 100
-# define GAUCHE 65361
-# define HAUT 65362
-# define DROITE 65363
-# define BAS 65364
-# define ESCAPE 65307
-# define SCREENWIDTH 1920
-# define SCREENHEIGHT 1080
-# define TEXTWIDTH 64
-# define TEXTHEIGHT 64
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
 
 /* ************************************************************************** */
 /*   STRUCTURES                                                               */
@@ -103,6 +86,8 @@ typedef struct s_rays {
 	t_data		*pics;
 	t_vars		*vars;
 	int			width;
+	int			m_x;
+	int			m_y;
 }	t_rays;
 
 typedef struct s_calcs {
