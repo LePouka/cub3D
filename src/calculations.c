@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:23:03 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/31 16:20:51 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 17:02:47 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ void	calculate_dda(t_calcs *calcs, t_rays *rays)
 			else
 				calcs->orientation = 0;
 		}
-		// printf("map_x = %d, map_y = %d\n", calcs->map_x, calcs->map_y);
-		// if (calcs->map_x >= 33 || calcs->map_y >= 14)
-		// 	exit(0);
 		if (rays->world_map[calcs->map_y][calcs->map_x] > 0)
 		calcs->hit = 1;
 	}

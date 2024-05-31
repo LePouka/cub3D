@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/31 16:43:54 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 17:25:47 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	move_x(int fact, t_rays *rays);
 void	move_y(int fact, t_rays *rays);
 void	rotate(int fact, t_rays *rays);
+void	gameloop(t_rays *rays, t_world *world);
 
 /* Parsing */
 void		parsingator(t_world *world, t_map *map);
