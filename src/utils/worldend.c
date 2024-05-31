@@ -44,6 +44,7 @@ void	mlxend(t_mlx *mlx)
 	mlx_destroy_window(mlx->mlx, mlx->mlx_win);
 	mlx_destroy_display(mlx->mlx);
 	free(mlx->mlx);
+	free(mlx);
 }
 
 void	colorend(t_color *color)
@@ -65,6 +66,7 @@ void	worldend(t_world *world)
 		if (world->texture)
 		{
 			textureend(world->mlx, world->pics);
+			free(world->texture);
 		}
 		if (world->mlx)
 		{

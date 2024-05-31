@@ -17,12 +17,12 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 	int	i;
 
 	if (!pics[0].img || !pics[1].img || !pics[2].img || !pics[3].img)
-	{
 		ft_error(world, "Failed Creating Images");
-	}
 	world->texture = (int **)malloc(sizeof(int *) * 4);
 	i = 0;
 	world->texture = malloc(4 * sizeof(int *));
+	if (!world->texture)
+		ft_error(world, strerror(errno));
 	while (i < 4)
 	{
 		world->texture[i] = (int *)mlx_get_data_addr(pics[i].img, \
@@ -30,9 +30,7 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 		if (!world->texture[i])
 		{
 			while (--i)
-			{
 				mlx_destroy_image(mlx->mlx, pics[i].img);
-			}
 			ft_error(world, "Failed Getting Data Address");
 		}
 		i++;
