@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:38 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 16:33:13 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,28 @@ bool	is_color_valid(char **rgb)
 
 bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
 {
-	int	**rgb;
-
+	int	*rgb;
+	(void)world;
 	if (!is_color_valid(c_rgb))
 	{
 		free_array(c_rgb);
 		return (false);
 	}
-	rgb = ft_arrtouille(world, c_rgb, -1, 0, 0);
+	// rgb = ft_arrtouille(world, c_rgb, -1, 0, 0);
+	rgb = malloc(3 * sizeof(int));
+	rgb[0] = ft_atoi(c_rgb[0]);
+	rgb[1] = ft_atoi(c_rgb[1]);
+	rgb[2] = ft_atoi(c_rgb[2]);
 	free_array(c_rgb);
-	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
-	{
-		free_int_array(rgb);
-		return (false);
-	}
-	*color = 0;
-	*color |= *rgb[0] & 0xFF;
-	*color |= (*rgb[1] & 0xFF) << 16;
-	*color |= (*rgb[2] & 0xFF) << 8;
-	*color |= (0 & 0xFF) << 24;
-	free_int_array(rgb);
+	// if (!rgb || !rgb[0] || !rgb[1] || !rgb[2])
+	// {
+	// 	free_int_array(rgb);
+	// 	return (false);
+	// }
+	printf("r = %d, g = %d, b = %d\n", rgb[0], rgb[1], rgb[2]);
+	*color = (0 << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	// free_int_array(rgb);
+	free(rgb);
 	return (true);
 }
 

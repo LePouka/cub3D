@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/30 11:53:09 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 16:56:56 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int	main(int argc, char **argv)
 	}
 	world = worldinit(argv[1]);
 	rays.buffer = buffer;
+	rays.width = world->map->lig;
+	rays.c_color = world->color->ceiling;
+	rays.f_color = world->color->floor;
+	printf("ceiling = %d, floor = %d\n", (int)rays.c_color, (int)rays.f_color);
+	printf("ceiling : t = %d, r = %d, g = %d, b = %d\n", (rays.c_color >> 24) & 0xFF, (rays.c_color >> 16) & 0xFF, (rays.c_color >> 8) & 0xFF, rays.c_color & 0xFF);
 	rays.pos_x = world->map->player_x;
 	rays.pos_y = world->map->player_y;
 	printf("width = %zu, height = %d\n", world->map->len, world->map->lig);
@@ -62,6 +67,8 @@ int	main(int argc, char **argv)
 	printf("%d\n", world->map->i_map[0][0]);
 	for (int i = 0; i < world->map->lig; i++) {
 		for (size_t j = 0; j < world->map->len; j++) {
+			if (rays.world_map[i][j] != 1 && rays.world_map[i][j] != 0)
+				rays.world_map[i][j] = 0;
 			printf("%d ", rays.world_map[i][j]);
 		}
 		printf("\n");
@@ -75,7 +82,13 @@ int	main(int argc, char **argv)
 	init(&rays);
 	init_texturing(texture, &rays);
 	rays.texture = texture;
-	// rotate(-15,&rays);
+	if (world->map->player_p == 'N')
+		rotate(-15,&rays);
+	if (world->map->player_p == 'S')
+		rotate(15, &rays);
+	if (world->map->player_p == 'E')
+		rotate(30, &rays);
+	//move_y(-1, &rays);
 	mlx_loop_hook(mlx, &casting, &rays);
 	mlx_hook(rays.vars->win, 2, 1L << 0, clavier, &rays);
 	mlx_hook(mlx_win, 17, 1L << 0, close_win, mlx);
@@ -85,4 +98,5 @@ int	main(int argc, char **argv)
 	mlx_destroy_window(mlx, mlx_win);
 	mlx_destroy_display(mlx);
 	free(mlx);
+	worldend(world);
 }

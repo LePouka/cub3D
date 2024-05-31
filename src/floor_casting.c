@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 15:38:39 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/06 17:37:20 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 16:38:50 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	casting_loop(t_rays *rays, t_casting cast, int y)
 	{
 		cast.floor_x += cast.floor_step_x;
 		cast.floor_y += cast.floor_step_y;
-		rays->color = 0x0500FF00;
+		rays->color = rays->f_color + 0x00000000;
 		rays->color = (rays->color >> 1) & 8355711;
 		rays->buffer[y][x] = rays->color;
-		rays->color = 0x00e11e00;
+		rays->color = rays->c_color + 0x00000000;
 		rays->color = (rays->color >> 1) & 8355711;
 		rays->buffer[SCREENHEIGHT - y - 1][x] = rays->color;
 	}

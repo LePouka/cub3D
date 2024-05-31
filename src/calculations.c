@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:23:03 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/30 11:57:13 by rshay            ###   ########.fr       */
+/*   Updated: 2024/05/31 16:20:51 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_data(t_rays *rays)
 	int	i;
 
 	i = 0;
-	while (i < MAPWIDTH)
+	while (i < rays->width)
 		free(rays->world_map[i++]);
 	free(rays->world_map);
 	free(rays->texture);
