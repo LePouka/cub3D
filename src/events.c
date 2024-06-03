@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:29:46 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 15:41:03 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 17:50:26 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void    move_x(int fact, t_rays *rays)
     move = -0.1 * fact;
     p_x = (int)(rays->pos_x);
     p_y = (int)(rays->pos_y);
-    if (!rays->world_map[p_y][(int)(rays->pos_x + rays->dir_x * move)])
+    if (!rays->world_map[(int)(rays->pos_x + rays->dir_x * move)][p_y])
         rays->pos_x += rays->dir_x * move;
-    if (!rays->world_map[(int)(rays->pos_y + rays->dir_y * move)][p_x])
+    if (!rays->world_map[p_x][(int)(rays->pos_y + rays->dir_y * move)])
         rays->pos_y += rays->dir_y * move;
     mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
     init(rays);
