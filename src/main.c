@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/05/31 19:42:13 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 15:43:00 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 	rays.dir_x = -1;
 	rays.dir_y = 0;
 	rays.plane_x = 0;
-	rays.plane_y = 0.70;
+	rays.plane_y = 0.66;
 	rays.move_speed = 0;
 	rays.time = 0;
 	rays.old_time = 0;
@@ -69,13 +69,13 @@ int	main(int argc, char **argv)
 	rays.vars->mlx = world->mlx->mlx;
 	init(&rays);
 	rays.texture = world->texture;
-	if (world->map->player_p == 'N')
-		rotate(-15,&rays);
-	if (world->map->player_p == 'S')
-		rotate(15, &rays);
-	if (world->map->player_p == 'E')
-		rotate(30, &rays);
-	move_y(1, &rays);
+	// if (world->map->player_p == 'N')
+	// 	rotate(-15,&rays);
+	// if (world->map->player_p == 'S')
+	// 	rotate(15, &rays);
+	// if (world->map->player_p == 'E')
+	// 	rotate(30, &rays);
+	//move_y(1, &rays);
 	mlx_loop_hook(rays.vars->mlx, &casting, &rays);
 	mlx_hook(rays.vars->win, 2, 1L << 0, clavier, &rays);
 	mlx_hook(rays.vars->win, 17, 1L << 0, close_win, rays.vars->mlx);
