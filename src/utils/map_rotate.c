@@ -54,5 +54,8 @@ int	**map_rotate(t_world *world, int **i_map)
 		j++;
 	}
 	free(i_map);
+	i = world->map->lig;
+	world->map->lig = world->map->len;
+	world->map->len = i;
 	return (ret);
 }
