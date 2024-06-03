@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:23:03 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 18:15:30 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:28:02 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	calculate_dda(t_calcs *calcs, t_rays *rays)
 			else
 				calcs->orientation = 0;
 		}
-		if (rays->world_map[calcs->map_y][calcs->map_x] > 0)
+		if (rays->world_map[calcs->map_x][calcs->map_y] > 0)
 		calcs->hit = 1;
 	}
 }
@@ -92,7 +92,7 @@ void	drawing_calculations(t_calcs *calcs, t_rays *rays)
 	calcs->draw_end = line_height / 2 + SCREENHEIGHT / 2;
 	if (calcs->draw_end >= SCREENHEIGHT)
 		calcs->draw_end = SCREENHEIGHT - 1;
-	calcs->tex_num = rays->world_map[calcs->map_y][calcs->map_x] - 1;
+	calcs->tex_num = rays->world_map[calcs->map_x][calcs->map_y] - 1;
 	wall_x_calculations(calcs, rays);
 	calcs->step = 1.0 * TEXTHEIGHT / line_height;
 	t_pos = calcs->draw_start - SCREENHEIGHT / 2 + line_height / 2;

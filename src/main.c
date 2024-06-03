@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 16:14:40 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:29:52 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	main(int argc, char **argv)
 	rays.width = world->map->lig;
 	rays.c_color = world->color->ceiling;
 	rays.f_color = world->color->floor;
-	rays.pos_x = world->map->player_x;
-	rays.pos_y = world->map->player_y;
+	rays.pos_x = world->map->player_y;
+	rays.pos_y = world->map->player_x;
 	rays.dir_x = -1;
 	rays.dir_y = 0;
 	rays.plane_x = 0;
