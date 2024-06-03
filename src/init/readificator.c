@@ -40,7 +40,7 @@ void	to_rectangle(t_world *world, t_map *map)
 {
 	int	i;
 
-    map->lig = 0;
+	map->lig = 0;
 	i = 6;
 	while (map->map[i])
 	{
@@ -48,7 +48,7 @@ void	to_rectangle(t_world *world, t_map *map)
 		{
 			map->map[i] = sizeificator(world, map->map[i], map->len);
 		}
-        map->lig++;
+		map->lig++;
 		i++;
 	}
 }
@@ -74,8 +74,7 @@ t_map	*mapificator(t_world *world, char *c_map, int i)
 			map->len = ft_strlen(map->map[i]);
 	}
 	to_rectangle(world, map);
-	map->i_map = ft_arrtouille(world, map->map, -1, 0, 6);
-	//map->i_map = map_rotate(world, map->i_map);
+	map->i_map = ft_arrtouille(world, map->map, 0, 6);
 	return (map);
 }
 

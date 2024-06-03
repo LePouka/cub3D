@@ -18,7 +18,8 @@ void	raysend(t_rays *rays)
 
 	i = 0;
 	mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-	while (rays->buffer[i]) {
+	while (i < SCREENHEIGHT)
+	{
 		free(rays->buffer[i]);
 		i++;
 	}

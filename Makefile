@@ -50,7 +50,6 @@ SRCS		:=	\
 	utils/ft_arrtouille.c	\
 	utils/free_array.c	\
 	utils/openificator.c	\
-	utils/map_rotate.c \
 	utils/worldend_utils.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 

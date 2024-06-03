@@ -30,10 +30,10 @@ bool	is_color_valid(char **rgb)
 	return (true);
 }
 
-bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
+bool	put_color(u_int32_t *color, char **c_rgb)
 {
 	int	*rgb;
-	(void)world;
+
 	if (!is_color_valid(c_rgb))
 	{
 		free_array(c_rgb);
@@ -66,8 +66,8 @@ t_color	*colorificator(t_world *world, t_map *map)
 		ft_error(world, strerror(errno));
 	floor = ft_split(map->map[4] + 2, ',');
 	ceiling = ft_split(map->map[5] + 2, ',');
-	if (!put_color(world, &color->floor, floor) \
-		|| !put_color(world, &color->ceiling, ceiling))
+	if (!put_color(&color->floor, floor) \
+		|| !put_color(&color->ceiling, ceiling))
 	{
 		ft_error(world, "Invalid Color Format");
 	}

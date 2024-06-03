@@ -24,13 +24,14 @@ int	ft_atouille(char c)
 	}
 }
 
-int	**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, \
-	int start)
+int	**ft_arrtouille(t_world *world, char **arr, int collones, int start)
 {
 	int	i;
 	int	j;
+	int	lignes;
 	int	**ret;
 
+	lignes = -1;
 	while (arr[++lignes])
 	{
 		if (ft_strlen(arr[lignes]) > (size_t)collones)
