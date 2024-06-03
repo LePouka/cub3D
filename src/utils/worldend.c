@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   worldend.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rtissera <marvin@42->fr>                   +#+  +:+       +#+        */
+/*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:59:38 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/11 16:59:59 by rtissera         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:53:34 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 void	mapend(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	while (map->map[i])
-	{
-		free(map->map[i]);
-		i++;
-	}
-	free(map->map);
+	if (map->map)
+		free_array(map->map);
+	if (map->i_map)
+		free_int_array(map->i_map);
 	free(map);
 }
 
@@ -63,6 +58,8 @@ void	worldend(t_world *world)
 		{
 			mapend(world->map);
 		}
+		if (world->rays)
+			mlx_destroy_image(world->rays->vars->mlx, world->rays->vars->img->img);
 		if (world->texture)
 		{
 			textureend(world->mlx, world->pics);

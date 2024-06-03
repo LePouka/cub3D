@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/31 18:45:02 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 16:55:01 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,7 @@ typedef struct s_world {
 	t_map	*map;
 	t_data	*pics;
 	t_color	*color;
+	t_rays	*rays;
 }	t_world;
 
 /* ************************************************************************** */
@@ -208,5 +209,6 @@ int			close_error(t_world *world, int fd, char *s);
 void		close_free_error(t_world *world, int fd, char *s1, char *s2);
 char		*free_strjoin(char *s1, char *s2);
 int			**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, int start);
+int			**map_rotate(t_world world, int **i_map);
 
 #endif

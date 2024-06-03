@@ -75,6 +75,7 @@ t_map	*mapificator(t_world *world, char *c_map, int i)
 	}
 	to_rectangle(world, map);
 	map->i_map = ft_arrtouille(world, map->map, -1, 0, 6);
+	map->i_map = map_rotate(world, map->i_map);
 	return (map);
 }
 

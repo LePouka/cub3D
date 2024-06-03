@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 18:29:52 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:33:22 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	rays.move_speed = 0;
 	rays.time = 0;
 	rays.old_time = 0;
-	rays.world_map = world->map->i_map;
+	rays.world_map = map_rotate(*world, world->map->i_map);
 	for (int i = 0; i < world->map->lig; i++) {
 		for (size_t j = 0; j < world->map->len; j++) {
 			if (rays.world_map[i][j] != 1 && rays.world_map[i][j] != 0)
@@ -67,6 +67,7 @@ int	main(int argc, char **argv)
 	vars.win = world->mlx->mlx_win;
 	rays.vars = &vars;
 	rays.vars->mlx = world->mlx->mlx;
+	world->rays = &rays;
 	init(&rays);
 	rays.texture = world->texture;
 	if (world->map->player_p == 'N')

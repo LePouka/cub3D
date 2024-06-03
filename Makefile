@@ -33,11 +33,11 @@ INCS        := $(INCS) $(addsuffix include,$(dir $(LIBS_TARGET)))
 
 SRC_DIR		:= src
 SRCS		:=	\
-	main.c \
-	events.c \
-	init.c \
-	init_utils.c \
-	floor_casting.c \
+	main.c	\
+	events.c	\
+	init.c	\
+	init_utils.c	\
+	floor_casting.c	\
 	calculations.c	\
 	parsing/parsing.c	\
 	init/worldinit.c	\
@@ -49,7 +49,8 @@ SRCS		:=	\
 	utils/worldend.c	\
 	utils/ft_arrtouille.c	\
 	utils/free_array.c	\
-	utils/openificator.c
+	utils/openificator.c	\
+	utils/map_rotate.c
 SRCS		:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR	:= .build
