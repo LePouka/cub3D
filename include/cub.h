@@ -209,5 +209,6 @@ int			close_error(t_world *world, int fd, char *s);
 void		close_free_error(t_world *world, int fd, char *s1, char *s2);
 char		*free_strjoin(char *s1, char *s2);
 int			**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, int start);
+int			**map_rotate(t_world world, int **i_map);
 
 #endif
