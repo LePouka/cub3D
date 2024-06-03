@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:02:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:30 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 20:21:54 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 
 	if (!pics[0].img || !pics[1].img || !pics[2].img || !pics[3].img)
 		ft_error(world, "Failed Creating Images");
-	world->texture = (int **)malloc(sizeof(int *) * 4);
 	i = 0;
 	world->texture = malloc(4 * sizeof(int *));
 	if (!world->texture)

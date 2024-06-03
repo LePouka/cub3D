@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 17:59:38 by rtissera          #+#    #+#             */
-/*   Updated: 2024/06/03 16:53:34 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 20:28:21 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ void	worldend(t_world *world)
 	if (world)
 	{
 		if (world->map)
-		{
 			mapend(world->map);
-		}
 		if (world->rays)
-			mlx_destroy_image(world->rays->vars->mlx, world->rays->vars->img->img);
+			raysend(world->rays);
 		if (world->texture)
 		{
 			textureend(world->mlx, world->pics);
