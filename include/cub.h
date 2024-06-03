@@ -141,8 +141,8 @@ typedef struct s_map {
 	char			**map;
 	int				**i_map;
 	size_t			len;
-    int             lig;
-    unsigned int	player_x;
+	int				lig;
+	unsigned int	player_x;
 	unsigned int	player_y;
 	char			player_p;
 }	t_map;
@@ -189,27 +189,27 @@ void	rotate(int fact, t_rays *rays);
 void	gameloop(t_rays *rays, t_world *world);
 
 /* Parsing */
-void		parsingator(t_world *world, t_map *map);
+void	parsingator(t_world *world, t_map *map);
 
 /* Init */
-t_world		*worldinit(char *file_name);
-t_map		*readificator(t_world *world, char *file_name);
-t_mlx		*mlxator(t_world *world);
-t_data		*texturificator(t_world *world, t_mlx *mlx, t_map *map);
-t_color		*colorificator(t_world *world, t_map *map);
+t_world	*worldinit(char *file_name);
+t_map	*readificator(t_world *world, char *file_name);
+t_mlx	*mlxator(t_world *world);
+t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map);
+t_color	*colorificator(t_world *world, t_map *map);
 
 /* Utils */
-void		worldend(t_world *world);
-int			ft_error(t_world *world, char *s);
-int			**arrtoi(char **arr, int lignes, int collones);
-void		free_array(char **arr);
-int			openificator(t_world *world, char *file_name);
-void		free_int_array(int **arr);
-int			close_error(t_world *world, int fd, char *s);
-void		close_free_error(t_world *world, int fd, char *s1, char *s2);
-char		*free_strjoin(char *s1, char *s2);
-int			**ft_arrtouille(t_world *world, char **arr, int lignes, int collones, int start);
-int			**map_rotate(t_world *world, int **i_map);
-void		raysend(t_rays *rays);
+void	worldend(t_world *world);
+int		ft_error(t_world *world, char *s);
+int		**arrtoi(char **arr, int lignes, int collones);
+void	free_array(char **arr);
+int		openificator(t_world *world, char *file_name);
+void	free_int_array(int **arr);
+int		close_error(t_world *world, int fd, char *s);
+void	close_free_error(t_world *world, int fd, char *s1, char *s2);
+char	*free_strjoin(char *s1, char *s2);
+int		**ft_arrtouille(t_world *world, char **arr, int collones, \
+		int start);
+void	raysend(t_rays *rays);
 
 #endif
