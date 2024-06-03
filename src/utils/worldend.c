@@ -14,15 +14,10 @@
 
 void	mapend(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	while (map->map[i])
-	{
-		free(map->map[i]);
-		i++;
-	}
-	free(map->map);
+	if (map->map)
+		free_array(map->map);
+	if (map->i_map)
+		free_int_array(map->i_map);
 	free(map);
 }
 
