@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/07 19:00:16 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/28 17:18:16 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 18:38:06 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_map	*mapificator(t_world *world, char *c_map, int i)
 	}
 	to_rectangle(world, map);
 	map->i_map = ft_arrtouille(world, map->map, -1, 0, 6);
-	map->i_map = map_rotate(world, map->i_map);
+	//map->i_map = map_rotate(world, map->i_map);
 	return (map);
 }
 
