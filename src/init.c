@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:45 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 16:55:53 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 20:52:19 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,6 @@ void	init(t_rays *rays)
 	v = rays->vars->img;
 	v->img = mlx_new_image(rays->vars->mlx, SCREENWIDTH, SCREENHEIGHT);
 	v->addr = mlx_get_data_addr(v->img, &v->bpp, &v->l, &v->endian);
-}
-
-void	init_texturing(int **texture, t_rays *rays)
-{
-	int		th;
-	int		tw;
-
-	rays->pics = malloc(8 * sizeof(t_data));
-	rays->pics[0].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/eagle.xpm", &tw, &th);
-	rays->pics[1].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/redbrick.xpm", &tw, &th);
-	rays->pics[2].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/purplestone.xpm", &tw, &th);
-	rays->pics[3].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/greystone.xpm", &tw, &th);
-	rays->pics[4].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/bluestone.xpm", &tw, &th);
-	rays->pics[5].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/mossy.xpm", &tw, &th);
-	rays->pics[6].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/wood.xpm", &tw, &th);
-	rays->pics[7].img = mlx_xpm_file_to_image(rays->vars->mlx, "img/colorstone.xpm", &tw, &th);
-	for (int i = 0; i < 7; i++) {
-		texture[i] = (int *)mlx_get_data_addr(rays->pics[i].img, &(rays->pics[i]).bpp, &(rays->pics[i]).l, &(rays->pics[i]).endian);
-	}
 }
 
 void	init_calculating(t_calcs *calcs, t_rays *rays, int x)

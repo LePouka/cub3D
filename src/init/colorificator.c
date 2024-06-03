@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/05/31 17:08:38 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/03 21:01:39 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ bool	is_color_valid(char **rgb)
 bool	put_color(t_world *world, u_int32_t *color, char **c_rgb)
 {
 	int	*rgb;
+
 	(void)world;
 	if (!is_color_valid(c_rgb))
 	{
