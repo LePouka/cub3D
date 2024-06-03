@@ -16,13 +16,13 @@ int	**ft_mallocator(t_world *world)
 	int	i;
 	int	j;
 
-	ret = (int **)malloc(sizeof(char *) * (world->map->len + 1));
+	ret = (int **)malloc(sizeof(int *) * (world->map->len + 1));
 	if (!ret)
 		ft_error(world, strerror(errno));
 	i = 0;
 	while (i < world->map->len)
 	{
-		ret[i] = (int *)malloc(sizeof(char) * world->map->lig);
+		ret[i] = (int *)malloc(sizeof(int) * world->map->lig);
 		if (!ret[i])
 			ft_error(world, strerror(errno));
 		j = -1;
