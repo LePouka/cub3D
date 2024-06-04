@@ -24,6 +24,12 @@ int	ft_atouille(char c)
 	}
 }
 
+int	**ft_atouillificator(int **ret, int i, int start)
+{
+	ret[i - start] = NULL;
+	return (ret);
+}
+
 int	**ft_arrtouille(t_world *world, char **arr, int collones, int start)
 {
 	int	i;
@@ -50,6 +56,5 @@ int	**ft_arrtouille(t_world *world, char **arr, int collones, int start)
 		while (++j < collones && arr[i][j])
 			ret[i - start][j] = ft_atouille(arr[i][j]);
 	}
-	ret[i - start] = NULL;
-	return (ret);
+	return (ft_atouillificator(ret, i, start));
 }
