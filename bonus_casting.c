@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:26:53 by rshay             #+#    #+#             */
-/*   Updated: 2024/04/28 19:27:54 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/04 10:48:02 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	floor_casting(t_rays *rays)
         floorX += floorStepX;
         floorY += floorStepY;
         int floorTexture = 3;
-        int ceilingTexture = 6;
+        int ceilingTexture = 2;
         u_int32_t color;
         color = rays->texture[floorTexture][TEXTWIDTH * ty + tx];
         color = (color >> 1) & 8355711;
