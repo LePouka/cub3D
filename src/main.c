@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/03 21:27:29 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/04 14:01:53 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 void	init_rays(t_rays *rays, t_world *world)
 {
-	rays->width = world->map->lig;
+	rays->width = world->map->len;
+	rays->height = world->map->lig;
 	rays->c_color = world->color->ceiling;
 	rays->f_color = world->color->floor;
 	rays->pos_x = world->map->player_x;

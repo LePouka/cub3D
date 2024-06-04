@@ -35,6 +35,7 @@ SRC_DIR		:= src
 SRCS		:=	\
 	main.c	\
 	events.c	\
+	event_utils.c \
 	init.c	\
 	init_utils.c	\
 	floor_casting.c	\

@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 19:07:29 by rtissera          #+#    #+#             */
-/*   Updated: 2024/06/03 20:27:48 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:28:21 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_rays {
 	int			width;
 	int			m_x;
 	int			m_y;
+	int			height;
 }	t_rays;
 
 typedef struct s_calcs {
@@ -187,6 +188,8 @@ void	move_x(int fact, t_rays *rays);
 void	move_y(int fact, t_rays *rays);
 void	rotate(int fact, t_rays *rays);
 void	gameloop(t_rays *rays, t_world *world);
+void	col_y(t_rays *rays, int fact);
+void	axe_y(t_rays *rays, int fact);
 
 /* Parsing */
 void	parsingator(t_world *world, t_map *map);

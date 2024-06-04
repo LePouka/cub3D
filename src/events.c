@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:29:46 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/04 11:32:43 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/04 16:29:46 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,25 @@ void	move_x(int fact, t_rays *rays)
 	double	move;
 	int		p_y;
 	int		p_x;
-	int		new_x;
+	double	new_x;
+	double	new_y;
 
 	move = -0.1 * fact;
 	p_x = (int)(rays->pos_x);
 	p_y = (int)(rays->pos_y);
-	if ((!rays->world_map[p_y][(int)(rays->pos_x + rays->dir_x * move)]))
+	new_x = rays->pos_x + rays->dir_x * move;
+	new_y = rays->pos_y + rays->dir_y * move;
+	if (!rays->world_map[p_y][(int)new_x])
 	{
-		new_x = rays->pos_x + (fact + rays->dir_x) * move;
-		if (!rays->world_map[p_y][(int)(new_x)])
-			rays->pos_x += rays->dir_x * move;
+		if (!rays->world_map[p_y - 1][(int)new_x])
+			rays->pos_x = new_x;
+		if ((rays->pos_y - (double)(p_y) <= 0.8 \
+			&& rays->pos_y - (double)p_y >= 0.2))
+			rays->pos_x = new_x;
 	}
-	if (!rays->world_map[(int)(rays->pos_y + rays->dir_y * move)][p_x])
-		rays->pos_y += (rays->dir_y) * move;
-	if (rays->world_map[p_y -1][(int)(rays->pos_x + rays->dir_x * move)])
-		rays->pos_y += (rays->dir_y + 1) * move;
-	mlx_destroy_image(rays->vars->mlx, rays->vars->img->img);
-	init(rays);
+	else
+		axe_y(rays, fact);
+	col_y(rays, fact);
 }
 
 void	move_y(int fact, t_rays *rays)
