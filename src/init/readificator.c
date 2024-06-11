@@ -12,6 +12,21 @@
 
 #include "cub.h"
 
+t_map	*nullmap(t_world *world, char *c_map)
+{
+	t_map	*map;
+
+	map = (t_map *)malloc(sizeof(t_map));
+	if (!map)
+	{
+		free(c_map);
+		ft_error(world, strerror(errno));
+	}
+	map->map = NULL;
+	map->i_map = NULL;
+	return (map);
+}
+
 char	*sizeificator(t_world *world, char *s1, int len)
 {
 	char	*s2;
@@ -57,12 +72,7 @@ t_map	*mapificator(t_world *world, char *c_map, int i)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
-	if (!map)
-	{
-		free(c_map);
-		ft_error(world, strerror(errno));
-	}
+	map = nullmap(world, c_map);
 	map->map = ft_split(c_map, '\n');
 	if (!map->map || !map->map[6])
 		ft_error(world, "Invalid Map Format");

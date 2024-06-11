@@ -39,25 +39,23 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 
 t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 {
+	int		i;
 	int		th;
 	int		tw;
 	t_data	*pics;
 
 	if (!world || !mlx || !mlx->mlx || !map || !map->map || !map->map[0] \
 		|| !map->map[1] || !map->map[2] || !map->map[3])
-	{
 		return (NULL);
-	}
 	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
 		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))
-	{
 		ft_error(world, "map: invalid texture format");
-	}
 	pics = (t_data *)malloc(sizeof(t_data) * 4);
 	if (!pics)
-	{
 		ft_error(world, strerror(errno));
-	}
+	i = -1;
+	while (++i < 4);
+		pics[i] = NULL;
 	pics[0].img = mlx_xpm_file_to_image(mlx->mlx, map->map[0] + 5, &tw, &th);
 	pics[1].img = mlx_xpm_file_to_image(mlx->mlx, map->map[1] + 5, &tw, &th);
 	pics[2].img = mlx_xpm_file_to_image(mlx->mlx, map->map[2] + 5, &tw, &th);
