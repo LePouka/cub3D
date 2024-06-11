@@ -22,9 +22,11 @@ t_world	*worldinit(char *file_name)
 		ft_error(NULL, strerror(errno));
 	}
 	world->map = NULL;
+	world->rays = NULL;
 	world->mlx = NULL;
 	world->pics = NULL;
 	world->color = NULL;
+	world->texture = NULL;
 	world->map = readificator(world, file_name);
 	parsingator(world, world->map);
 	world->color = colorificator(world, world->map);

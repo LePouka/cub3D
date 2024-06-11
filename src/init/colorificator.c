@@ -34,13 +34,15 @@ bool	is_color_valid(char **rgb)
 	return (true);
 }
 
-bool	put_color(u_int32_t *color, char **c_rgb)
+bool	put_color(u_int32_t *color, char **c_rgb, char **c_rgb2)
 {
 	int	*rgb;
 
 	if (!is_color_valid(c_rgb))
 	{
 		free_array(c_rgb);
+		if (c_rgb2)
+			free_array(c_rgb2);
 		return (false);
 	}
 	rgb = malloc(3 * sizeof(int));
@@ -70,8 +72,8 @@ t_color	*colorificator(t_world *world, t_map *map)
 		ft_error(world, strerror(errno));
 	floor = ft_split(map->map[4] + 2, ',');
 	ceiling = ft_split(map->map[5] + 2, ',');
-	if (!put_color(&color->floor, floor) \
-		|| !put_color(&color->ceiling, ceiling))
+	if (!put_color(&color->floor, floor, ceiling) \
+		|| !put_color(&color->ceiling, ceiling, NULL))
 	{
 		free(color);
 		world->color = NULL;
