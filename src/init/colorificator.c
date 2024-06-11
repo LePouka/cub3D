@@ -6,36 +6,45 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/06/11 11:35:14 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/11 11:49:18 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+bool	is_char_valid(char c)
+{
+	if (c < 48 || c > 57)
+	{
+		if (c != ' ' && c != '	' && c != ',')
+			return (false);
+	}
+	return (true);
+}
 
 bool	is_line_valid(char *l1, char *l2)
 {
 	int	i;
 	int	virgule;
 
-	if (!l1 || !l2)
-		return (false);
 	i = -1;
 	virgule = 0;
 	while (l1[++i])
 	{
 		if (l1[i] == ',')
 			virgule++;
+		if (!is_char_valid(l1[i]))
+			return (false);
 	}
-	if (virgule != 2)
-		return (false);
-	i = 0;
-	virgule = 0;
+	i = -1;
 	while (l2[++i])
 	{
 		if (l2[i] == ',')
 			virgule++;
+		if (!is_char_valid(l2[i]))
+			return (false);
 	}
-	if (virgule != 2)
+	if (virgule != 4)
 		return (false);
 	return (true);
 }
