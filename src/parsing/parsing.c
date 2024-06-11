@@ -54,6 +54,41 @@ void	lineificator(t_world *world, t_map *map, char **line, int i)
 	}
 }
 
+void	only_wall_line(t_world *world, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '1')
+			ft_error(world, "Map Must Be Surrounded By Walls");
+		i++;
+	}
+}
+
+void	map_wall_pars(t_world *world, t_map *map_t, char **map, int i)
+{
+	int	j;
+
+	only_wall_line(world, map[6]);
+	while (map[i] && map[i + 1])
+	{
+		j = 0;
+		while (map[i][j] == ' ')
+			j++;
+		if (map[i][j] != '1')
+			ft_error(world, "Map Must Be Surrounded By Walls");
+		j = map_t->len - 1;
+		while (map[i][j] == ' ')
+			j--;
+		if (map[i][j] != '1')
+			ft_error(world, "Map Must Be Surrounded By Walls");
+		i++;
+	}
+	only_wall_line(world, map[i]);
+}
+
 void	parsingator(t_world *world, t_map *map)
 {
 	int	i;
@@ -63,12 +98,11 @@ void	parsingator(t_world *world, t_map *map)
 	while (map->map[i])
 	{
 		if (!map->map[i][0])
-		{
 			ft_error(world, "Cannot Have An Empty Line");
-		}
 		lineificator(world, map, map->map, i);
 		i++;
 	}
 	if (!map->player_p)
 		ft_error(world, "There is no player");
+	map_wall_pars(world, map, map->map, 7);
 }
