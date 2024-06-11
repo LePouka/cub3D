@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:58:55 by rshay             #+#    #+#             */
-/*   Updated: 2024/06/04 14:01:53 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/11 10:57:34 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	init_alloc(t_rays *rays, t_world *world)
 void	loop(t_rays *rays, t_world *world)
 {
 	rays->texture = world->texture;
+	rays->pos_y += 0.3;
+	rays->pos_x += 0.2;
 	if (world->map->player_p == 'N')
 		rotate(-15, rays);
 	if (world->map->player_p == 'S')

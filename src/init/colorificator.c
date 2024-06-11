@@ -6,7 +6,7 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/06/03 21:03:22 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/11 10:44:49 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ bool	is_color_valid(char **rgb)
 	int	i;
 
 	i = 0;
-	while (rgb[i])
+	while (i < 3)
 	{
+		if (!rgb[i])
+			return (false);
 		color = ft_atoi(rgb[i]);
 		if (color < 0 || color > 255)
 		{
@@ -69,6 +71,8 @@ t_color	*colorificator(t_world *world, t_map *map)
 	if (!put_color(&color->floor, floor) \
 		|| !put_color(&color->ceiling, ceiling))
 	{
+		free(color);
+		world->color = NULL;
 		ft_error(world, "Invalid Color Format");
 	}
 	return (color);
