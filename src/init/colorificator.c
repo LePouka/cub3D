@@ -6,11 +6,39 @@
 /*   By: rshay <rshay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 19:02:07 by rtissera          #+#    #+#             */
-/*   Updated: 2024/06/11 11:06:37 by rshay            ###   ########.fr       */
+/*   Updated: 2024/06/11 11:35:14 by rshay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+bool	is_line_valid(char *l1, char *l2)
+{
+	int	i;
+	int	virgule;
+
+	if (!l1 || !l2)
+		return (false);
+	i = -1;
+	virgule = 0;
+	while (l1[++i])
+	{
+		if (l1[i] == ',')
+			virgule++;
+	}
+	if (virgule != 2)
+		return (false);
+	i = 0;
+	virgule = 0;
+	while (l2[++i])
+	{
+		if (l2[i] == ',')
+			virgule++;
+	}
+	if (virgule != 2)
+		return (false);
+	return (true);
+}
 
 bool	is_color_valid(char **rgb)
 {
@@ -70,6 +98,8 @@ t_color	*colorificator(t_world *world, t_map *map)
 	color = (t_color *)malloc(sizeof(t_color) * 2);
 	if (!color)
 		ft_error(world, strerror(errno));
+	if (!is_line_valid(map->map[4] + 2, map->map[5] + 2))
+		ft_error(world, "Invalid Color Format");
 	floor = ft_split(map->map[4] + 2, ',');
 	ceiling = ft_split(map->map[5] + 2, ',');
 	if (!put_color(&color->floor, floor, ceiling) \
