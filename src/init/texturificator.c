@@ -37,6 +37,35 @@ t_data	*ft_get_data_addr(t_world *world, t_mlx *mlx, t_data *pics)
 	return (pics);
 }
 
+void	texture_format(t_world *world, t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (ft_strncmp(map->map[i] + ft_strlen(map->map[i]) - 4, ".xpm", 4))
+			ft_error(world, "Invalid Texture Extension");
+		i++;
+	}
+}
+
+void	is_openable_texture(t_world *world, t_map *map)
+{
+	int	i;
+	int	fd;
+
+	i = 0;
+	while (i < 4)
+	{
+		fd = open(map->map[i] + 5, O_RDONLY, 0777);
+		if (fd == -1)
+			ft_error(world, strerror(errno));
+		close(fd);
+		i++;
+	}
+}
+
 t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 {
 	int		th;
@@ -49,6 +78,8 @@ t_data	*texturificator(t_world *world, t_mlx *mlx, t_map *map)
 	if (strncmp("NO ./", map->map[0], 5) || strncmp("SO ./", map->map[1], 5) || \
 		strncmp("WE ./", map->map[2], 5) || strncmp("EA ./", map->map[3], 5))
 		ft_error(world, "map: invalid texture format");
+	texture_format(world, map);
+	is_openable_texture(world, map);
 	pics = (t_data *)malloc(sizeof(t_data) * 4);
 	if (!pics)
 		ft_error(world, strerror(errno));
