@@ -42,10 +42,10 @@ void	lineificator(t_world *world, t_map *map, char **line, int i)
 		else if (line[i][j] == 'N' || line[i][j] == 'S' \
 				|| line[i][j] == 'E' || line[i][j] == 'W')
 		{
-			map->player_x = j;
-			map->player_y = i - 6;
 			if (map->player_p)
 				ft_error(world, "Cannot Have More Than One Player Position");
+			map->player_x = j;
+			map->player_y = i - 6;
 			map->player_p = line[i][j];
 		}
 		else if (line[i][j] != '1' && line[i][j] != '0')
@@ -69,4 +69,6 @@ void	parsingator(t_world *world, t_map *map)
 		lineificator(world, map, map->map, i);
 		i++;
 	}
+	if (!map->player_p)
+		ft_error(world, "There is no player");
 }
